@@ -1,0 +1,38 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "packages/core/src"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "docs/api",
+  "tsconfig": "packages/core/tsconfig.json",
+  "name": "Wechatsync API Documentation",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "excludeExternals": false,
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/*.test.ts",
+    "**/__tests__/**",
+    "**/platforms/xiaohongshu.ts",
+    "**/platforms/x.ts",
+    "**/content/**"
+  ],
+  "externalPattern": [
+    "**/node_modules/**"
+  ],
+  "readme": "README.md",
+  "githubPages": false,
+  "hideGenerator": false,
+  "cleanOutputDir": true,
+  "skipErrorChecking": true,
+  "treatWarningsAsErrors": false,
+  "validation": {
+    "notExported": false,
+    "invalidLink": true,
+    "notDocumented": false
+  }
+}

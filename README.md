@@ -182,7 +182,7 @@ clawhub install lljxx1/wechatsync
 如果你是文章编辑器开发者，或有内容库需要同步多个渠道，可以使用 JS SDK：
 
 - [article-syncjs](https://github.com/wechatsync/article-syncjs) - 网页端 SDK
-- [API 文档](API.md)
+- [API 文档](docs/API.md)
 
 ```javascript
 // 拉起同步任务框
@@ -257,7 +257,7 @@ pnpm build
 
 - [待支持的平台列表](https://airtable.com/shrLSJMnTC2BlmP29)
 - [如何开发一个适配器](docs/adapter-spec.md)
-- [API 文档](API.md)
+- [API 文档](docs/API.md)
 
 ## 使用场景
 
