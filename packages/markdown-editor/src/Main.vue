@@ -94,6 +94,14 @@
     </div>
     <div class="app-main" v-if="extensionInstalled">
       <div class="major-actions">
+        <el-button 
+          size="small" 
+          type="success" 
+          @click="showAIRewrite"
+          :loading="rewriting"
+        >
+          {{ rewriting ? 'AI改写中...' : '🤖 AI改写' }}
+        </el-button>
         <el-popover
           placement="top-start"
           width="500"
@@ -176,6 +184,62 @@
           >
         </el-popover>
       </div>
+
+      <el-dialog
+        title="AI改写设置"
+        :visible.sync="aiDialogVisible"
+        width="600px"
+      >
+        <el-form :model="aiConfig" label-width="120px">
+          <el-form-item label="AI服务商">
+            <el-select v-model="aiConfig.provider" placeholder="请选择">
+              <el-option label="OpenAI" value="openai"></el-option>
+              <el-option label="Claude" value="anthropic"></el-option>
+              <el-option label="DeepSeek" value="deepseek"></el-option>
+              <el-option label="智谱AI" value="zhipu"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="API密钥">
+            <el-input 
+              v-model="aiConfig.apiKey" 
+              type="password" 
+              placeholder="请输入API密钥"
+              show-password
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="模型">
+            <el-select v-model="aiConfig.model" placeholder="请选择模型">
+              <el-option 
+                v-for="model in availableModels" 
+                :key="model" 
+                :label="model" 
+                :value="model"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="改写方式">
+            <el-select v-model="aiConfig.rewriteType" placeholder="请选择改写方式">
+              <el-option label="全文改写" value="full"></el-option>
+              <el-option label="标题改写" value="title"></el-option>
+              <el-option label="生成摘要" value="summary"></el-option>
+              <el-option label="扩展内容" value="expand"></el-option>
+              <el-option label="简化内容" value="simplify"></el-option>
+              <el-option label="专业风格" value="professional"></el-option>
+              <el-option label="轻松风格" value="casual"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="保留原文">
+            <el-switch v-model="aiConfig.keepOriginal"></el-switch>
+            <span style="margin-left: 10px; color: #999; font-size: 12px;">
+              开启后将保存原文到历史记录
+            </span>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="aiDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="doAIRewrite">开始改写</el-button>
+        </span>
+      </el-dialog>
 
       <div class="article-list">
         <div class="top-tools">
@@ -269,6 +333,8 @@ const toBase64 = (file) =>
   })
 
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
+import { rewriteContent, PROVIDERS } from './ai-service.js'
+
 export default {
   name: '',
   components: { ScaleLoader },
@@ -322,6 +388,15 @@ export default {
     return {
       visible: false,
       submitting: false,
+      rewriting: false,
+      aiDialogVisible: false,
+      aiConfig: {
+        provider: 'zhipu',
+        apiKey: 'fc866212e0d64350b837a486e5faf08a.7ZdotggpaC5add3D',
+        model: 'glm-4-flash',
+        rewriteType: 'full',
+        keepOriginal: true
+      },
       list: [
         // {
         //   id: 0,
@@ -359,6 +434,11 @@ export default {
       },
       deep: true,
     },
+  },
+  computed: {
+    availableModels() {
+      return PROVIDERS[this.aiConfig.provider]?.models || []
+    }
   },
   mounted() {
     // if(this.list.length) this.currentArtitle = this.list[0];
@@ -413,6 +493,73 @@ export default {
           return defaultRender(tokens, idx, options, env, self);
         };
       })
+    },
+
+    showAIRewrite() {
+      if (!this.currentArtitle.content) {
+        this.$message.warning('请先输入文章内容')
+        return
+      }
+      
+      const savedConfig = localStorage.getItem('aiConfig')
+      if (savedConfig) {
+        this.aiConfig = Object.assign(this.aiConfig, JSON.parse(savedConfig))
+      }
+      
+      this.aiDialogVisible = true
+    },
+
+    async doAIRewrite() {
+      if (!this.aiConfig.apiKey) {
+        this.$message.error('请输入API密钥')
+        return
+      }
+
+      localStorage.setItem('aiConfig', JSON.stringify(this.aiConfig))
+      
+      this.aiDialogVisible = false
+      this.rewriting = true
+
+      try {
+        const content = this.aiConfig.rewriteType === 'title' 
+          ? this.currentArtitle.title 
+          : this.currentArtitle.content
+        
+        const rewritten = await rewriteContent({
+          provider: this.aiConfig.provider,
+          apiKey: this.aiConfig.apiKey,
+          model: this.aiConfig.model,
+          rewriteType: this.aiConfig.rewriteType,
+          content: content
+        })
+        
+        if (this.aiConfig.keepOriginal) {
+          const history = {
+            timestamp: Date.now(),
+            type: this.aiConfig.rewriteType,
+            original: content,
+            rewritten: rewritten
+          }
+          
+          if (!this.currentArtitle.history) {
+            this.currentArtitle.history = []
+          }
+          this.currentArtitle.history.push(history)
+        }
+        
+        if (this.aiConfig.rewriteType === 'title') {
+          this.currentArtitle.title = rewritten
+        } else {
+          this.currentArtitle.content = rewritten
+        }
+        
+        this.$message.success('AI改写完成')
+      } catch (error) {
+        console.error('AI rewrite error:', error)
+        this.$message.error('AI改写失败: ' + error.message)
+      } finally {
+        this.rewriting = false
+      }
     },
 
     async doSubmit() {

@@ -782,3 +782,29 @@ function buildStatusContainer() {
   })
   return wrapper
 }
+
+const draftPatterns = [
+  'juejin.cn/editor/drafts/',
+  'zhuanlan.zhihu.com/p/',
+  'jianshu.com/writer',
+  'mp.weixin.qq.com/cgi-bin/appmsg',
+  'mp.toutiao.com/profile_v4/graphic/publish',
+  'baijiahao.baidu.com/builder/rc/edit',
+]
+
+function isDraftPage() {
+  return draftPatterns.some(pattern => window.location.href.includes(pattern))
+}
+
+if (isDraftPage()) {
+  console.log('[WechatSync] 检测到草稿页面，准备注入发布按钮')
+  
+  setTimeout(() => {
+    const script = document.createElement('script')
+    script.src = chrome.extension.getURL('publishers/inject-publish.js')
+    script.onload = function() {
+      this.remove()
+    }
+    document.head.appendChild(script)
+  }, 2000)
+}

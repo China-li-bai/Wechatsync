@@ -29,8 +29,16 @@
   ],
   "content_scripts": [
     {
-      "js": ["libs/juqery.js", "libs/Readability.js", "libs/reader.js", "page.js"],
-      "matches": ["http://*/*", "https://*/*"]
+      "js": [
+        "libs/juqery.js",
+        "libs/Readability.js",
+        "libs/reader.js",
+        "page.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
     },
     {
       "js": [
@@ -39,12 +47,25 @@
         "libs/bootstrap.min.js",
         "content.js"
       ],
-      "css": ["css/boot.css"],
-      "matches": ["http://mp.weixin.qq.com/*", "https://mp.weixin.qq.com/*"],
+      "css": [
+        "css/boot.css"
+      ],
+      "matches": [
+        "http://mp.weixin.qq.com/*",
+        "https://mp.weixin.qq.com/*",
+        "*://juejin.cn/*",
+        "*://zhuanlan.zhihu.com/*",
+        "*://jianshu.com/*",
+        "*://mp.toutiao.com/*",
+        "*://baijiahao.baidu.com/*"
+      ],
       "run_at": "document_end"
     },
     {
-      "js": ["libs/juqery.js", "api.js"],
+      "js": [
+        "libs/juqery.js",
+        "api.js"
+      ],
       "all_frames": true,
       "matches": [
         "http://*/*",
@@ -52,10 +73,17 @@
       ]
     },
     {
-      "js": ["libs/juqery.js", "segmenftfault.js"],
+      "js": [
+        "libs/juqery.js",
+        "segmenftfault.js"
+      ],
       "all_frames": true,
-      "matches": ["http://segmentfault.com/*", "https://segmentfault.com/*", "https://mp.toutiao.com/*",
-        "http://mp.toutiao.com/*"],
+      "matches": [
+        "http://segmentfault.com/*",
+        "https://segmentfault.com/*",
+        "https://mp.toutiao.com/*",
+        "http://mp.toutiao.com/*"
+      ],
       "run_at": "document_end"
     }
   ],
@@ -64,6 +92,7 @@
     "templates.html",
     "autoformat.js",
     "inject.js",
+    "publishers/inject-publish.js",
     "images/*"
   ],
   "background": {

@@ -8,6 +8,9 @@
     "build": "webpack --env production"
   },
   "dependencies": {
+    "ai": "^3.4.0",
+    "@ai-sdk/openai": "^1.0.0",
+    "@ai-sdk/anthropic": "^1.0.0",
     "mavon-editor": "^2.7.6",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
