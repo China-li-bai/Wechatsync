@@ -1,0 +1,72 @@
+[
+  {
+    "platform": "Hacker News",
+    "title": "Cocoa-Way – Native macOS Wayland compositor for running Linux apps seamlessly",
+    "url": "https://github.com/J-x-Z/cocoa-way",
+    "score": 87,
+    "by": "OJFord",
+    "time": "2026-03-28 18:06:13",
+    "crawl_time": "2026-03-28 20:24:00"
+  },
+  {
+    "platform": "Hacker News",
+    "title": "CERN uses tiny AI models burned into silicon for real-time LHC data filtering",
+    "url": "https://theopenreader.org/Journalism:CERN_Uses_Tiny_AI_Models_Burned_into_Silicon_for_Real-Time_LHC_Data_Filtering",
+    "score": 131,
+    "by": "TORcicada",
+    "time": "2026-03-28 16:06:19",
+    "crawl_time": "2026-03-28 20:24:00"
+  },
+  {
+    "platform": "Hacker News",
+    "title": "I Built an Open-World Engine for the N64 [video]",
+    "url": "https://www.youtube.com/watch?v=lXxmIw9axWw",
+    "score": 8,
+    "by": "msephton",
+    "time": "2026-03-28 19:49:28",
+    "crawl_time": "2026-03-28 20:24:01"
+  },
+  {
+    "platform": "dev.to",
+    "title": "your agent can think. it can't remember.",
+    "url": "https://dev.to/ghostbuild/your-agent-can-think-it-cant-remember-5e1o",
+    "description": "TLDR: ghost gives your agent instant, ephemeral postgres databases. unlimited databases, unlimited...",
+    "author": "ghost",
+    "tags": [
+      "ai",
+      "mcp",
+      "postgres",
+      "agents"
+    ],
+    "positive_reactions_count": 146,
+    "crawl_time": "2026-03-28 20:24:08"
+  },
+  {
+    "platform": "dev.to",
+    "title": "How I Almost Burned Out Doing Everything “Right”",
+    "url": "https://dev.to/sylwia-lask/how-i-almost-burned-out-doing-everything-right-31j6",
+    "description": "Today I wanted to write a philosophical essay about AI. Or maybe something more technical. But once...",
+    "author": "Sylwia Laskowska",
+    "tags": [
+      "discuss",
+      "career",
+      "productivity",
+      "mentalhealth"
+    ],
+    "positive_reactions_count": 84,
+    "crawl_time": "2026-03-28 20:24:08"
+  },
+  {
+    "platform": "dev.to",
+    "title": "Top 7 Featured DEV Posts of the Week",
+    "url": "https://dev.to/devteam/top-7-featured-dev-posts-of-the-week-4ig2",
+    "description": "Welcome to this week's Top 7, where the DEV editorial team handpicks their favorite posts from the...",
+    "author": "Jess Lee",
+    "tags": [
+      "top7",
+      "discuss"
+    ],
+    "positive_reactions_count": 53,
+    "crawl_time": "2026-03-28 20:24:08"
+  }
+]

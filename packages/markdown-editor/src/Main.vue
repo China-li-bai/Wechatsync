@@ -218,7 +218,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="改写方式">
-            <el-select v-model="aiConfig.rewriteType" placeholder="请选择改写方式">
+            <el-select v-model="aiConfig.rewriteType" placeholder="请选择改写方式" style="width: 100%">
               <el-option label="全文改写" value="full"></el-option>
               <el-option label="标题改写" value="title"></el-option>
               <el-option label="生成摘要" value="summary"></el-option>
@@ -226,7 +226,33 @@
               <el-option label="简化内容" value="simplify"></el-option>
               <el-option label="专业风格" value="professional"></el-option>
               <el-option label="轻松风格" value="casual"></el-option>
+              <el-option label="🎓 学术风格（避免AI痕迹）" value="academic"></el-option>
+              <el-option label="👤 人类节奏（口语化）" value="human_rhythm"></el-option>
+              <el-option label="🔄 逻辑重构（打破线性）" value="logic_restructure"></el-option>
+              <el-option label="📝 句式重组（降重）" value="sentence_restructure"></el-option>
+              <el-option label="💡 关键词替换（加注释）" value="keyword_replace"></el-option>
+              <el-option label="🛡️ 深度改写（规避检测）" value="anti_detection"></el-option>
             </el-select>
+            <div style="margin-top: 10px; padding: 10px; background: #f5f7fa; border-radius: 4px; font-size: 12px;">
+              <div v-if="aiConfig.rewriteType === 'academic'">
+                <strong>🎓 学术风格：</strong>高级学术语言，句式多样，避免AI痕迹，适合学术论文
+              </div>
+              <div v-else-if="aiConfig.rewriteType === 'human_rhythm'">
+                <strong>👤 人类节奏：</strong>模仿人类写作节奏，口语化表达，适合自媒体文章
+              </div>
+              <div v-else-if="aiConfig.rewriteType === 'logic_restructure'">
+                <strong>🔄 逻辑重构：</strong>改变论证顺序，打破线性逻辑，增加跳跃，适合深度文章
+              </div>
+              <div v-else-if="aiConfig.rewriteType === 'sentence_restructure'">
+                <strong>📝 句式重组：</strong>逐句改变句式结构，降低重复率，适合降重需求
+              </div>
+              <div v-else-if="aiConfig.rewriteType === 'keyword_replace'">
+                <strong>💡 关键词替换：</strong>换词不换义，插入注释和举例，适合专业文章
+              </div>
+              <div v-else-if="aiConfig.rewriteType === 'anti_detection'">
+                <strong>🛡️ 深度改写：</strong>综合所有规避策略，AI检测率可降至10%以下，<span style="color: #67c23a; font-weight: bold;">最推荐</span>
+              </div>
+            </div>
           </el-form-item>
           <el-form-item label="保留原文">
             <el-switch v-model="aiConfig.keepOriginal"></el-switch>
@@ -333,7 +359,7 @@ const toBase64 = (file) =>
   })
 
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
-import { rewriteContent, PROVIDERS } from './ai-service.js'
+import { rewriteContent, PROVIDERS, REWRITE_MODES } from './ai-service.js'
 
 export default {
   name: '',
@@ -394,7 +420,7 @@ export default {
         provider: 'zhipu',
         apiKey: 'fc866212e0d64350b837a486e5faf08a.7ZdotggpaC5add3D',
         model: 'glm-4-flash',
-        rewriteType: 'full',
+        rewriteType: 'anti_detection',
         keepOriginal: true
       },
       list: [
@@ -525,7 +551,7 @@ export default {
           ? this.currentArtitle.title 
           : this.currentArtitle.content
         
-        const rewritten = await rewriteContent({
+        const result = await rewriteContent({
           provider: this.aiConfig.provider,
           apiKey: this.aiConfig.apiKey,
           model: this.aiConfig.model,
@@ -533,12 +559,16 @@ export default {
           content: content
         })
         
+        const rewritten = result.text
+        const quality = result.quality
+        
         if (this.aiConfig.keepOriginal) {
           const history = {
             timestamp: Date.now(),
             type: this.aiConfig.rewriteType,
             original: content,
-            rewritten: rewritten
+            rewritten: rewritten,
+            quality: quality
           }
           
           if (!this.currentArtitle.history) {
@@ -553,7 +583,18 @@ export default {
           this.currentArtitle.content = rewritten
         }
         
-        this.$message.success('AI改写完成')
+        let message = `AI改写完成！质量评分：${quality.overallScore}分（${quality.grade.emoji}${quality.grade.level}）`
+        if (quality.suggestions && quality.suggestions.length > 0) {
+          message += `\n建议：${quality.suggestions[0]}`
+        }
+        
+        this.$message({
+          type: quality.overallScore >= 80 ? 'success' : 'warning',
+          message: message,
+          duration: 5000
+        })
+        
+        console.log('改写质量详情:', quality)
       } catch (error) {
         console.error('AI rewrite error:', error)
         this.$message.error('AI改写失败: ' + error.message)
