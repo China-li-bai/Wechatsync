@@ -1,0 +1,309 @@
+# agent-browser 配置示例
+# 用于 AI 自动化文章改写和同步
+
+# 浏览器配置
+browser:
+  headless: false  # 开发时显示浏览器，生产环境可设为 true
+  timeout: 30000   # 默认超时时间（毫秒）
+  slowMo: 100      # 操作延迟（毫秒），便于观察
+  
+  # 浏览器启动参数
+  args:
+    - "--disable-blink-features=AutomationControlled"
+    - "--disable-web-security"
+    - "--disable-features=IsolateOrigins,site-per-process"
+  
+  # 视口大小
+  viewport:
+    width: 1920
+    height: 1080
+
+# AI 配置
+ai:
+  provider: openai  # openai 或 anthropic
+  model: gpt-4-turbo-preview
+  temperature: 0.7
+  maxTokens: 4096
+
+# 任务定义
+tasks:
+  # 任务 1: 从 URL 提取文章
+  extract_article:
+    description: 从网页提取文章内容
+    timeout: 60000
+    
+    steps:
+      # 导航到页面
+      - action: navigate
+        url: "${article_url}"
+        waitUntil: "networkidle"
+      
+      # 等待内容加载
+      - action: wait
+        selector: "article, .article-content, .post-content, .rich_media_content"
+        timeout: 10000
+      
+      # 提取文章信息
+      - action: evaluate
+        script: |
+          () => {
+            // 提取标题
+            const title = 
+              document.querySelector('h1, .article-title, .post-title, .rich_media_title')?.innerText ||
+              document.title;
+            
+            // 提取内容
+            const contentEl = 
+              document.querySelector('article, .article-content, .post-content, .rich_media_content');
+            const content = contentEl ? contentEl.innerHTML : '';
+            
+            // 提取封面图
+            const cover = 
+              document.querySelector('article img, .article-cover img, .rich_media_thumb img')?.src ||
+              '';
+            
+            return { title, content, cover };
+          }
+      
+      # 返回结果
+      - action: return
+        data: "${evaluated_data}"
+
+  # 任务 2: AI 改写文章
+  rewrite_article:
+    description: 使用 AI 改写文章
+    timeout: 60000
+    
+    steps:
+      # 调用 AI API
+      - action: ai
+        prompt: |
+          请改写以下文章，要求：
+          
+          风格：${style}
+          保留结构：${preserve_structure}
+          
+          原始标题：${article_title}
+          
+          原始内容：
+          ${article_content}
+          
+          请以 JSON 格式返回：
+          {
+            "title": "改写后的标题",
+            "content": "改写后的内容"
+          }
+        
+        responseFormat: json
+      
+      # 返回结果
+      - action: return
+        data: "${ai_response}"
+
+  # 任务 3: 同步文章到 Wechatsync
+  sync_to_wechatsync:
+    description: 通过浏览器自动化同步文章
+    timeout: 120000
+    
+    steps:
+      # 打开 Wechatsync 编辑器
+      - action: navigate
+        url: "https://www.wechatsync.com/md/"
+        waitUntil: "networkidle"
+      
+      # 等待编辑器加载
+      - action: wait
+        selector: "[contenteditable='true']"
+        timeout: 10000
+      
+      # 填充标题
+      - action: click
+        selector: "h1[contenteditable='true']"
+      
+      - action: fill
+        selector: "h1[contenteditable='true']"
+        value: "${article_title}"
+      
+      # 填充内容
+      - action: click
+        selector: "div[contenteditable='true'].article-content"
+      
+      - action: evaluate
+        script: |
+          (content) => {
+            const el = document.querySelector('div[contenteditable="true"].article-content');
+            if (el) {
+              el.innerHTML = content;
+            }
+          }
+        args: ["${article_content}"]
+      
+      # 点击同步按钮
+      - action: click
+        selector: "button:has-text('同步')"
+      
+      # 等待同步对话框
+      - action: wait
+        selector: ".sync-dialog"
+        timeout: 5000
+      
+      # 选择平台
+      - action: evaluate
+        script: |
+          (platforms) => {
+            platforms.forEach(platform => {
+              const checkbox = document.querySelector(`input[value="${platform}"]`);
+              if (checkbox && !checkbox.checked) {
+                checkbox.click();
+              }
+            });
+          }
+        args: ["${platforms}"]
+      
+      # 点击开始同步
+      - action: click
+        selector: "button:has-text('开始同步')"
+      
+      # 等待同步完成
+      - action: wait
+        selector: ".sync-complete, .sync-status.completed"
+        timeout: 120000
+      
+      # 返回结果
+      - action: return
+        data: "success"
+
+  # 任务 4: 完整流程（提取 → 改写 → 同步）
+  full_workflow:
+    description: 完整的文章改写和同步流程
+    timeout: 180000
+    
+    steps:
+      # 1. 提取文章
+      - action: task
+        name: extract_article
+        args:
+          article_url: "${url}"
+        saveAs: "extracted"
+      
+      # 2. AI 改写
+      - action: task
+        name: rewrite_article
+        args:
+          article_title: "${extracted.title}"
+          article_content: "${extracted.content}"
+          style: "${style}"
+          preserve_structure: true
+        saveAs: "rewritten"
+      
+      # 3. 同步到平台
+      - action: task
+        name: sync_to_wechatsync
+        args:
+          article_title: "${rewritten.title}"
+          article_content: "${rewritten.content}"
+          platforms: "${platforms}"
+        saveAs: "sync_result"
+      
+      # 4. 返回完整结果
+      - action: return
+        data:
+          original: "${extracted}"
+          rewritten: "${rewritten}"
+          syncResult: "${sync_result}"
+
+# 平台配置
+platforms:
+  zhihu:
+    name: 知乎
+    id: zhihu
+    url: https://www.zhihu.com
+  
+  juejin:
+    name: 掘金
+    id: juejin
+    url: https://juejin.cn
+  
+  csdn:
+    name: CSDN
+    id: csdn
+    url: https://www.csdn.net
+  
+  toutiao:
+    name: 头条号
+    id: toutiao
+    url: https://mp.toutiao.com
+  
+  weixin:
+    name: 微信公众号
+    id: weixin
+    url: https://mp.weixin.qq.com
+
+# 错误处理
+errorHandling:
+  retryAttempts: 3
+  retryDelay: 2000
+  screenshotOnError: true
+  screenshotPath: "./screenshots"
+  
+  # 错误通知
+  notifications:
+    enabled: true
+    webhook: "${WEBHOOK_URL}"
+    email: "${ADMIN_EMAIL}"
+
+# 日志配置
+logging:
+  level: info  # debug, info, warn, error
+  format: json
+  output:
+    - console
+    - file
+  
+  file:
+    path: "./logs/agent-browser.log"
+    maxSize: 10MB
+    maxFiles: 5
+
+# 性能优化
+performance:
+  # 缓存
+  cache:
+    enabled: true
+    ttl: 3600  # 1小时
+    maxSize: 100MB
+  
+  # 并发控制
+  concurrency:
+    maxConcurrent: 5
+    queueSize: 100
+  
+  # 资源限制
+  resources:
+    maxMemory: 512MB
+    maxCpu: 80%
+
+# 安全配置
+security:
+  # 沙箱模式
+  sandbox:
+    enabled: true
+    permissions:
+      - "navigate"
+      - "click"
+      - "fill"
+      - "evaluate"
+  
+  # 敏感信息保护
+  secrets:
+    - "OPENAI_API_KEY"
+    - "ANTHROPIC_API_KEY"
+    - "MCP_TOKEN"
+  
+  # 域名白名单
+  allowedDomains:
+    - "wechatsync.com"
+    - "mp.weixin.qq.com"
+    - "zhihu.com"
+    - "juejin.cn"
+    - "csdn.net"

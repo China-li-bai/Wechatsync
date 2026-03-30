@@ -217,6 +217,61 @@ pnpm build
 
 然后在 Chrome 中加载 `packages/extension/dist` 目录。
 
+## AI 集成
+
+### AI 文章改写
+
+Wechatsync 支持 AI 文章改写功能，可以在同步前对文章进行智能改写。
+
+**支持的改写风格**：
+- **专业风格**：严谨、客观、专业术语准确
+- **轻松风格**：口语化、易读、贴近读者
+- **创意风格**：有趣、吸引人、新颖视角
+- **简洁风格**：精炼、重点突出、去除冗余
+
+### 使用方式
+
+#### 1. MCP Server 集成（推荐）
+
+配置环境变量：
+
+```bash
+export AI_PROVIDER=openai  # 或 anthropic
+export AI_API_KEY=sk-xxx
+```
+
+在 Claude Code 中使用：
+
+```
+"请改写这篇文章并同步到知乎和掘金：https://mp.weixin.qq.com/s/xxx"
+"用轻松的风格改写这篇文章"
+```
+
+#### 2. agent-browser 自动化
+
+安装 OpenClaw 和 agent-browser skill：
+
+```bash
+pip install openclaw
+openclaw skill install agent-browser
+```
+
+使用：
+
+```bash
+openclaw run "改写这篇文章并同步到知乎、掘金：https://mp.weixin.qq.com/s/xxx"
+```
+
+详细文档见 [AI 集成指南](docs/AI-INTEGRATION.md)
+
+### 支持的 AI 提供商
+
+- ✅ OpenAI (GPT-4)
+- ✅ Anthropic (Claude)
+- 🚧 Google Gemini (计划中)
+- 🚧 阿里通义千问 (计划中)
+- 🚧 百度文心一言 (计划中)
+
 ## 更新日志
 
 ### v2.0.9 (2026-03-24)

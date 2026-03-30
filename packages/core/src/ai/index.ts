@@ -36,6 +36,44 @@ export interface AIProcessor {
     sourcePlatform: string,
     targetPlatform: string
   ): Promise<string>
+
+  /**
+   * 改写文章
+   * @param article 文章对象
+   * @param options 改写选项
+   */
+  rewriteArticle?(
+    article: { title: string; content: string; cover?: string },
+    options?: RewriteOptions
+  ): Promise<RewrittenArticle>
+}
+
+/**
+ * 改写风格
+ */
+export type RewriteStyle = 'professional' | 'casual' | 'creative' | 'concise'
+
+/**
+ * 改写选项
+ */
+export interface RewriteOptions {
+  style?: RewriteStyle
+  preserveStructure?: boolean
+  targetAudience?: string
+  customPrompt?: string
+}
+
+/**
+ * 改写后的文章
+ */
+export interface RewrittenArticle {
+  title: string
+  content: string
+  cover?: string
+  originalTitle: string
+  originalContent: string
+  style: RewriteStyle
+  timestamp: number
 }
 
 /**
