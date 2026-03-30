@@ -13,6 +13,7 @@ import {
 import express, { type Request, type Response } from 'express'
 import { ExtensionBridge } from './ws-bridge.js'
 import type { PlatformInfo, SyncResult } from './types.js'
+import { ArticleRewriter, createArticleRewriterFromEnv, type RewriteStyle } from '@wechatsync/core'
 
 export class SyncAssistantMcpServer {
   private server: Server
@@ -20,11 +21,21 @@ export class SyncAssistantMcpServer {
   private app: express.Application
   private httpPort: number
   private transport: SSEServerTransport | null = null
+  private rewriter: ArticleRewriter | null = null
 
   constructor(wsPort: number = 9527, httpPort: number = 9528) {
     this.httpPort = httpPort
     this.bridge = new ExtensionBridge(wsPort)
     this.app = express()
+
+    // 初始化 AI 改写器
+    try {
+      this.rewriter = createArticleRewriterFromEnv()
+      console.error('[MCP] AI Rewriter initialized successfully')
+    } catch (error) {
+      console.error('[MCP] AI Rewriter not initialized:', (error as Error).message)
+      console.error('[MCP] To enable AI features, set AI_API_KEY environment variable')
+    }
 
     this.server = new Server(
       {
@@ -165,6 +176,81 @@ export class SyncAssistantMcpServer {
               properties: {},
             },
           },
+          {
+            name: 'rewrite_article',
+            description: '使用 AI 改写文章内容。支持多种风格：professional（专业）、casual（轻松）、creative（创意）、concise（简洁）',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                title: {
+                  type: 'string',
+                  description: '文章标题',
+                },
+                content: {
+                  type: 'string',
+                  description: '文章内容（HTML 格式）',
+                },
+                cover: {
+                  type: 'string',
+                  description: '封面图 URL（可选）',
+                },
+                style: {
+                  type: 'string',
+                  enum: ['professional', 'casual', 'creative', 'concise'],
+                  description: '改写风格（默认：professional）',
+                },
+                preserveStructure: {
+                  type: 'boolean',
+                  description: '是否保留原有结构（默认：true）',
+                },
+                targetAudience: {
+                  type: 'string',
+                  description: '目标受众描述（可选）',
+                },
+                customPrompt: {
+                  type: 'string',
+                  description: '自定义改写提示词（可选，会覆盖默认提示词）',
+                },
+              },
+              required: ['title', 'content'],
+            },
+          },
+          {
+            name: 'rewrite_and_sync',
+            description: '改写文章并同步到多个平台。先使用 AI 改写文章，然后自动同步到指定平台',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                platforms: {
+                  type: 'array',
+                  items: { type: 'string' },
+                  description: '目标平台 ID 列表，如 ["zhihu", "juejin"]',
+                },
+                title: {
+                  type: 'string',
+                  description: '文章标题',
+                },
+                content: {
+                  type: 'string',
+                  description: '文章内容（HTML 格式）',
+                },
+                cover: {
+                  type: 'string',
+                  description: '封面图 URL（可选）',
+                },
+                style: {
+                  type: 'string',
+                  enum: ['professional', 'casual', 'creative', 'concise'],
+                  description: '改写风格（默认：professional）',
+                },
+                preserveStructure: {
+                  type: 'boolean',
+                  description: '是否保留原有结构（默认：true）',
+                },
+              },
+              required: ['platforms', 'title', 'content'],
+            },
+          },
         ],
       }
     })
@@ -219,6 +305,107 @@ export class SyncAssistantMcpServer {
           case 'extract_article':
             result = await this.bridge.request('extractArticle')
             break
+
+          case 'rewrite_article': {
+            // 检查 AI 改写器是否可用
+            if (!this.rewriter) {
+              return {
+                content: [
+                  {
+                    type: 'text',
+                    text: JSON.stringify({
+                      error: 'AI 改写功能未启用。请设置环境变量：\n- AI_API_KEY: AI API 密钥\n- AI_PROVIDER: 提供商（openai 或 anthropic，默认 openai）',
+                    }),
+                  },
+                ],
+                isError: true,
+              }
+            }
+
+            const rewriteArgs = args as {
+              title: string
+              content: string
+              cover?: string
+              style?: RewriteStyle
+              preserveStructure?: boolean
+              targetAudience?: string
+              customPrompt?: string
+            }
+
+            result = await this.rewriter.rewrite(
+              {
+                title: rewriteArgs.title,
+                content: rewriteArgs.content,
+                cover: rewriteArgs.cover,
+              },
+              {
+                style: rewriteArgs.style || 'professional',
+                preserveStructure: rewriteArgs.preserveStructure ?? true,
+                targetAudience: rewriteArgs.targetAudience,
+                customPrompt: rewriteArgs.customPrompt,
+              }
+            )
+            break
+          }
+
+          case 'rewrite_and_sync': {
+            // 检查 AI 改写器是否可用
+            if (!this.rewriter) {
+              return {
+                content: [
+                  {
+                    type: 'text',
+                    text: JSON.stringify({
+                      error: 'AI 改写功能未启用。请设置环境变量：\n- AI_API_KEY: AI API 密钥\n- AI_PROVIDER: 提供商（openai 或 anthropic，默认 openai）',
+                    }),
+                  },
+                ],
+                isError: true,
+              }
+            }
+
+            const syncArgs = args as {
+              platforms: string[]
+              title: string
+              content: string
+              cover?: string
+              style?: RewriteStyle
+              preserveStructure?: boolean
+            }
+
+            // 1. 改写文章
+            const rewritten = await this.rewriter.rewrite(
+              {
+                title: syncArgs.title,
+                content: syncArgs.content,
+                cover: syncArgs.cover,
+              },
+              {
+                style: syncArgs.style || 'professional',
+                preserveStructure: syncArgs.preserveStructure ?? true,
+              }
+            )
+
+            // 2. 同步到平台
+            const syncResult = await this.bridge.request<SyncResult[]>('syncArticle', {
+              platforms: syncArgs.platforms,
+              article: {
+                title: rewritten.title,
+                content: rewritten.content,
+                cover: rewritten.cover,
+              },
+            })
+
+            result = {
+              rewritten: {
+                originalTitle: rewritten.originalTitle,
+                rewrittenTitle: rewritten.title,
+                style: rewritten.style,
+              },
+              syncResult,
+            }
+            break
+          }
 
           default:
             return {

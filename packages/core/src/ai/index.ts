@@ -139,3 +139,12 @@ export function createAIProcessor(_config?: AIConfig): AIProcessor {
 
   return new NoopAIProcessor()
 }
+
+// 导出改写器
+export {
+  ArticleRewriter,
+  createArticleRewriter,
+  createArticleRewriterFromEnv,
+  type AIProvider,
+  type AIConfig as RewriterAIConfig
+} from './rewriter'
