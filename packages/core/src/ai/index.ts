@@ -101,6 +101,24 @@ export class NoopAIProcessor implements AIProcessor {
   async adaptContent(content: string): Promise<string> {
     return content
   }
+
+  /**
+   * 改写文章（空实现，直接返回原文章）
+   */
+  async rewriteArticle(
+    article: { title: string; content: string; cover?: string },
+    options?: RewriteOptions
+  ): Promise<RewrittenArticle> {
+    return {
+      title: article.title,
+      content: article.content,
+      cover: article.cover,
+      originalTitle: article.title,
+      originalContent: article.content,
+      style: options?.style || 'professional',
+      timestamp: Date.now()
+    }
+  }
 }
 
 /**

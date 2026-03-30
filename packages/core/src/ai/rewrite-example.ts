@@ -22,7 +22,10 @@ const exampleArticle = {
 
 async function demo() {
   // 1. 创建改写器
-  const rewriter = new ArticleRewriter('openai', process.env.OPENAI_API_KEY!)
+  const rewriter = new ArticleRewriter({
+    provider: 'openai',
+    apiKey: process.env.OPENAI_API_KEY!
+  })
   
   // 2. 改写文章（专业风格）
   console.log('改写文章（专业风格）...')
