@@ -1,0 +1,14 @@
+# Demo Video Generator - 依赖列表
+
+# 核心依赖
+PyYAML>=6.0              # YAML 配置文件解析
+
+# 可选依赖（用于高级功能）
+# colorama>=0.4.6        # 彩色终端输出
+# tqdm>=4.65.0           # 进度条
+# pillow>=9.0.0          # 图像处理
+
+# 系统依赖（需要单独安装）:
+# - ffmpeg: 视频处理
+# - edge-tts: 语音生成（pipx install edge-tts）
+# - agent-browser: 浏览器自动化（npm install -g agent-browser）

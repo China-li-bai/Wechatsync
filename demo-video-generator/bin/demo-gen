@@ -1,0 +1,203 @@
+#!/usr/bin/env python3
+"""
+Demo Video Generator - CLI 工具
+命令行接口
+"""
+
+import argparse
+import sys
+from pathlib import Path
+
+# 添加 lib 目录到路径
+sys.path.insert(0, str(Path(__file__).parent.parent / 'lib'))
+
+from demo_video_generator import DemoVideoGenerator, ConfigParser
+
+
+def cmd_generate(args):
+    """生成演示视频"""
+    try:
+        generator = DemoVideoGenerator(args.config)
+        output_file = generator.generate()
+        
+        if output_file:
+            print(f"\n🎉 成功！视频已生成: {output_file}")
+            return 0
+        else:
+            return 1
+            
+    except Exception as e:
+        print(f"❌ 错误: {e}")
+        return 1
+
+
+def cmd_validate(args):
+    """验证配置文件"""
+    try:
+        parser = ConfigParser(args.config)
+        config = parser.config
+        
+        print("✅ 配置文件验证通过")
+        print(f"\n项目名称: {config['project']['name']}")
+        print(f"目标URL: {config['project']['url']}")
+        print(f"场景数量: {len(config['scenes'])}")
+        print(f"语音: {config['voice']['language']}-{config['voice']['voice_name']}")
+        
+        return 0
+        
+    except Exception as e:
+        print(f"❌ 配置文件验证失败: {e}")
+        return 1
+
+
+def cmd_init(args):
+    """初始化项目"""
+    project_dir = Path(args.name)
+    
+    if project_dir.exists():
+        print(f"❌ 目录已存在: {project_dir}")
+        return 1
+    
+    # 创建目录结构
+    project_dir.mkdir(parents=True)
+    (project_dir / 'output').mkdir()
+    
+    # 复制模板配置文件
+    template_dir = Path(__file__).parent.parent / 'templates'
+    template_file = template_dir / 'basic.yaml'
+    
+    if template_file.exists():
+        import shutil
+        shutil.copy(template_file, project_dir / 'config.yaml')
+        print(f"✅ 项目初始化成功: {project_dir}")
+        print(f"📝 配置文件: {project_dir / 'config.yaml'}")
+        print(f"\n下一步:")
+        print(f"  1. 编辑配置文件: {project_dir / 'config.yaml'}")
+        print(f"  2. 验证配置: demo-gen validate {project_dir / 'config.yaml'}")
+        print(f"  3. 生成视频: demo-gen generate {project_dir / 'config.yaml'}")
+    else:
+        print(f"⚠️  模板文件不存在，请手动创建配置文件")
+    
+    return 0
+
+
+def cmd_list_voices(args):
+    """列出可用语音"""
+    voices = {
+        'zh-CN': {
+            'XiaoxiaoNeural': '晓晓 - 女声（最自然）',
+            'YunxiNeural': '云希 - 男声',
+            'YunyangNeural': '云扬 - 男声',
+            'XiaoyiNeural': '晓伊 - 女声',
+        },
+        'zh-TW': {
+            'HsiaoChenNeural': '晓臻 - 女声',
+            'HsiaoYuNeural': '晓雨 - 女声',
+            'YunJheNeural': '云哲 - 男声',
+        },
+        'zh-HK': {
+            'HiuGaaiNeural': '曉佳 - 女声',
+            'HiuMaanNeural': '曼曼 - 女声',
+            'WanLungNeural': '雲龍 - 男声',
+        },
+        'en-US': {
+            'JennyNeural': 'Jenny - Female (Natural)',
+            'GuyNeural': 'Guy - Male',
+            'AriaNeural': 'Aria - Female',
+        }
+    }
+    
+    print("可用语音列表:\n")
+    
+    for lang, lang_voices in voices.items():
+        print(f"【{lang}】")
+        for voice_id, voice_name in lang_voices.items():
+            print(f"  - {voice_id}: {voice_name}")
+        print()
+    
+    return 0
+
+
+def cmd_templates(args):
+    """列出可用模板"""
+    template_dir = Path(__file__).parent.parent / 'templates'
+    
+    print("可用模板:\n")
+    
+    # 基础模板
+    print("【基础模板】")
+    basic_template = template_dir / 'basic.yaml'
+    if basic_template.exists():
+        print(f"  - basic.yaml: 基础配置模板")
+    print()
+    
+    # 示例模板
+    examples_dir = template_dir / 'examples'
+    if examples_dir.exists():
+        print("【示例模板】")
+        for template_file in examples_dir.glob('*.yaml'):
+            print(f"  - {template_file.name}")
+    
+    return 0
+
+
+def main():
+    """主函数"""
+    parser = argparse.ArgumentParser(
+        description='Demo Video Generator - 产品演示视频自动生成工具',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+示例:
+  # 初始化新项目
+  demo-gen init my-demo
+  
+  # 验证配置文件
+  demo-gen validate config.yaml
+  
+  # 生成视频
+  demo-gen generate config.yaml
+  
+  # 列出可用语音
+  demo-gen list-voices
+  
+  # 列出可用模板
+  demo-gen templates
+        """
+    )
+    
+    subparsers = parser.add_subparsers(dest='command', help='可用命令')
+    
+    # generate 命令
+    gen_parser = subparsers.add_parser('generate', help='生成演示视频')
+    gen_parser.add_argument('config', help='配置文件路径')
+    gen_parser.set_defaults(func=cmd_generate)
+    
+    # validate 命令
+    val_parser = subparsers.add_parser('validate', help='验证配置文件')
+    val_parser.add_argument('config', help='配置文件路径')
+    val_parser.set_defaults(func=cmd_validate)
+    
+    # init 命令
+    init_parser = subparsers.add_parser('init', help='初始化新项目')
+    init_parser.add_argument('name', help='项目名称')
+    init_parser.set_defaults(func=cmd_init)
+    
+    # list-voices 命令
+    voices_parser = subparsers.add_parser('list-voices', help='列出可用语音')
+    voices_parser.set_defaults(func=cmd_list_voices)
+    
+    # templates 命令
+    templates_parser = subparsers.add_parser('templates', help='列出可用模板')
+    templates_parser.set_defaults(func=cmd_templates)
+    
+    args = parser.parse_args()
+    
+    if not args.command:
+        parser.print_help()
+        return 0
+    
+    return args.func(args)
+
+
+if __name__ == '__main__':
+    sys.exit(main())

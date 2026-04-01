@@ -48,43 +48,44 @@
 
 支持 Chrome / Edge / 360 / QQ 等 Chromium 内核浏览器
 
+<<<<<<< HEAD
 
 ## 支持 29+ 主流平台
 
-| 平台 | ID | 类型 | 状态 |
-|-----|-----|-----|-----|
-| 微信公众号 | weixin | 主流自媒体 | ✅ |
-| 知乎 | zhihu | 主流自媒体 | ✅ |
-| 微博 | weibo | 主流自媒体 | ✅ |
-| 小红书 | xiaohongshu | 主流自媒体 | ✅ |
-| 掘金 | juejin | 技术社区 | ✅ |
-| CSDN | csdn | 技术社区 | ✅ |
-| 简书 | jianshu | 通用 | ✅ |
-| 头条号 | toutiao | 通用 | ✅ |
-| 抖音图文 | douyin | 主流自媒体 | ✅ 🆕 |
-| B站专栏 | bilibili | 通用 | ✅ |
-| 百家号 | baijiahao | 通用 | ✅ |
-| 语雀 | yuque | 技术社区 | ✅ |
-| 豆瓣 | douban | 通用 | ✅ |
-| 搜狐号 | sohu | 通用 | ✅ |
-| 雪球 | xueqiu | 财经 | ✅ |
-| 人人都是产品经理 | woshipm | 产品 | ✅ |
-| 大鱼号 | dayu | 通用 | ✅ |
-| 一点号 | yidian | 通用 | ✅ |
-| 51CTO | 51cto | 技术社区 | ✅ |
-| 慕课网 | imooc | 技术社区 | ✅ |
-| 开源中国 | oschina | 技术社区 | ✅ |
-| SegmentFault | segmentfault | 技术社区 | ✅ |
-| 博客园 | cnblogs | 技术社区 | ✅ |
-| 搜狐焦点 | sohufocus | 房产 | ✅ |
-| X (Twitter) | x | 海外 | ✅ |
-| 东方财富 | eastmoney | 财经 | ✅ |
-| 什么值得买 | smzdm | 通用 | ✅ |
-| 网易号 | netease | 通用 | ✅ |
-| WordPress | wordpress | 建站/CMS | ✅ |
-| Typecho | typecho | 建站/CMS | ✅ |
-| Hexo | zip-download | 建站/CMS | ✅ 通过 Markdown 下载 |
-| Hugo | zip-download | 建站/CMS | ✅ 通过 Markdown 下载 |
+| 平台             | ID           | 类型       | 状态                  |
+| ---------------- | ------------ | ---------- | --------------------- |
+| 微信公众号       | weixin       | 主流自媒体 | ✅                    |
+| 知乎             | zhihu        | 主流自媒体 | ✅                    |
+| 微博             | weibo        | 主流自媒体 | ✅                    |
+| 小红书           | xiaohongshu  | 主流自媒体 | ✅                    |
+| 掘金             | juejin       | 技术社区   | ✅                    |
+| CSDN             | csdn         | 技术社区   | ✅                    |
+| 简书             | jianshu      | 通用       | ✅                    |
+| 头条号           | toutiao      | 通用       | ✅                    |
+| 抖音图文         | douyin       | 主流自媒体 | ✅ 🆕                 |
+| B站专栏          | bilibili     | 通用       | ✅                    |
+| 百家号           | baijiahao    | 通用       | ✅                    |
+| 语雀             | yuque        | 技术社区   | ✅                    |
+| 豆瓣             | douban       | 通用       | ✅                    |
+| 搜狐号           | sohu         | 通用       | ✅                    |
+| 雪球             | xueqiu       | 财经       | ✅                    |
+| 人人都是产品经理 | woshipm      | 产品       | ✅                    |
+| 大鱼号           | dayu         | 通用       | ✅                    |
+| 一点号           | yidian       | 通用       | ✅                    |
+| 51CTO            | 51cto        | 技术社区   | ✅                    |
+| 慕课网           | imooc        | 技术社区   | ✅                    |
+| 开源中国         | oschina      | 技术社区   | ✅                    |
+| SegmentFault     | segmentfault | 技术社区   | ✅                    |
+| 博客园           | cnblogs      | 技术社区   | ✅                    |
+| 搜狐焦点         | sohufocus    | 房产       | ✅                    |
+| X (Twitter)      | x            | 海外       | ✅                    |
+| 东方财富         | eastmoney    | 财经       | ✅                    |
+| 什么值得买       | smzdm        | 通用       | ✅                    |
+| 网易号           | netease      | 通用       | ✅                    |
+| WordPress        | wordpress    | 建站/CMS   | ✅                    |
+| Typecho          | typecho      | 建站/CMS   | ✅                    |
+| Hexo             | zip-download | 建站/CMS   | ✅ 通过 Markdown 下载 |
+| Hugo             | zip-download | 建站/CMS   | ✅ 通过 Markdown 下载 |
 
 - [提交新平台请求](https://airtable.com/shrLSJMnTC2BlmP29)
 
@@ -100,6 +101,29 @@ npm install -g @wechatsync/cli
 
 ```bash
 export WECHATSYNC_TOKEN="你的token"
+=======
+## 预览
+
+<!-- #### 正文提取
+
+![](snapshots/raw.png)
+
+![](snapshots/reader.png)
+
+![](snapshots/sample.png) -->
+
+#### 同步详情
+
+![](snapshots/detail.png)
+
+#### Markdown 编辑器
+
+![](snapshots/markdown.png)
+
+#### 多渠道选择
+
+![](snapshots/pub.png)
+>>>>>>> origin/master
 
 # 同步文章到多个平台
 wechatsync sync article.md -p zhihu,juejin,csdn
@@ -167,13 +191,13 @@ clawhub install lljxx1/wechatsync
 
 ### 可用工具
 
-| 工具 | 说明 |
-|-----|------|
-| `list_platforms` | 列出所有平台及登录状态 |
-| `check_auth` | 检查指定平台登录状态 |
-| `sync_article` | 同步文章到指定平台（草稿） |
-| `extract_article` | 从当前浏览器页面提取文章 |
-| `upload_image_file` | 上传本地图片到平台 |
+| 工具                | 说明                       |
+| ------------------- | -------------------------- |
+| `list_platforms`    | 列出所有平台及登录状态     |
+| `check_auth`        | 检查指定平台登录状态       |
+| `sync_article`      | 同步文章到指定平台（草稿） |
+| `extract_article`   | 从当前浏览器页面提取文章   |
+| `upload_image_file` | 上传本地图片到平台         |
 
 详细文档见 [packages/mcp-server/README.md](packages/mcp-server/README.md)
 
@@ -186,7 +210,7 @@ clawhub install lljxx1/wechatsync
 
 ```javascript
 // 拉起同步任务框
-window.syncPost(article)
+window.syncPost(article);
 ```
 
 ## 开发
@@ -224,6 +248,7 @@ pnpm build
 Wechatsync 支持 AI 文章改写功能，可以在同步前对文章进行智能改写。
 
 **支持的改写风格**：
+
 - **专业风格**：严谨、客观、专业术语准确
 - **轻松风格**：口语化、易读、贴近读者
 - **创意风格**：有趣、吸引人、新颖视角
