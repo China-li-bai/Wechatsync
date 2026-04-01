@@ -29,6 +29,7 @@ except ImportError:
 
 from video_recorder import VideoRecorder
 from config_validator import ConfigValidator
+from thumbnail_generator import CodeBasedThumbnailGenerator
 
 
 def get_ffmpeg_path():
@@ -365,6 +366,8 @@ class DemoVideoGenerator:
         )
         
         self.recording_config = self.config_parser.get_recording_config()
+        
+        self.thumbnail_config = self.config.get('thumbnail', {})
     
     def _setup_logger(self, log_level: str) -> logging.Logger:
         """设置日志记录器"""
@@ -438,21 +441,30 @@ class DemoVideoGenerator:
                     self.logger.error("视频文件不存在，请先录制视频")
                     return None
             
-            # 步骤5: 合成视频 (20%)
-            self._print_progress("步骤5: 合成视频", 20)
-            output_name = project_config.get('output_name', 'demo')
-            output_file = self.output_dir / f"{output_name}.mp4"
+            # 步骤6: 合成视频 (15%)
+            self._print_progress("步骤6: 合成视频", 15)
+            self.video_composer.compose(
+                video_file,
+                audio_file,
+                subtitle_file,
+                self.output_file
+            )
             
-            self.video_composer.compose(video_file, audio_file, subtitle_file, output_file)
+            # 步骤7: 生成封面 (5%)
+            self._print_progress("步骤7: 生成封面", 5)
+            thumbnail_path = self._generate_thumbnail()
             
-            # 完成
             self.logger.info("=" * 50)
             self.logger.info("✅ 演示视频生成完成！")
             self.logger.info("=" * 50)
-            self.logger.info(f"输出文件: {output_file}")
-            self.logger.info(f"查看视频: open {output_file}")
+            self.logger.info(f"📁 输出目录: {self.output_dir}")
+            self.logger.info(f"🎬 视频文件: {self.output_file}")
+            if thumbnail_path:
+                self.logger.info(f"🖼️  封面文件: {thumbnail_path}")
+            self.logger.info(f"📝 字幕文件: {subtitle_file}")
+            self.logger.info(f"🎵 音频文件: {audio_file}")
             
-            return output_file
+            return self.output_file
             
         except Exception as e:
             self.logger.error(f"生成失败: {e}")
