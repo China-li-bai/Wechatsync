@@ -367,7 +367,7 @@ class DemoVideoGenerator:
         
         self.recording_config = self.config_parser.get_recording_config()
         
-        self.thumbnail_config = self.config.get('thumbnail', {})
+        self.thumbnail_config = self.config_parser.config.get('thumbnail', {})
     
     def _setup_logger(self, log_level: str) -> logging.Logger:
         """设置日志记录器"""
