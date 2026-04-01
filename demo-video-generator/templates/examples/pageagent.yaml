@@ -1,0 +1,147 @@
+# Demo Video Generator - PageAgent 示例配置
+# 这是一个完整的实际案例
+
+project:
+  name: "PageAgent Demo"
+  url: "https://alibaba.github.io/page-agent/"
+  output_dir: "./output/pageagent"
+  output_name: "pageagent-demo"
+
+voice:
+  language: "zh-CN"
+  voice_name: "XiaoxiaoNeural"
+  speed: 1.0
+
+scenes:
+  # 场景1: 钩子开场（15秒）
+  - name: "intro"
+    type: "hook"
+    text: |
+      你有没有想过，让网站自己操作自己？
+      PageAgent 让这个想法变成现实。
+      只需一行代码，你的网站就能听懂用户的话，自动完成操作。
+      就像给网站装上了 AI 大脑！
+    subtitle: "你有没有想过，让网站自己操作自己？"
+    action: "screenshot"
+    wait_after: 5
+    
+  # 场景2: 核心特性（13秒）
+  - name: "features"
+    type: "feature"
+    text: |
+      传统方案需要 Python、无头浏览器、服务器...太复杂了！
+      PageAgent 只需一行代码，5分钟搞定。
+      你的数据在浏览器里运行，永远只属于你。
+    subtitle: "传统方案太复杂！PageAgent 只需一行代码"
+    action: "scroll"
+    scroll_distance: 300
+    wait_after: 3
+    
+  # 场景3: 功能演示（14秒）
+  - name: "demo"
+    type: "demo"
+    text: |
+      想象一下：用户说'帮我填写这个表单'，PageAgent 就能自动识别输入框，填写内容。
+      不需要写代码，不需要懂技术。
+      就像有个助手在帮你操作网站。
+    subtitle: "想象一下：用户说一句话，网站自动操作"
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 3
+    
+  # 场景4: 人机协同（15秒）
+  - name: "collaboration"
+    type: "feature"
+    text: |
+      担心 AI 乱操作？别担心！
+      每次操作前，PageAgent 都会先问你。
+      你可以审核、修改，或者直接取消。
+      不是盲目自动化，而是智能的人机协作。
+    subtitle: "担心 AI 乱操作？每次都会先问你"
+    action: "scroll"
+    scroll_distance: 300
+    wait_after: 3
+    
+  # 场景5: 兼容性（16秒）
+  - name: "compatibility"
+    type: "feature"
+    text: |
+      想用 GPT-4？没问题。
+      担心隐私？用 Ollama 在本地运行。
+      你的数据永远不会离开你的电脑。
+      支持 OpenAI、Claude、DeepSeek、Qwen...你说了算！
+    subtitle: "想用 GPT-4？没问题。担心隐私？本地运行"
+    action: "scroll"
+    scroll_distance: 300
+    wait_after: 3
+    
+  # 场景6: 应用场景（14秒）
+  - name: "use-cases"
+    type: "benefit"
+    text: |
+      智能客服、表单填写、数据提取、页面测试...
+      让传统网站快速具备 AI 能力。
+      提升用户体验，提高运营效率。
+      就像给网站装上了超能力！
+    subtitle: "智能客服、表单填写、数据提取..."
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 3
+    
+  # 场景7: 高级功能（14秒）
+  - name: "advanced"
+    type: "feature"
+    text: |
+      需要跨多个页面操作？
+      PageAgent 支持多页面任务，连续执行。
+      还能从 Claude Desktop 直接发起任务。
+      就像有个 AI 助手在浏览器里帮你工作。
+    subtitle: "支持多页面任务，连续执行"
+    action: "scroll"
+    scroll_distance: 300
+    wait_after: 3
+    
+  # 场景8: 行动号召（11秒）
+  - name: "cta"
+    type: "cta"
+    text: |
+      PageAgent - 开源免费，快速集成。
+      让你的网站拥有 AI 操作员。
+      现在就试试，体验 AI 原生应用的魅力！
+    subtitle: "PageAgent - 开源免费，快速集成"
+    action: "scroll_to_top"
+    wait_after: 5
+
+video:
+  format: "mp4"
+  quality: "high"
+  resolution: "1280x720"
+  fps: 30
+  codec: "libx264"
+
+audio:
+  codec: "aac"
+  bitrate: "128k"
+
+subtitle:
+  enabled: true
+  format: "srt"
+  font: "PingFang SC"
+  font_size: 24
+  color: "#FFFFFF"
+  outline_color: "#000000"
+  background_color: "#80000000"
+  outline: 2
+  shadow: 1
+
+advanced:
+  browser:
+    headless: false
+    timeout: 30000
+  validation:
+    check_sync: true
+    check_quality: true
+    max_file_size: 10
+  performance:
+    parallel_voice: true
+    skip_existing: true

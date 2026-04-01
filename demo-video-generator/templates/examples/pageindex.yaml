@@ -1,0 +1,155 @@
+# Demo Video Generator - PageIndex 演示配置
+
+project:
+  name: "PageIndex Demo"
+  url: "https://github.com/VectifyAI/PageIndex"
+  output_dir: "./output/pageindex"
+  output_name: "pageindex-demo"
+
+voice:
+  language: "zh-CN"
+  voice_name: "XiaoxiaoNeural"
+  speed: 1.0
+
+scenes:
+  # 场景1: 钩子开场（15秒）
+  - name: "intro"
+    type: "hook"
+    text: |
+      你有没有想过，为什么向量数据库在专业文档上总是检索不准？
+      传统 RAG 依赖语义相似度，但相似不等于相关！
+      PageIndex 用推理代替向量，让 AI 像专家一样思考。
+      就像 AlphaGo 下围棋，通过树搜索找到最相关的文档片段。
+    subtitle: "你有没有想过，为什么向量数据库总是检索不准？"
+    action: "screenshot"
+    wait_after: 5
+    
+  # 场景2: 核心特性（16秒）
+  - name: "features"
+    type: "feature"
+    text: |
+      传统向量 RAG 需要切分文档、建向量库、做相似度搜索...
+      太复杂了！PageIndex 不需要向量库，不需要切分。
+      直接用文档结构，让 LLM 推理检索。
+      就像专家看目录找答案，简单高效。
+    subtitle: "传统向量 RAG 太复杂！PageIndex 不需要向量库"
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 3
+    
+  # 场景3: 技术原理（17秒）
+  - name: "how-it-works"
+    type: "demo"
+    text: |
+      PageIndex 把长文档变成树状目录结构。
+      检索时，AI 就像专家一样，先看大标题，再看小标题，层层深入。
+      通过推理判断哪个章节最相关，精确定位到具体页码。
+      就像人类专家查资料，有理有据，可追溯可解释。
+    subtitle: "PageIndex 把长文档变成树状目录结构"
+    action: "scroll"
+    scroll_distance: 500
+    wait_after: 3
+    
+  # 场景4: 性能优势（15秒）
+  - name: "performance"
+    type: "benefit"
+    text: |
+      在 FinanceBench 金融文档测试中，PageIndex 达到了 98.7% 的准确率！
+      远超传统向量 RAG 方案。
+      专业文档需要领域知识和多步推理，向量搜索做不到。
+      PageIndex 让 AI 真正理解文档，而不是靠"感觉"。
+    subtitle: "FinanceBench 测试准确率 98.7%"
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 3
+    
+  # 场景5: 使用场景（14秒）
+  - name: "use-cases"
+    type: "feature"
+    text: |
+      金融报告、法律文件、学术论文、技术手册...
+      任何需要深度理解的长文档，PageIndex 都能精准检索。
+      支持本地部署，也提供云端服务。
+      你的数据安全，你的隐私有保障。
+    subtitle: "金融报告、法律文件、学术论文..."
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 3
+    
+  # 场景6: 快速上手（16秒）
+  - name: "quick-start"
+    type: "demo"
+    text: |
+      想试试？只需三步：安装依赖、设置 API 密钥、运行脚本。
+      一行命令，就能把 PDF 变成智能索引。
+      还支持 Markdown 文件，灵活适配各种文档格式。
+      开源免费，代码就在 GitHub 上。
+    subtitle: "只需三步：安装、配置、运行"
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 3
+    
+  # 场景7: 部署选项（14秒）
+  - name: "deployment"
+    type: "feature"
+    text: |
+      想本地部署？完全开源，代码给你。
+      想快速体验？云端服务即开即用。
+      企业级需求？支持私有化部署。
+      灵活选择，按需定制。
+    subtitle: "本地部署、云端服务、企业定制"
+    action: "scroll"
+    scroll_distance: 300
+    wait_after: 3
+    
+  # 场景8: 行动号召（12秒）
+  - name: "cta"
+    type: "cta"
+    text: |
+      PageIndex - 让 AI 像专家一样检索文档。
+      告别向量数据库的"感觉检索"。
+      现在就去 GitHub 试试，体验推理式 RAG 的魅力！
+    subtitle: "PageIndex - 让 AI 像专家一样检索文档"
+    action: "scroll_to_top"
+    wait_after: 5
+
+# 录制配置（v1.1.0 新增）
+recording:
+  enabled: true                           # 启用自动录制
+  auto_scroll: true                       # 自动滚动
+  scroll_distance: 400                    # 默认滚动距离
+  wait_after_action: 2                    # 动作后等待时间
+
+video:
+  format: "mp4"
+  quality: "high"
+  resolution: "1280x720"
+  fps: 30
+  codec: "libx264"
+
+audio:
+  codec: "aac"
+  bitrate: "128k"
+
+subtitle:
+  enabled: true
+  format: "srt"
+  font: "PingFang SC"
+  font_size: 24
+  color: "#FFFFFF"
+  outline_color: "#000000"
+  background_color: "#80000000"
+  outline: 2
+  shadow: 1
+
+advanced:
+  browser:
+    headless: false
+    timeout: 30000
+  validation:
+    check_sync: true
+    check_quality: true
+    max_file_size: 10
+  performance:
+    parallel_voice: true
+    skip_existing: true
