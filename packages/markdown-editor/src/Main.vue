@@ -467,15 +467,22 @@ export default {
     }
   },
   mounted() {
-    // if(this.list.length) this.currentArtitle = this.list[0];
+    const urlParams = new URLSearchParams(window.location.search)
+    const isDemoMode = urlParams.get('demo') === 'true'
+    
+    if (isDemoMode) {
+      console.log('🎬 演示模式已启用')
+      this.extensionInstalled = true
+      this.loadDoc()
+      return
+    }
+    
     this.loadDoc()
     var self = this
     ;(function check() {
       self.extensionInstalled = typeof window.$syncer != 'undefined'
-      //   self.extensionInstalled = false
       self.checkCount++
       if (self.extensionInstalled) {
-        // self.recom();
         self.loadAccounts()
         return
       }
