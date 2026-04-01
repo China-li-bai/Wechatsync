@@ -1,0 +1,62 @@
+# Demo Video Generator 测试配置
+# 用于测试封面生成功能整合
+
+project:
+  name: "Thumbnail Integration Test"
+  url: "https://example.com"
+  output_dir: "./output/test-thumbnail"
+  output_name: "test-video"
+  title: "5步吃透CTR优化"
+  description: "YouTube封面设计完全指南"
+
+voice:
+  language: "zh-CN"
+  voice_name: "XiaoxiaoNeural"
+  speed: 1.0
+
+scenes:
+  - name: "intro"
+    type: "hook"
+    text: "这是一个测试场景，用于验证封面生成功能。"
+    subtitle: "测试封面生成"
+    action:
+      type: "screenshot"
+    wait_after: 3
+
+recording:
+  enabled: false
+
+video:
+  format: "mp4"
+  quality: "high"
+  resolution: "1280x720"
+  fps: 30
+  codec: "libx264"
+
+audio:
+  codec: "aac"
+  bitrate: "128k"
+
+subtitle:
+  enabled: true
+  format: "srt"
+  font: "PingFang SC"
+  font_size: 24
+  color: "#FFFFFF"
+  outline_color: "#000000"
+  background_color: "#80000000"
+  outline: 2
+  shadow: 1
+
+# 封面配置
+thumbnail:
+  enabled: true
+  template: "default.html"
+  template_dir: "templates/thumbnails"
+  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+  font_size: 80
+  text_color: "white"
+  badge: "HOT"
+  brand: "Demo Video Generator"
+  author: "AI Assistant"
+  accent_color: "#ffd700"

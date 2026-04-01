@@ -472,6 +472,53 @@ class DemoVideoGenerator:
             self.logger.error(traceback.format_exc())
             return None
     
+    def _generate_thumbnail(self):
+        """
+        生成视频封面
+        
+        Returns:
+            生成的封面文件路径，失败返回None
+        """
+        if not self.thumbnail_config.get('enabled', True):
+            self.logger.info("封面生成已禁用")
+            return None
+        
+        try:
+            self.logger.info("开始生成封面...")
+            
+            generator = CodeBasedThumbnailGenerator(
+                template_dir=self.thumbnail_config.get('template_dir', 'templates/thumbnails'),
+                output_dir=self.output_dir,
+                logger=self.logger
+            )
+            
+            project_config = self.config_parser.get_project_config()
+            
+            thumbnail_data = {
+                'title': project_config.get('title', 'Demo Video'),
+                'subtitle': project_config.get('description', ''),
+                'template': self.thumbnail_config.get('template', 'default.html'),
+                'background': self.thumbnail_config.get('background'),
+                'font_size': self.thumbnail_config.get('font_size', 80),
+                'text_color': self.thumbnail_config.get('text_color', 'white'),
+                'badge': self.thumbnail_config.get('badge'),
+                'brand': self.thumbnail_config.get('brand'),
+                'author': self.thumbnail_config.get('author'),
+                'accent_color': self.thumbnail_config.get('accent_color', '#ffd700')
+            }
+            
+            thumbnail_data = {k: v for k, v in thumbnail_data.items() if v is not None}
+            
+            output_path = generator.generate(thumbnail_data, validate=True)
+            
+            self.logger.info(f"✅ 封面已生成: {output_path}")
+            return output_path
+            
+        except Exception as e:
+            self.logger.error(f"生成封面失败: {e}")
+            self.logger.warning("继续生成视频，跳过封面生成")
+            return None
+    
     def _print_progress(self, message: str, percentage: int):
         """打印进度"""
         bar_length = 30

@@ -108,6 +108,19 @@ subtitle:
   outline: 2                              # 描边宽度
   shadow: 1                               # 阴影
 
+# 封面配置（v1.3.0 新增）
+thumbnail:
+  enabled: true                           # 是否启用封面生成
+  template: "default.html"                # 模板：default.html, tutorial.html, review.html
+  template_dir: "templates/thumbnails"    # 模板目录
+  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"  # 背景渐变
+  font_size: 80                           # 标题字号
+  text_color: "white"                     # 文字颜色
+  badge: "NEW"                            # 徽章文字（可选）
+  brand: "Demo Video Generator"           # 品牌名称（可选）
+  author: "AI Assistant"                  # 作者名称（可选）
+  accent_color: "#ffd700"                 # 强调色
+
 # 高级配置（可选）
 advanced:
   # 浏览器配置
