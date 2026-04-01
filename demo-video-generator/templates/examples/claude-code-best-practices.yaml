@@ -1,0 +1,156 @@
+# Demo Video Generator - Claude Code 最佳实践演示配置
+
+project:
+  name: "Claude Code Best Practices"
+  url: "https://code.claude.com/docs/zh-CN/best-practices"
+  output_dir: "./output/claude-code"
+  output_name: "claude-code-best-practices"
+
+voice:
+  language: "zh-CN"
+  voice_name: "XiaoxiaoNeural"
+  speed: 1.0
+
+scenes:
+  - name: "intro"
+    type: "hook"
+    text: |
+      你有没有想过，让 AI 真正理解你的代码库？
+      Claude Code 是一个代理式编码环境，它可以读取文件、运行命令、自主解决问题。
+      不再是简单的问答，而是真正的协作编程。
+      让 AI 成为你的编程伙伴，而不是工具。
+    subtitle: "让 AI 真正理解你的代码库"
+    action:
+      type: "screenshot"
+    wait_after: 5
+
+  - name: "core-concept"
+    type: "feature"
+    text: |
+      Claude Code 与传统聊天机器人不同，它具有真正的自主性。
+      你只需描述想要什么，Claude 会探索、规划和实现。
+      它可以读取你的文件、运行命令、进行更改，在你观看或离开的情况下自主解决问题。
+      这改变了你的工作方式，让编程变得更高效。
+    subtitle: "Claude Code 具有真正的自主性"
+    action:
+      type: "scroll"
+      distance: 400
+    wait_after: 3
+
+  - name: "context-window"
+    type: "demo"
+    text: |
+      但这种自主性伴随着约束：Claude 的 context window 填充速度很快。
+      Context window 保存整个对话，包括每条消息、每个文件和每个命令输出。
+      当 context 填充时，LLM 性能会下降，Claude 可能会开始遗忘早期指令。
+      Context window 是最重要的资源，需要精心管理。
+    subtitle: "Context window 是最重要的资源"
+    action:
+      type: "scroll"
+      distance: 500
+    wait_after: 3
+
+  - name: "validation"
+    type: "feature"
+    text: |
+      当 Claude 能够验证自己的工作时，它的表现会显著提高。
+      提供明确的成功标准：运行测试、比较截图、验证输出。
+      没有明确的成功标准，它可能会产生看起来正确但实际上不起作用的东西。
+      投资使你的验证非常可靠，这是提高 Claude 表现的关键。
+    subtitle: "让 Claude 验证自己的工作"
+    action:
+      type: "scroll"
+      distance: 400
+    wait_after: 3
+
+  - name: "workflow"
+    type: "demo"
+    text: |
+      推荐的工作流有四个阶段：先探索，再规划，最后编码。
+      第一阶段：探索代码库，理解上下文。
+      第二阶段：制定计划，明确目标。
+      第三阶段：实现代码，验证结果。
+      第四阶段：迭代优化，持续改进。
+    subtitle: "先探索，再规划，最后编码"
+    action:
+      type: "scroll"
+      distance: 400
+    wait_after: 3
+
+  - name: "context-providing"
+    type: "feature"
+    text: |
+      Claude 可以推断意图，但它不能读心术。
+      引用特定文件、提及约束，并指出示例模式。
+      限定任务范围，指定哪个文件、什么场景和测试偏好。
+      提供丰富的内容，使用 @ 引用文件，直接粘贴图像，提供 URL 用于文档和 API 参考。
+    subtitle: "提供具体的上下文"
+    action:
+      type: "scroll"
+      distance: 400
+    wait_after: 3
+
+  - name: "claude-md"
+    type: "demo"
+    text: |
+      CLAUDE.md 是一个特殊文件，Claude 在每次对话开始时读取。
+      包括 Bash 命令、代码风格和工作流规则。
+      这能显著提高 Claude 在所有会话中的效率。
+      配置你的环境，让 Claude Code 更有效。
+    subtitle: "编写有效的 CLAUDE.md"
+    action:
+      type: "scroll"
+      distance: 300
+    wait_after: 3
+
+  - name: "cta"
+    type: "cta"
+    text: |
+      Claude Code - 让 AI 成为你的编程伙伴。
+      遵循最佳实践，提高开发效率。
+      现在就开始使用 Claude Code，体验 AI 辅助编程的魅力！
+    subtitle: "Claude Code - 让 AI 成为你的编程伙伴"
+    action:
+      type: "scroll"
+      distance: 0
+    wait_after: 5
+
+recording:
+  enabled: true
+  auto_scroll: true
+  scroll_distance: 400
+  wait_after_action: 2
+
+video:
+  format: "mp4"
+  quality: "high"
+  resolution: "1280x720"
+  fps: 30
+  codec: "libx264"
+
+audio:
+  codec: "aac"
+  bitrate: "128k"
+
+subtitle:
+  enabled: true
+  format: "srt"
+  font: "PingFang SC"
+  font_size: 24
+  color: "#FFFFFF"
+  outline_color: "#000000"
+  background_color: "#80000000"
+  outline: 2
+  shadow: 1
+
+advanced:
+  browser:
+    headless: false
+    timeout: 30000
+  validation:
+    check_sync: true
+    check_quality: true
+    max_file_size: 10
+  performance:
+    parallel_voice: true
+    skip_existing: true

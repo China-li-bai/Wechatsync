@@ -21,8 +21,41 @@ except ImportError:
     HAS_TQDM = False
     print("⚠️  提示: 安装 tqdm 可以显示进度条 (pip install tqdm)")
 
+try:
+    import imageio_ffmpeg
+    HAS_IMAGEIO_FFMPEG = True
+except ImportError:
+    HAS_IMAGEIO_FFMPEG = False
+
 from video_recorder import VideoRecorder
 from config_validator import ConfigValidator
+
+
+def get_ffmpeg_path():
+    """获取 ffmpeg 可执行文件路径"""
+    if HAS_IMAGEIO_FFMPEG:
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    
+    ffmpeg_path = shutil.which('ffmpeg')
+    if ffmpeg_path:
+        return ffmpeg_path
+    
+    raise RuntimeError("未找到 ffmpeg，请安装 ffmpeg 或 imageio-ffmpeg")
+
+
+def get_ffprobe_path():
+    """获取 ffprobe 可执行文件路径"""
+    if HAS_IMAGEIO_FFMPEG:
+        ffmpeg_dir = Path(imageio_ffmpeg.get_ffmpeg_exe()).parent
+        ffprobe_path = ffmpeg_dir / 'ffprobe.exe'
+        if ffprobe_path.exists():
+            return str(ffprobe_path)
+    
+    ffprobe_path = shutil.which('ffprobe')
+    if ffprobe_path:
+        return ffprobe_path
+    
+    return None
 
 
 class DemoVideoGeneratorError(Exception):
@@ -158,17 +191,41 @@ class VoiceoverGenerator:
     
     def _get_duration(self, audio_file: Path) -> float:
         """获取音频时长"""
-        cmd = [
-            'ffprobe',
-            '-v', 'error',
-            '-show_entries', 'format=duration',
-            '-of', 'default=noprint_wrappers=1:nokey=1',
-            str(audio_file)
-        ]
+        ffprobe_path = get_ffprobe_path()
+        
+        if ffprobe_path:
+            cmd = [
+                ffprobe_path,
+                '-v', 'error',
+                '-show_entries', 'format=duration',
+                '-of', 'default=noprint_wrappers=1:nokey=1',
+                str(audio_file)
+            ]
+        else:
+            ffmpeg_path = get_ffmpeg_path()
+            cmd = [
+                ffmpeg_path,
+                '-i', str(audio_file),
+                '-f', 'null',
+                '-'
+            ]
         
         try:
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-            return float(result.stdout.strip())
+            
+            if ffprobe_path:
+                return float(result.stdout.strip())
+            else:
+                import re
+                match = re.search(r'Duration: (\d{2}):(\d{2}):(\d{2})\.(\d{2})', result.stderr)
+                if match:
+                    hours = int(match.group(1))
+                    minutes = int(match.group(2))
+                    seconds = int(match.group(3))
+                    centiseconds = int(match.group(4))
+                    return hours * 3600 + minutes * 60 + seconds + centiseconds / 100
+                else:
+                    raise DemoVideoGeneratorError("无法解析音频时长")
         except subprocess.CalledProcessError as e:
             self.logger.error(f"获取音频时长失败: {e.stderr}")
             raise DemoVideoGeneratorError(f"获取音频时长失败: {e.stderr}")
@@ -224,8 +281,10 @@ class VideoComposer:
         """合成最终视频"""
         self.logger.info(f"合成视频: {output_file}")
         
+        ffmpeg_path = get_ffmpeg_path()
+        
         cmd = [
-            'ffmpeg',
+            ffmpeg_path,
             '-y',
             '-i', str(video_file),
             '-i', str(audio_file),
@@ -418,8 +477,11 @@ class DemoVideoGenerator:
                     f.write(f"file 'voice-{i:02d}.mp3'\n")
             
             audio_file = self.output_dir / "voiceover.aac"
+            
+            ffmpeg_path = get_ffmpeg_path()
+            
             cmd = [
-                'ffmpeg',
+                ffmpeg_path,
                 '-y',
                 '-f', 'concat',
                 '-safe', '0',
