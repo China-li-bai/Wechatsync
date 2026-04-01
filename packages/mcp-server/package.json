@@ -17,7 +17,10 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [
     "wechatsync",
@@ -41,7 +44,9 @@
     "@types/express": "^4.17.21",
     "@types/node": "^22.10.2",
     "@types/ws": "^8.5.13",
+    "@vitest/coverage-v8": "^2.1.8",
     "tsup": "^8.5.1",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   }
 }
