@@ -4,11 +4,11 @@
 PyYAML>=6.0              # YAML 配置文件解析
 
 # 可选依赖（用于高级功能）
-# colorama>=0.4.6        # 彩色终端输出
-# tqdm>=4.65.0           # 进度条
-# pillow>=9.0.0          # 图像处理
+tqdm>=4.65.0             # 进度条
+imageio-ffmpeg>=0.4.9    # FFmpeg 二进制文件（可选，避免系统级安装）
 
 # 系统依赖（需要单独安装）:
-# - ffmpeg: 视频处理
 # - edge-tts: 语音生成（pipx install edge-tts）
 # - agent-browser: 浏览器自动化（npm install -g agent-browser）
+# 
+# 注意：如果不安装 imageio-ffmpeg，需要系统级安装 ffmpeg

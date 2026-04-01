@@ -43,6 +43,8 @@ class ConfigValidator:
         self._validate_video(config.get('video', {}))
         self._validate_subtitle(config.get('subtitle', {}))
         self._validate_recording(config.get('recording', {}))
+        self._validate_audio(config.get('audio', {}))
+        self._validate_advanced(config.get('advanced', {}))
         
         if self.errors:
             self.logger.error(f"配置验证失败，发现 {len(self.errors)} 个错误:")
@@ -132,6 +134,15 @@ class ConfigValidator:
                 self.errors.append(f"场景 {i} 必须是字典")
                 continue
             
+            if 'name' in scene:
+                if not isinstance(scene['name'], str):
+                    self.errors.append(f"场景 {i} name 必须是字符串")
+            
+            if 'type' in scene:
+                valid_types = ['hook', 'feature', 'demo', 'cta']
+                if scene['type'] not in valid_types:
+                    self.warnings.append(f"场景 {i} type 可能不支持: {scene['type']}")
+            
             if 'text' not in scene:
                 self.errors.append(f"场景 {i} 缺少 text 字段")
             elif not isinstance(scene['text'], str):
@@ -144,6 +155,12 @@ class ConfigValidator:
             if 'subtitle' in scene:
                 if not isinstance(scene['subtitle'], str):
                     self.errors.append(f"场景 {i} subtitle 必须是字符串")
+            
+            if 'wait_after' in scene:
+                if not isinstance(scene['wait_after'], (int, float)):
+                    self.errors.append(f"场景 {i} wait_after 必须是数字")
+                elif scene['wait_after'] < 0:
+                    self.errors.append(f"场景 {i} wait_after 不能为负数")
             
             if 'action' in scene:
                 if not isinstance(scene['action'], dict):
@@ -231,6 +248,72 @@ class ConfigValidator:
                 self.errors.append("录制 scroll_distance 必须是整数")
             elif recording['scroll_distance'] < 0:
                 self.errors.append("录制 scroll_distance 不能为负数")
+    
+    def _validate_audio(self, audio: Dict[str, Any]):
+        """验证音频配置"""
+        if not audio:
+            return
+        
+        if 'codec' in audio:
+            valid_codecs = ['aac', 'mp3', 'opus']
+            if audio['codec'] not in valid_codecs:
+                self.warnings.append(f"音频 codec 可能不支持: {audio['codec']}")
+        
+        if 'bitrate' in audio:
+            if not isinstance(audio['bitrate'], str):
+                self.errors.append("音频 bitrate 必须是字符串")
+            elif not audio['bitrate'].endswith('k'):
+                self.warnings.append(f"音频 bitrate 建议以 'k' 结尾: {audio['bitrate']}")
+    
+    def _validate_advanced(self, advanced: Dict[str, Any]):
+        """验证高级配置"""
+        if not advanced:
+            return
+        
+        if 'browser' in advanced:
+            browser = advanced['browser']
+            if not isinstance(browser, dict):
+                self.errors.append("advanced browser 必须是字典")
+            else:
+                if 'headless' in browser:
+                    if not isinstance(browser['headless'], bool):
+                        self.errors.append("browser headless 必须是布尔值")
+                
+                if 'timeout' in browser:
+                    if not isinstance(browser['timeout'], int):
+                        self.errors.append("browser timeout 必须是整数")
+                    elif browser['timeout'] < 0:
+                        self.errors.append("browser timeout 不能为负数")
+        
+        if 'validation' in advanced:
+            validation = advanced['validation']
+            if not isinstance(validation, dict):
+                self.errors.append("advanced validation 必须是字典")
+            else:
+                if 'check_sync' in validation:
+                    if not isinstance(validation['check_sync'], bool):
+                        self.errors.append("validation check_sync 必须是布尔值")
+                
+                if 'check_quality' in validation:
+                    if not isinstance(validation['check_quality'], bool):
+                        self.errors.append("validation check_quality 必须是布尔值")
+                
+                if 'max_file_size' in validation:
+                    if not isinstance(validation['max_file_size'], (int, float)):
+                        self.errors.append("validation max_file_size 必须是数字")
+        
+        if 'performance' in advanced:
+            performance = advanced['performance']
+            if not isinstance(performance, dict):
+                self.errors.append("advanced performance 必须是字典")
+            else:
+                if 'parallel_voice' in performance:
+                    if not isinstance(performance['parallel_voice'], bool):
+                        self.errors.append("performance parallel_voice 必须是布尔值")
+                
+                if 'skip_existing' in performance:
+                    if not isinstance(performance['skip_existing'], bool):
+                        self.errors.append("performance skip_existing 必须是布尔值")
     
     def _is_valid_url(self, url: str) -> bool:
         """验证 URL 格式"""
