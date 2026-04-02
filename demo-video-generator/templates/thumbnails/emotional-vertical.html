@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: {{ width | default(1080) }}px;
+        height: {{ height | default(1920) }}px;
+        background: {{ background | default('linear-gradient(180deg, #667eea 0%, #764ba2 100%)') }};
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding: 90px 80px;
+      }
+
+      .container-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 10;
+      }
+
+      {% if badge %}
+      .badge-emotion-mobile {
+        position: absolute;
+        top: 70px;
+        left: 70px;
+        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+        color: #000000;
+        padding: 30px 60px;
+        border-radius: 40px;
+        font-size: 52px;
+        font-weight: 900;
+        box-shadow:
+          0 15px 40px rgba(255, 215, 0, 0.6),
+          0 0 80px rgba(255, 215, 0, 0.4),
+          inset 0 -5px 0 rgba(0, 0, 0, 0.2);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        z-index: 20;
+        animation: emotion-badge-heartbeat-mobile 1.5s ease-in-out infinite;
+      }
+
+      @keyframes emotion-badge-heartbeat-mobile {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        14% {
+          transform: scale(1.08);
+        }
+        28% {
+          transform: scale(1);
+        }
+        42% {
+          transform: scale(1.08);
+        }
+        70% {
+          transform: scale(1);
+        }
+      }
+      {% endif %}
+
+      .emotion-face-container-mobile {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 60px;
+      }
+
+      .emotion-circle-mobile {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        box-shadow:
+          0 35px 80px rgba(0, 0, 0, 0.4),
+          inset 0 0 80px rgba(255, 255, 255, 0.1);
+        animation: emotion-breathe-mobile 4s ease-in-out infinite;
+      }
+
+      @keyframes emotion-breathe-mobile {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.08);
+          opacity: 1;
+        }
+      }
+
+      .emoji-emotion-mobile {
+        font-size: 380px;
+        line-height: 1;
+        filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
+        animation: emotion-express-mobile 3s ease-in-out infinite;
+        position: relative;
+        z-index: 2;
+      }
+
+      @keyframes emotion-express-mobile {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
+        33% {
+          transform: scale(1.1) rotate(-5deg);
+        }
+        66% {
+          transform: scale(1.05) rotate(5deg);
+        }
+      }
+
+      .tear-drops-mobile {
+        position: absolute;
+        top: 120px;
+        right: 90px;
+        font-size: 55px;
+        animation: tear-fall-mobile 2s ease-in-out infinite;
+        opacity: 0.85;
+      }
+
+      @keyframes tear-fall-mobile {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.5);
+        }
+        30% {
+          opacity: 1;
+          transform: translateY(30px) scale(1);
+        }
+        70% {
+          opacity: 0.85;
+          transform: translateY(90px) scale(0.85);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(140px) scale(0.3);
+        }
+      }
+
+      .title-emotional-mobile {
+        font-size: {{ (font_size | default(72)) * 1.4 }}px;
+        font-weight: 900;
+        color: #ffffff;
+        line-height: 1.25;
+        max-width: 92%;
+        word-wrap: break-word;
+        margin-bottom: 45px;
+        text-shadow:
+          6px 6px 18px rgba(0, 0, 0, 0.6),
+          0 0 70px rgba(255, 255, 255, 0.25);
+        letter-spacing: 4px;
+        text-align: center;
+      }
+
+      {% if subtitle %}
+      .story-box-mobile {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        padding: 35px 50px;
+        border-radius: 20px;
+        border-left: 8px solid {{ accent_color | default('#FFD700') }};
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+        max-width: 90%;
+        position: relative;
+      }
+
+      .story-box-mobile::before {
+        content: '"';
+        position: absolute;
+        top: -25px;
+        left: 25px;
+        font-size: 80px;
+        color: {{ accent_color | default('#FFD700') }};
+        opacity: 0.4;
+        font-family: Georgia, serif;
+        line-height: 1;
+      }
+
+      .subtitle-story-mobile {
+        font-size: {{ ((font_size | default(72)) // 2 + 3) * 1.3 }}px;
+        font-weight: 600;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.95);
+        line-height: 1.5;
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        text-align: center;
+      }
+      {% endif %}
+
+      .heart-particles-mobile {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      .heart-mobile {
+        position: absolute;
+        font-size: 50px;
+        animation: heart-float-mobile 4s ease-in-out infinite;
+        opacity: 0;
+      }
+
+      .heart-mobile:nth-child(1) {
+        bottom: 25%;
+        left: 15%;
+        animation-delay: 0s;
+      }
+      .heart-mobile:nth-child(2) {
+        bottom: 40%;
+        left: 10%;
+        animation-delay: 1.2s;
+      }
+      .heart-mobile:nth-child(3) {
+        top: 30%;
+        left: 15%;
+        animation-delay: 2.4s;
+      }
+      .heart-mobile:nth-child(4) {
+        bottom: 35%;
+        left: 25%;
+        animation-delay: 3.6s;
+      }
+
+      @keyframes heart-float-mobile {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0) rotate(0deg);
+        }
+        20% {
+          opacity: 0.95;
+          transform: translateY(-40px) scale(1) rotate(-15deg);
+        }
+        80% {
+          opacity: 0.75;
+          transform: translateY(-180px) scale(0.9) rotate(15deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-240px) scale(0) rotate(0deg);
+        }
+      }
+
+      .sparkles-magic-mobile {
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        background: #ffffff;
+        clip-path: polygon(
+          50% 0%,
+          61% 35%,
+          98% 35%,
+          68% 57%,
+          79% 91%,
+          50% 70%,
+          21% 91%,
+          32% 57%,
+          2% 35%,
+          39% 35%
+        );
+        animation: sparkle-magic-mobile 2s ease-in-out infinite;
+        z-index: 8;
+      }
+
+      .sparkles-magic-mobile:nth-child(1) {
+        top: 20%;
+        right: 25%;
+        animation-delay: 0s;
+      }
+      .sparkles-magic-mobile:nth-child(2) {
+        top: 38%;
+        left: 22%;
+        animation-delay: 0.7s;
+      }
+      .sparkles-magic-mobile:nth-child(3) {
+        bottom: 28%;
+        right: 30%;
+        animation-delay: 1.4s;
+      }
+      .sparkles-magic-mobile:nth-child(4) {
+        bottom: 40%;
+        left: 28%;
+        animation-delay: 0.3s;
+        width: 32px;
+        height: 32px;
+      }
+
+      @keyframes sparkle-magic-mobile {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.15) rotate(180deg);
+        }
+      }
+
+      .glow-orb-mobile {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.25) 0%, transparent 70%);
+        top: 50%;
+        right: -120px;
+        transform: translateY(-50%);
+        z-index: 1;
+        animation: orb-glow-mobile 3s ease-in-out infinite;
+      }
+
+      @keyframes orb-glow-mobile {
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: translateY(-50%) scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-50%) scale(1.15);
+        }
+      }
+
+      .emotional-tagline-mobile {
+        position: absolute;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 38px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.88);
+        text-transform: uppercase;
+        letter-spacing: 10px;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        z-index: 10;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="glow-orb-mobile"></div>
+
+    <div class="heart-particles-mobile">
+      <div class="heart-mobile">❤️</div>
+      <div class="heart-mobile">💖</div>
+      <div class="heart-mobile">💕</div>
+      <div class="heart-mobile">❤️‍🩹</div>
+    </div>
+
+    <div class="sparkles-magic-mobile"></div>
+    <div class="sparkles-magic-mobile"></div>
+    <div class="sparkles-magic-mobile"></div>
+    <div class="sparkles-magic-mobile"></div>
+
+    {% if badge %}
+    <div class="badge-emotion-mobile">{{ badge }}</div>
+    {% endif %}
+
+    <div class="container-mobile">
+      <div class="emotion-face-container-mobile">
+        <div class="emotion-circle-mobile"></div>
+        <div class="emoji-emotion-mobile">{{ emoji | default('😢') }}</div>
+        <div class="tear-drops-mobile">💧</div>
+      </div>
+
+      <div class="title-emotional-mobile">{{ title }}</div>
+
+      {% if subtitle %}
+      <div class="story-box-mobile">
+        <div class="subtitle-story-mobile">{{ subtitle }}</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="emotional-tagline-mobile">{{ tagline | default('EMOTIONAL STORY') }}</div>
+  </body>
+</html>

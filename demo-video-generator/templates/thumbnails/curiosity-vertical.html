@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: {{ width | default(1080) }}px;
+        height: {{ height | default(1920) }}px;
+        background: {{ background | default('linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)') }};
+        font-family: 'Georgia', 'Times New Roman', serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding: 80px 70px;
+      }
+
+      .mystery-overlay-mobile {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+        z-index: 1;
+      }
+
+      .container-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 10;
+      }
+
+      {% if badge %}
+      .badge-secret-mobile {
+        position: absolute;
+        top: 60px;
+        right: 60px;
+        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+        color: #000000;
+        padding: 25px 55px;
+        border-radius: 12px;
+        font-size: 42px;
+        font-weight: 900;
+        box-shadow:
+          0 12px 35px rgba(255, 215, 0, 0.5),
+          inset 0 -4px 0 rgba(0, 0, 0, 0.2);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        z-index: 20;
+        animation: secret-float-mobile 4s ease-in-out infinite;
+      }
+
+      @keyframes secret-float-mobile {
+        0%,
+        100% {
+          transform: translateY(0) rotate(2deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(-2deg);
+        }
+      }
+      {% endif %}
+
+      .question-mark-giant-mobile {
+        font-size: 280px;
+        color: {{ accent_color | default('#FFD700') }};
+        text-shadow:
+          0 0 80px rgba(255, 215, 0, 0.6),
+          0 0 160px rgba(255, 215, 0, 0.3);
+        animation: glow-pulse-mobile 3s ease-in-out infinite;
+        line-height: 1;
+        opacity: 0.9;
+        margin-bottom: 50px;
+      }
+
+      @keyframes glow-pulse-mobile {
+        0%,
+        100% {
+          opacity: 0.7;
+          transform: scale(1);
+          text-shadow:
+            0 0 80px rgba(255, 215, 0, 0.6),
+            0 0 160px rgba(255, 215, 0, 0.3);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.05);
+          text-shadow:
+            0 0 100px rgba(255, 215, 0, 0.8),
+            0 0 200px rgba(255, 215, 0, 0.5);
+        }
+      }
+
+      .title-main-mobile {
+        font-size: {{ (font_size | default(72)) * 1.35 }}px;
+        font-weight: 900;
+        color: #ffffff;
+        line-height: 1.2;
+        max-width: 92%;
+        word-wrap: break-word;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        text-shadow:
+          5px 5px 15px rgba(0, 0, 0, 0.9),
+          0 0 50px rgba(255, 215, 0, 0.3);
+        position: relative;
+      }
+
+      .title-main-mobile::before,
+      .title-main-mobile::after {
+        content: '"';
+        font-size: 1.2em;
+        color: {{ accent_color | default('#FFD700') }};
+        text-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+      }
+
+      {% if subtitle %}
+      .subtitle-mystery-mobile {
+        font-size: {{ ((font_size | default(72)) // 2 + 3) * 1.25 }}px;
+        font-weight: 400;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.88);
+        line-height: 1.45;
+        max-width: 88%;
+        padding: 30px 45px;
+        border-left: 6px solid {{ accent_color | default('#FFD700') }};
+        background: rgba(255, 215, 0, 0.08);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        margin-top: 20px;
+      }
+      {% endif %}
+
+      .dots-suspense-mobile {
+        display: flex;
+        gap: 22px;
+        margin-top: 50px;
+      }
+
+      .dot-mobile {
+        width: 26px;
+        height: 26px;
+        background: {{ accent_color | default('#FFD700') }};
+        border-radius: 50%;
+        animation: dot-bounce-mobile 1.5s ease-in-out infinite;
+        box-shadow: 0 0 28px rgba(255, 215, 0, 0.7);
+      }
+
+      .dot-mobile:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .dot-mobile:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .dot-mobile:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes dot-bounce-mobile {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: translateY(0) scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-20px) scale(1.2);
+        }
+      }
+
+      .fog-effect-mobile {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 2;
+        overflow: hidden;
+      }
+
+      .fog-layer-mobile {
+        position: absolute;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.03) 20%,
+          rgba(255, 255, 255, 0.06) 50%,
+          rgba(255, 255, 255, 0.03) 80%,
+          transparent 100%
+        );
+        animation: fog-drift-mobile 20s linear infinite;
+      }
+
+      .fog-layer-mobile:nth-child(2) {
+        animation-delay: -10s;
+        opacity: 0.6;
+      }
+
+      @keyframes fog-drift-mobile {
+        0% {
+          transform: translateX(-50%);
+        }
+        100% {
+          transform: translateX(0%);
+        }
+      }
+
+      .corner-decoration-mobile {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 4px solid {{ accent_color | default('#FFD700') }};
+        opacity: 0.3;
+        z-index: 3;
+      }
+
+      .corner-tl-mobile {
+        top: 40px;
+        left: 40px;
+        border-right: none;
+        border-bottom: none;
+      }
+
+      .corner-br-mobile {
+        bottom: 40px;
+        right: 40px;
+        border-left: none;
+        border-top: none;
+      }
+
+      .eye-icon-mobile {
+        position: absolute;
+        bottom: 70px;
+        left: 65px;
+        font-size: 75px;
+        animation: eye-watch-mobile 4s ease-in-out infinite;
+        z-index: 5;
+        filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+      }
+
+      @keyframes eye-watch-mobile {
+        0%,
+        90%,
+        100% {
+          transform: scaleX(1);
+        }
+        95% {
+          transform: scaleX(0.1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="fog-effect-mobile">
+      <div class="fog-layer-mobile"></div>
+      <div class="fog-layer-mobile"></div>
+    </div>
+
+    <div class="mystery-overlay-mobile"></div>
+
+    <div class="corner-decoration-mobile corner-tl-mobile"></div>
+    <div class="corner-decoration-mobile corner-br-mobile"></div>
+
+    {% if badge %}
+    <div class="badge-secret-mobile">{{ badge }}</div>
+    {% endif %}
+
+    <div class="container-mobile">
+      <div class="question-mark-giant-mobile">?</div>
+
+      <div class="title-main-mobile">{{ title }}</div>
+
+      {% if subtitle %}
+      <div class="subtitle-mystery-mobile">{{ subtitle }}</div>
+      {% endif %}
+
+      <div class="dots-suspense-mobile">
+        <div class="dot-mobile"></div>
+        <div class="dot-mobile"></div>
+        <div class="dot-mobile"></div>
+      </div>
+    </div>
+
+    <div class="eye-icon-mobile">👁️</div>
+  </body>
+</html>
