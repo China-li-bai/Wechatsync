@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -15,7 +15,7 @@
         width: {{ width | default(1080) }}px;
         height: {{ height | default(1920) }}px;
         background: {{ background | default('linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)') }};
-        font-family: 'Georgia', 'Times New Roman', serif;
+        font-family: 'Georgia', 'Times New Roman', 'Noto Serif SC', 'SimSun', serif;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -109,7 +109,7 @@
       }
 
       .title-main-mobile {
-        font-size: {{ (font_size | default(72)) * 1.35 }}px;
+        font-size: {{ (font_size | default(72)) * 1.2 }}px;
         font-weight: 900;
         color: #ffffff;
         line-height: 1.2;

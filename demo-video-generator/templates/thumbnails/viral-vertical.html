@@ -15,7 +15,7 @@
         width: {{ width | default(1080) }}px;
         height: {{ height | default(1920) }}px;
         background: {{ background | default('linear-gradient(180deg, #FF0844 0%, #FFB199 100%)') }};
-        font-family: 'Impact', 'Arial Black', sans-serif;
+        font-family: 'Impact', 'Arial Black', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -101,7 +101,7 @@
       }
 
       .title-mobile {
-        font-size: {{ (font_size | default(75)) * 1.4 }}px;
+        font-size: {{ (font_size | default(75)) * 1.2 }}px;
         font-weight: 900;
         color: #ffffff;
         line-height: 1.25;

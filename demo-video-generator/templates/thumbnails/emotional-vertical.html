@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -15,7 +15,7 @@
         width: {{ width | default(1080) }}px;
         height: {{ height | default(1920) }}px;
         background: {{ background | default('linear-gradient(180deg, #667eea 0%, #764ba2 100%)') }};
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -164,7 +164,7 @@
       }
 
       .title-emotional-mobile {
-        font-size: {{ (font_size | default(72)) * 1.4 }}px;
+        font-size: {{ (font_size | default(72)) * 1.2 }}px;
         font-weight: 900;
         color: #ffffff;
         line-height: 1.25;
@@ -402,6 +402,8 @@
       {% endif %}
     </div>
 
-    <div class="emotional-tagline-mobile">{{ tagline | default('EMOTIONAL STORY') }}</div>
+    <div class="emotional-tagline-mobile">
+      {{ tagline | default('EMOTIONAL STORY') }}
+    </div>
   </body>
 </html>

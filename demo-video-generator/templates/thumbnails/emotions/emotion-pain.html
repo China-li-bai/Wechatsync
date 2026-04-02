@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表情 - 痛苦 😣</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        
+        .face-pain {
+            width: 400px;
+            height: 400px;
+            background: #FF6347;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: pain-bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes pain-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+
+        .face-pain .eyebrow {
+            position: absolute;
+            width: 80px;
+            height: 12px;
+            background: #000;
+            border-radius: 6px;
+            top: 100px;
+        }
+
+        .face-pain .eyebrow.left {
+            left: 80px;
+            transform: rotate(35deg);
+        }
+
+        .face-pain .eyebrow.right {
+            right: 80px;
+            transform: rotate(-35deg);
+        }
+        
+
+        .face-pain .eye {
+            position: absolute;
+            width: 60px;
+            height: 70px;
+            background: #FFF;
+            border: 5px solid #000;
+            top: 140px;
+            border-radius: 50%; width: 70px; height: 80px;
+        }
+
+        .face-pain .eye.left { left: 90px; }
+        .face-pain .eye.right { right: 90px; }
+        
+
+        .face-pain .mouth {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px; height: 60px; border-radius: 0 0 60px 60px; background: #000;
+        }
+        
+
+        .face-pain .vein {
+            position: absolute;
+            width: 40px;
+            height: 8px;
+            background: rgba(139, 0, 0, 0.5);
+            border-radius: 4px;
+            top: 60px;
+        }
+
+        .face-pain .vein.left { left: 50px; transform: rotate(-30deg); }
+        .face-pain .vein.right { right: 50px; transform: rotate(30deg); }
+        
+
+        .emotion-label {
+            margin-top: 60px;
+            font-size: 72px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        .emotion-emoji {
+            font-size: 120px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emotion-emoji">😣</div>
+        <div class="face-pain">
+        <div class="eyebrow left"></div>
+        <div class="eyebrow right"></div>
+        <div class="vein left"></div>
+        <div class="vein right"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="mouth"></div>
+    </div>
+        <div class="emotion-label">痛苦 - pain</div>
+    </div>
+</body>
+</html>

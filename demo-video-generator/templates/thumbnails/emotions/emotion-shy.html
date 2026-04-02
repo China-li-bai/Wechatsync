@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表情 - 害羞 😳</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        
+        .face-shy {
+            width: 400px;
+            height: 400px;
+            background: #FFB6C1;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: shy-bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes shy-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+
+        .face-shy .eyebrow {
+            position: absolute;
+            width: 80px;
+            height: 12px;
+            background: #000;
+            border-radius: 6px;
+            top: 100px;
+        }
+
+        .face-shy .eyebrow.left {
+            left: 80px;
+            transform: rotate(5deg);
+        }
+
+        .face-shy .eyebrow.right {
+            right: 80px;
+            transform: rotate(-5deg);
+        }
+        
+
+        .face-shy .eye {
+            position: absolute;
+            width: 60px;
+            height: 70px;
+            background: #FFF;
+            border: 5px solid #000;
+            top: 140px;
+            border-radius: 50%; width: 70px; height: 80px;
+        }
+
+        .face-shy .eye.left { left: 90px; }
+        .face-shy .eye.right { right: 90px; }
+        
+
+        .face-shy .mouth {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px; height: 60px; border-radius: 0 0 60px 60px; background: #000;
+        }
+        
+
+        .face-shy .blush {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background: rgba(255, 182, 193, 0.6);
+            border-radius: 50%;
+            top: 200px;
+        }
+
+        .face-shy .blush.left { left: 60px; }
+        .face-shy .blush.right { right: 60px; }
+        
+
+        .emotion-label {
+            margin-top: 60px;
+            font-size: 72px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        .emotion-emoji {
+            font-size: 120px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emotion-emoji">😳</div>
+        <div class="face-shy">
+        <div class="eyebrow left"></div>
+        <div class="eyebrow right"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="blush left"></div>
+        <div class="blush right"></div>
+        <div class="mouth"></div>
+    </div>
+        <div class="emotion-label">害羞 - shy</div>
+    </div>
+</body>
+</html>

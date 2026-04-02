@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS夸张表情组件库</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(135deg, #FF0000 0%, #FF4444 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        /* ============================================
+           夸张表情组件库 - CSS Expressive Faces
+           ============================================ */
+
+        /* 基础表情容器 */
+        .face-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 50px;
+        }
+
+        /* ============================================
+           1. 震惊表情 (Shocked Face) - MrBeast风格
+           ============================================ */
+        .face-shocked {
+            width: 100%;
+            height: 100%;
+            background: #FFD700;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.3),
+                inset 0 -20px 40px rgba(0,0,0,0.1);
+            animation: shocked-bounce 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes shocked-bounce {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* 眼睛 - 夸张的圆形 */
+        .face-shocked .eye {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            background: #FFF;
+            border-radius: 50%;
+            top: 100px;
+            border: 8px solid #000;
+            animation: eye-pop 0.3s ease-in-out infinite alternate;
+        }
+
+        .face-shocked .eye.left { left: 80px; }
+        .face-shocked .eye.right { right: 80px; }
+
+        @keyframes eye-pop {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(1.2); }
+        }
+
+        /* 瞳孔 */
+        .face-shocked .pupil {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: #000;
+            border-radius: 50%;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 高光 */
+        .face-shocked .highlight {
+            position: absolute;
+            width: 12px;
+            height: 15px;
+            background: #FFF;
+            border-radius: 50%;
+            top: 35px;
+            left: 55%;
+        }
+
+        /* 嘴巴 - 夸张的O型 */
+        .face-shocked .mouth {
+            position: absolute;
+            width: 100px;
+            height: 120px;
+            background: #000;
+            border-radius: 50%;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: mouth-open 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes mouth-open {
+            0% { height: 100px; }
+            100% { height: 140px; }
+        }
+
+        /* 舌头 */
+        .face-shocked .tongue {
+            position: absolute;
+            width: 60px;
+            height: 50px;
+            background: #FF6B6B;
+            border-radius: 50%;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 眉毛 - 高挑 */
+        .face-shocked .eyebrow {
+            position: absolute;
+            width: 70px;
+            height: 15px;
+            background: #000;
+            border-radius: 10px;
+            top: 60px;
+            animation: eyebrow-raise 0.5s ease-in-out infinite alternate;
+        }
+
+        .face-shocked .eyebrow.left { 
+            left: 85px; 
+            transform: rotate(-15deg);
+        }
+        .face-shocked .eyebrow.right { 
+            right: 85px; 
+            transform: rotate(15deg);
+        }
+
+        @keyframes eyebrow-raise {
+            0% { top: 60px; }
+            100% { top: 40px; }
+        }
+
+        /* 汗珠 */
+        .face-shocked .sweat {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: #87CEEB;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 60px;
+            right: 40px;
+            animation: sweat-drop 1s ease-in-out infinite;
+        }
+
+        @keyframes sweat-drop {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(30px) scale(0.8); opacity: 0; }
+        }
+
+        /* ============================================
+           2. 兴奋表情 (Excited Face)
+           ============================================ */
+        .face-excited {
+            width: 100%;
+            height: 100%;
+            background: #FFA500;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.3),
+                inset 0 -20px 40px rgba(0,0,0,0.1);
+            animation: excited-shake 0.3s ease-in-out infinite;
+        }
+
+        @keyframes excited-shake {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .face-excited .eye {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: #FFF;
+            border-radius: 50%;
+            top: 110px;
+            border: 6px solid #000;
+        }
+
+        .face-excited .eye.left { left: 90px; }
+        .face-excited .eye.right { right: 90px; }
+
+        .face-excited .pupil {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: #000;
+            border-radius: 50%;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pupil-dilate 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pupil-dilate {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.3); }
+        }
+
+        .face-excited .mouth {
+            position: absolute;
+            width: 150px;
+            height: 80px;
+            background: #000;
+            border-radius: 0 0 150px 150px;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: mouth-smile 0.3s ease-in-out infinite alternate;
+            overflow: hidden;
+        }
+
+        @keyframes mouth-smile {
+            0% { height: 70px; border-radius: 0 0 150px 150px; }
+            100% { height: 100px; border-radius: 0 0 150px 150px; }
+        }
+
+        .face-excited .teeth {
+            position: absolute;
+            width: 120px;
+            height: 30px;
+            background: #FFF;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* 兴奋的红晕 */
+        .face-excited .blush {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background: rgba(255, 100, 100, 0.4);
+            border-radius: 50%;
+            top: 180px;
+        }
+
+        .face-excited .blush.left { left: 50px; }
+        .face-excited .blush.right { right: 50px; }
+
+        /* ============================================
+           3. 愤怒表情 (Angry Face)
+           ============================================ */
+        .face-angry {
+            width: 100%;
+            height: 100%;
+            background: #FF4444;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.3),
+                inset 0 -20px 40px rgba(0,0,0,0.1),
+                0 0 60px rgba(255, 0, 0, 0.5);
+            animation: angry-pulse 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes angry-pulse {
+            0% { box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 -20px 40px rgba(0,0,0,0.1), 0 0 60px rgba(255, 0, 0, 0.5); }
+            100% { box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 -20px 40px rgba(0,0,0,0.1), 0 0 100px rgba(255, 0, 0, 0.8); }
+        }
+
+        .face-angry .eyebrow {
+            position: absolute;
+            width: 80px;
+            height: 20px;
+            background: #000;
+            border-radius: 10px;
+            top: 80px;
+        }
+
+        .face-angry .eyebrow.left { 
+            left: 70px; 
+            transform: rotate(30deg);
+            animation: eyebrow-furrow-left 0.3s ease-in-out infinite alternate;
+        }
+        .face-angry .eyebrow.right { 
+            right: 70px; 
+            transform: rotate(-30deg);
+            animation: eyebrow-furrow-right 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes eyebrow-furrow-left {
+            0% { transform: rotate(30deg); }
+            100% { transform: rotate(40deg); }
+        }
+
+        @keyframes eyebrow-furrow-right {
+            0% { transform: rotate(-30deg); }
+            100% { transform: rotate(-40deg); }
+        }
+
+        .face-angry .eye {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background: #FFF;
+            border-radius: 50%;
+            top: 130px;
+            border: 5px solid #000;
+            overflow: hidden;
+        }
+
+        .face-angry .eye.left { left: 100px; }
+        .face-angry .eye.right { right: 100px; }
+
+        .face-angry .pupil {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+            top: 7px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .face-angry .mouth {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background: #000;
+            border-radius: 50% 50% 0 0;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: mouth-grimace 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes mouth-grimace {
+            0% { height: 40px; }
+            100% { height: 50px; }
+        }
+
+        /* 青筋 */
+        .face-angry .vein {
+            position: absolute;
+            width: 40px;
+            height: 8px;
+            background: rgba(139, 0, 0, 0.6);
+            border-radius: 4px;
+            top: 60px;
+        }
+
+        .face-angry .vein.left { left: 40px; transform: rotate(-20deg); }
+        .face-angry .vein.right { right: 40px; transform: rotate(20deg); }
+
+        /* ============================================
+           4. 哭泣表情 (Crying Face)
+           ============================================ */
+        .face-crying {
+            width: 100%;
+            height: 100%;
+            background: #87CEEB;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.3),
+                inset 0 -20px 40px rgba(0,0,0,0.1);
+            animation: crying-shake 0.5s ease-in-out infinite;
+        }
+
+        @keyframes crying-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        .face-crying .eye {
+            position: absolute;
+            width: 70px;
+            height: 50px;
+            background: #FFF;
+            border-radius: 50%;
+            top: 120px;
+            border: 5px solid #000;
+            overflow: hidden;
+        }
+
+        .face-crying .eye.left { left: 90px; }
+        .face-crying .eye.right { right: 90px; }
+
+        .face-crying .pupil {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 眼泪 */
+        .face-crying .tear {
+            position: absolute;
+            width: 25px;
+            height: 35px;
+            background: linear-gradient(to bottom, #87CEEB, #4169E1);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 160px;
+            animation: tear-fall 1s ease-in-out infinite;
+        }
+
+        .face-crying .tear.left { left: 100px; animation-delay: 0s; }
+        .face-crying .tear.right { right: 100px; animation-delay: 0.5s; }
+
+        @keyframes tear-fall {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(100px) scale(0.8); opacity: 0; }
+        }
+
+        .face-crying .mouth {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background: #000;
+            border-radius: 50% 50% 0 0;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+        }
+
+        /* ============================================
+           5. 像素风格表情 (Pixel Art Face)
+           ============================================ */
+        .face-pixel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            image-rendering: pixelated;
+            animation: pixel-bounce 0.4s steps(2) infinite;
+        }
+
+        @keyframes pixel-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 像素块构建脸部 */
+        .pixel-block {
+            position: absolute;
+            box-shadow: 
+                /* 脸部轮廓 - 16x16像素 */
+                120px 80px 0 #FFD700,
+                140px 80px 0 #FFD700,
+                160px 80px 0 #FFD700,
+                180px 80px 0 #FFD700,
+                200px 80px 0 #FFD700,
+                220px 80px 0 #FFD700,
+                240px 80px 0 #FFD700,
+                260px 80px 0 #FFD700,
+                
+                100px 100px 0 #FFD700,
+                280px 100px 0 #FFD700,
+                
+                80px 120px 0 #FFD700,
+                300px 120px 0 #FFD700,
+                
+                80px 140px 0 #FFD700,
+                300px 140px 0 #FFD700,
+                
+                80px 160px 0 #FFD700,
+                300px 160px 0 #FFD700,
+                
+                80px 180px 0 #FFD700,
+                300px 180px 0 #FFD700,
+                
+                80px 200px 0 #FFD700,
+                300px 200px 0 #FFD700,
+                
+                80px 220px 0 #FFD700,
+                300px 220px 0 #FFD700,
+                
+                80px 240px 0 #FFD700,
+                300px 240px 0 #FFD700,
+                
+                100px 260px 0 #FFD700,
+                280px 260px 0 #FFD700,
+                
+                120px 280px 0 #FFD700,
+                140px 280px 0 #FFD700,
+                160px 280px 0 #FFD700,
+                180px 280px 0 #FFD700,
+                200px 280px 0 #FFD700,
+                220px 280px 0 #FFD700,
+                240px 280px 0 #FFD700,
+                260px 280px 0 #FFD700,
+                
+                /* 眼睛 */
+                130px 140px 0 #000,
+                150px 140px 0 #000,
+                230px 140px 0 #000,
+                250px 140px 0 #000,
+                
+                /* 嘴巴 */
+                160px 200px 0 #000,
+                180px 200px 0 #000,
+                200px 200px 0 #000,
+                220px 200px 0 #000,
+                180px 220px 0 #000,
+                200px 220px 0 #000;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 像素风格动画 */
+        .pixel-animated {
+            animation: pixel-talk 0.3s steps(2) infinite;
+        }
+
+        @keyframes pixel-talk {
+            0%, 100% { 
+                box-shadow: 
+                    120px 80px 0 #FFD700, 140px 80px 0 #FFD700,
+                    130px 140px 0 #000, 150px 140px 0 #000,
+                    160px 200px 0 #000, 180px 200px 0 #000;
+            }
+            50% { 
+                box-shadow: 
+                    120px 80px 0 #FFA500, 140px 80px 0 #FFA500,
+                    130px 140px 0 #000, 150px 140px 0 #000,
+                    160px 210px 0 #000, 180px 210px 0 #000;
+            }
+        }
+
+        /* 展示容器 */
+        .showcase {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .face-label {
+            text-align: center;
+            color: #FFF;
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="showcase">
+        <!-- 震惊表情 -->
+        <div class="face-wrapper">
+            <div class="face-container">
+                <div class="face-shocked">
+                    <div class="eyebrow left"></div>
+                    <div class="eyebrow right"></div>
+                    <div class="eye left">
+                        <div class="pupil"></div>
+                        <div class="highlight"></div>
+                    </div>
+                    <div class="eye right">
+                        <div class="pupil"></div>
+                        <div class="highlight"></div>
+                    </div>
+                    <div class="mouth">
+                        <div class="tongue"></div>
+                    </div>
+                    <div class="sweat"></div>
+                </div>
+            </div>
+            <div class="face-label">震惊 😱</div>
+        </div>
+
+        <!-- 兴奋表情 -->
+        <div class="face-wrapper">
+            <div class="face-container">
+                <div class="face-excited">
+                    <div class="eye left">
+                        <div class="pupil"></div>
+                    </div>
+                    <div class="eye right">
+                        <div class="pupil"></div>
+                    </div>
+                    <div class="mouth">
+                        <div class="teeth"></div>
+                    </div>
+                    <div class="blush left"></div>
+                    <div class="blush right"></div>
+                </div>
+            </div>
+            <div class="face-label">兴奋 🤩</div>
+        </div>
+
+        <!-- 愤怒表情 -->
+        <div class="face-wrapper">
+            <div class="face-container">
+                <div class="face-angry">
+                    <div class="vein left"></div>
+                    <div class="vein right"></div>
+                    <div class="eyebrow left"></div>
+                    <div class="eyebrow right"></div>
+                    <div class="eye left">
+                        <div class="pupil"></div>
+                    </div>
+                    <div class="eye right">
+                        <div class="pupil"></div>
+                    </div>
+                    <div class="mouth"></div>
+                </div>
+            </div>
+            <div class="face-label">愤怒 😡</div>
+        </div>
+
+        <!-- 哭泣表情 -->
+        <div class="face-wrapper">
+            <div class="face-container">
+                <div class="face-crying">
+                    <div class="eye left">
+                        <div class="pupil"></div>
+                    </div>
+                    <div class="eye right">
+                        <div class="pupil"></div>
+                    </div>
+                    <div class="tear left"></div>
+                    <div class="tear right"></div>
+                    <div class="mouth"></div>
+                </div>
+            </div>
+            <div class="face-label">哭泣 😭</div>
+        </div>
+
+        <!-- 像素风格 -->
+        <div class="face-wrapper">
+            <div class="face-container">
+                <div class="face-pixel">
+                    <div class="pixel-block pixel-animated"></div>
+                </div>
+            </div>
+            <div class="face-label">像素风 👾</div>
+        </div>
+    </div>
+</body>
+</html>

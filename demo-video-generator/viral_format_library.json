@@ -1,0 +1,1142 @@
+{
+  "formats": {
+    "spotify_wrapped_2024": {
+      "id": "spotify_wrapped_2024",
+      "name": "Spotify Wrapped 2024 - 蒙面遮掩",
+      "description": "双手被遮盖，遮住数据，暗示即将到来的震惊数据",
+      "category": "curiosity",
+      "year": 2024,
+      "source_platform": "tiktok",
+      "success_rate": 0.85,
+      "views_average": 500000,
+      "views_max": 15000000,
+      "template_name": "curiosity-vertical.html",
+      "color_scheme": "mystery_dark",
+      "key_elements": [
+        "蒙面遮掩元素",
+        "暗示震惊数据",
+        "渐变背景",
+        "金色强调色"
+      ],
+      "variations": [],
+      "created_at": "2026-04-02T13:44:43.506214",
+      "updated_at": "2026-04-02T13:44:43.506233"
+    },
+    "cutouts_2022": {
+      "id": "cutouts_2022",
+      "name": "Cutouts 2022 - 品牌关联",
+      "description": "将产品与值得信赖的品牌联系起来",
+      "category": "social",
+      "year": 2022,
+      "source_platform": "tiktok",
+      "success_rate": 0.78,
+      "views_average": 300000,
+      "views_max": 8000000,
+      "template_name": "viral-vertical.html",
+      "color_scheme": "success_green",
+      "key_elements": [
+        "品牌Logo展示",
+        "可信度背书",
+        "前后对比"
+      ],
+      "variations": [],
+      "created_at": "2026-04-02T13:44:43.527021",
+      "updated_at": "2026-04-02T13:44:43.527042"
+    },
+    "wrapped_2025": {
+      "id": "wrapped_2025",
+      "name": "2025 Wrapped - 组合格式",
+      "description": "蒙面遮掩数据 + 品牌关联的组合格式",
+      "category": "curiosity",
+      "year": 2025,
+      "source_platform": "tiktok",
+      "success_rate": 0.92,
+      "views_average": 1200000,
+      "views_max": 36000000,
+      "template_name": "viral-vertical.html",
+      "color_scheme": "shock_red",
+      "key_elements": [
+        "蒙面遮掩iMessage截图",
+        "暗示iMessage被包裹",
+        "渐变背景",
+        "动态元素"
+      ],
+      "variations": [
+        "spotify_wrapped_2024",
+        "cutouts_2022"
+      ],
+      "created_at": "2026-04-02T13:44:43.544577",
+      "updated_at": "2026-04-02T13:44:43.544607"
+    },
+    "urgency_notification": {
+      "id": "urgency_notification",
+      "name": "紧急通知 - FOMO",
+      "description": "限时、倒计时、紧迫感触发",
+      "category": "urgency",
+      "year": 2025,
+      "source_platform": "tiktok",
+      "success_rate": 0.68,
+      "views_average": 200000,
+      "views_max": 5000000,
+      "template_name": "urgency-vertical.html",
+      "color_scheme": "urgency_orange",
+      "key_elements": [
+        "倒计时显示",
+        "紧急通知徽章",
+        "红色/橙色渐变",
+        "行动按钮"
+      ],
+      "variations": [],
+      "created_at": "2026-04-02T13:44:43.615013",
+      "updated_at": "2026-04-02T13:44:43.615059"
+    },
+    "emotional_story": {
+      "id": "emotional_story",
+      "name": "情感故事 - 共鸣",
+      "description": "真实故事、情感触发、共鸣",
+      "category": "emotional",
+      "year": 2025,
+      "source_platform": "tiktok",
+      "success_rate": 0.75,
+      "views_average": 400000,
+      "views_max": 16000000,
+      "template_name": "emotional-vertical.html",
+      "color_scheme": "emotional_purple",
+      "key_elements": [
+        "真实故事标签",
+        "情感Emoji",
+        "温馨配色",
+        "副标题故事"
+      ],
+      "variations": [],
+      "created_at": "2026-04-02T13:44:43.632019",
+      "updated_at": "2026-04-02T13:44:43.632065"
+    }
+  },
+  "combinations": {
+    "combo_1775107240": {
+      "id": "combo_1775107240",
+      "name": "2025 Wrapped - 组合格式 + 历史格式",
+      "primary_format_id": "wrapped_2025",
+      "secondary_format_ids": [
+        "emotional_story",
+        "urgency_notification"
+      ],
+      "description": "基于2025 Wrapped - 组合格式，融合2个历史成功格式",
+      "success_rate": 0.0,
+      "views_average": 0,
+      "views_max": 0,
+      "created_at": "2026-04-02T13:20:40.945134"
+    },
+    "combo_1775108683": {
+      "id": "combo_1775108683",
+      "name": "2025 Wrapped - 组合格式 + 历史格式",
+      "primary_format_id": "wrapped_2025",
+      "secondary_format_ids": [
+        "emotional_story",
+        "urgency_notification"
+      ],
+      "description": "基于2025 Wrapped - 组合格式，融合2个历史成功格式",
+      "success_rate": 0.0,
+      "views_average": 0,
+      "views_max": 0,
+      "created_at": "2026-04-02T13:44:43.761499"
+    }
+  },
+  "ab_tests": {
+    "abtest_81f43234": {
+      "test_id": "abtest_81f43234",
+      "title": "A/B测试: 独家内幕：顶级专家揭秘赚钱的终极秘密方法...",
+      "variant_a": {
+        "config": {
+          "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+          "template": "viral-vertical.html",
+          "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+          "accent_color": "#FFD700",
+          "font_size": 105,
+          "text_color": "#FFFFFF",
+          "badge": "独家",
+          "width": 1080,
+          "height": 1920,
+          "orientation": "vertical",
+          "subtitle": "99%的人都不知道的真相",
+          "_meta": {
+            "stepps_analysis": {
+              "detected": {
+                "social_currency": {
+                  "name": "社交货币",
+                  "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                  "matched_keywords": [
+                    "独家",
+                    "内幕",
+                    "秘密",
+                    "顶级",
+                    "专家",
+                    "终极"
+                  ],
+                  "count": 6,
+                  "intensity": 100,
+                  "template_suggestions": [
+                    "viral-vertical.html",
+                    "viral.html"
+                  ],
+                  "badge_suggestions": [
+                    "独家",
+                    "内幕",
+                    "TOP1",
+                    "必看"
+                  ]
+                },
+                "practical_value": {
+                  "name": "实用价值",
+                  "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                  "matched_keywords": [
+                    "方法"
+                  ],
+                  "count": 1,
+                  "intensity": 20,
+                  "template_suggestions": [
+                    "curiosity-vertical.html",
+                    "minimal-impact.html"
+                  ],
+                  "badge_suggestions": [
+                    "教程",
+                    "技巧",
+                    "免费",
+                    "干货"
+                  ]
+                }
+              },
+              "primary": "social_currency",
+              "viral_score": 100,
+              "total_matches": 7,
+              "has_viral_potential": true,
+              "recommendations": {
+                "best_template": "viral-vertical.html",
+                "best_badge": "独家",
+                "primary_strategy": "社交货币",
+                "secondary_strategies": [
+                  "实用价值"
+                ]
+              }
+            },
+            "emotion_analysis": {
+              "detected": {
+                "curiosity": {
+                  "keywords": [
+                    "秘密",
+                    "揭秘",
+                    "内幕",
+                    "方法"
+                  ],
+                  "count": 4,
+                  "intensity": 80
+                },
+                "success": {
+                  "keywords": [
+                    "赚钱",
+                    "终极"
+                  ],
+                  "count": 2,
+                  "intensity": 40
+                }
+              },
+              "primary": "curiosity",
+              "has_emotional_trigger": true,
+              "total_triggers": 6
+            },
+            "orientation_info": {
+              "mode": "vertical",
+              "is_vertical": true,
+              "dimensions": "1080x1920",
+              "platform_optimized_for": "Mobile/TikTok/Shorts"
+            },
+            "optimization_notes": [
+              "📱 方向模式: VERTICAL (1080x1920)",
+              "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+              "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+              "🔥 病毒评分: 100/100",
+              "💡 主要策略: 社交货币",
+              "✅ 检测到 7 个病毒传播关键词",
+              "✅ 检测到 6 个情绪触发词",
+              "📈 预估CTR提升: +90%",
+              "🚀 病毒潜力: 高"
+            ]
+          }
+        },
+        "results": {
+          "variant_id": "variant_a",
+          "variant_name": "基础版本",
+          "config": {
+            "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+            "template": "viral-vertical.html",
+            "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+            "accent_color": "#FFD700",
+            "font_size": 105,
+            "text_color": "#FFFFFF",
+            "badge": "独家",
+            "width": 1080,
+            "height": 1920,
+            "orientation": "vertical",
+            "subtitle": "99%的人都不知道的真相",
+            "_meta": {
+              "stepps_analysis": {
+                "detected": {
+                  "social_currency": {
+                    "name": "社交货币",
+                    "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                    "matched_keywords": [
+                      "独家",
+                      "内幕",
+                      "秘密",
+                      "顶级",
+                      "专家",
+                      "终极"
+                    ],
+                    "count": 6,
+                    "intensity": 100,
+                    "template_suggestions": [
+                      "viral-vertical.html",
+                      "viral.html"
+                    ],
+                    "badge_suggestions": [
+                      "独家",
+                      "内幕",
+                      "TOP1",
+                      "必看"
+                    ]
+                  },
+                  "practical_value": {
+                    "name": "实用价值",
+                    "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                    "matched_keywords": [
+                      "方法"
+                    ],
+                    "count": 1,
+                    "intensity": 20,
+                    "template_suggestions": [
+                      "curiosity-vertical.html",
+                      "minimal-impact.html"
+                    ],
+                    "badge_suggestions": [
+                      "教程",
+                      "技巧",
+                      "免费",
+                      "干货"
+                    ]
+                  }
+                },
+                "primary": "social_currency",
+                "viral_score": 100,
+                "total_matches": 7,
+                "has_viral_potential": true,
+                "recommendations": {
+                  "best_template": "viral-vertical.html",
+                  "best_badge": "独家",
+                  "primary_strategy": "社交货币",
+                  "secondary_strategies": [
+                    "实用价值"
+                  ]
+                }
+              },
+              "emotion_analysis": {
+                "detected": {
+                  "curiosity": {
+                    "keywords": [
+                      "秘密",
+                      "揭秘",
+                      "内幕",
+                      "方法"
+                    ],
+                    "count": 4,
+                    "intensity": 80
+                  },
+                  "success": {
+                    "keywords": [
+                      "赚钱",
+                      "终极"
+                    ],
+                    "count": 2,
+                    "intensity": 40
+                  }
+                },
+                "primary": "curiosity",
+                "has_emotional_trigger": true,
+                "total_triggers": 6
+              },
+              "orientation_info": {
+                "mode": "vertical",
+                "is_vertical": true,
+                "dimensions": "1080x1920",
+                "platform_optimized_for": "Mobile/TikTok/Shorts"
+              },
+              "optimization_notes": [
+                "📱 方向模式: VERTICAL (1080x1920)",
+                "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+                "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+                "🔥 病毒评分: 100/100",
+                "💡 主要策略: 社交货币",
+                "✅ 检测到 7 个病毒传播关键词",
+                "✅ 检测到 6 个情绪触发词",
+                "📈 预估CTR提升: +90%",
+                "🚀 病毒潜力: 高"
+              ]
+            }
+          },
+          "error": "CodeBasedThumbnailGenerator.generate() got an unexpected keyword argument 'template_name'",
+          "description": "原始配置，作为对照组",
+          "generated_at": "2026-04-02T13:20:40.891598"
+        }
+      },
+      "variant_b": {
+        "config": {
+          "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+          "template": "viral-vertical.html",
+          "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+          "accent_color": "#FFD700",
+          "font_size": 105,
+          "text_color": "#FFFFFF",
+          "badge": "独家",
+          "width": 1080,
+          "height": 1920,
+          "orientation": "vertical",
+          "subtitle": "99%的人都不知道的真相",
+          "_meta": {
+            "stepps_analysis": {
+              "detected": {
+                "social_currency": {
+                  "name": "社交货币",
+                  "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                  "matched_keywords": [
+                    "独家",
+                    "内幕",
+                    "秘密",
+                    "顶级",
+                    "专家",
+                    "终极"
+                  ],
+                  "count": 6,
+                  "intensity": 100,
+                  "template_suggestions": [
+                    "viral-vertical.html",
+                    "viral.html"
+                  ],
+                  "badge_suggestions": [
+                    "独家",
+                    "内幕",
+                    "TOP1",
+                    "必看"
+                  ]
+                },
+                "practical_value": {
+                  "name": "实用价值",
+                  "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                  "matched_keywords": [
+                    "方法"
+                  ],
+                  "count": 1,
+                  "intensity": 20,
+                  "template_suggestions": [
+                    "curiosity-vertical.html",
+                    "minimal-impact.html"
+                  ],
+                  "badge_suggestions": [
+                    "教程",
+                    "技巧",
+                    "免费",
+                    "干货"
+                  ]
+                }
+              },
+              "primary": "social_currency",
+              "viral_score": 100,
+              "total_matches": 7,
+              "has_viral_potential": true,
+              "recommendations": {
+                "best_template": "viral-vertical.html",
+                "best_badge": "独家",
+                "primary_strategy": "社交货币",
+                "secondary_strategies": [
+                  "实用价值"
+                ]
+              }
+            },
+            "emotion_analysis": {
+              "detected": {
+                "curiosity": {
+                  "keywords": [
+                    "秘密",
+                    "揭秘",
+                    "内幕",
+                    "方法"
+                  ],
+                  "count": 4,
+                  "intensity": 80
+                },
+                "success": {
+                  "keywords": [
+                    "赚钱",
+                    "终极"
+                  ],
+                  "count": 2,
+                  "intensity": 40
+                }
+              },
+              "primary": "curiosity",
+              "has_emotional_trigger": true,
+              "total_triggers": 6
+            },
+            "orientation_info": {
+              "mode": "vertical",
+              "is_vertical": true,
+              "dimensions": "1080x1920",
+              "platform_optimized_for": "Mobile/TikTok/Shorts"
+            },
+            "optimization_notes": [
+              "📱 方向模式: VERTICAL (1080x1920)",
+              "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+              "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+              "🔥 病毒评分: 100/100",
+              "💡 主要策略: 社交货币",
+              "✅ 检测到 7 个病毒传播关键词",
+              "✅ 检测到 6 个情绪触发词",
+              "📈 预估CTR提升: +90%",
+              "🚀 病毒潜力: 高"
+            ]
+          },
+          "color_scheme": "shock_red",
+          "description": "改为震惊红渐变"
+        },
+        "results": {
+          "variant_id": "variant_b",
+          "variant_name": "变体B",
+          "config": {
+            "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+            "template": "viral-vertical.html",
+            "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+            "accent_color": "#FFD700",
+            "font_size": 105,
+            "text_color": "#FFFFFF",
+            "badge": "独家",
+            "width": 1080,
+            "height": 1920,
+            "orientation": "vertical",
+            "subtitle": "99%的人都不知道的真相",
+            "_meta": {
+              "stepps_analysis": {
+                "detected": {
+                  "social_currency": {
+                    "name": "社交货币",
+                    "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                    "matched_keywords": [
+                      "独家",
+                      "内幕",
+                      "秘密",
+                      "顶级",
+                      "专家",
+                      "终极"
+                    ],
+                    "count": 6,
+                    "intensity": 100,
+                    "template_suggestions": [
+                      "viral-vertical.html",
+                      "viral.html"
+                    ],
+                    "badge_suggestions": [
+                      "独家",
+                      "内幕",
+                      "TOP1",
+                      "必看"
+                    ]
+                  },
+                  "practical_value": {
+                    "name": "实用价值",
+                    "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                    "matched_keywords": [
+                      "方法"
+                    ],
+                    "count": 1,
+                    "intensity": 20,
+                    "template_suggestions": [
+                      "curiosity-vertical.html",
+                      "minimal-impact.html"
+                    ],
+                    "badge_suggestions": [
+                      "教程",
+                      "技巧",
+                      "免费",
+                      "干货"
+                    ]
+                  }
+                },
+                "primary": "social_currency",
+                "viral_score": 100,
+                "total_matches": 7,
+                "has_viral_potential": true,
+                "recommendations": {
+                  "best_template": "viral-vertical.html",
+                  "best_badge": "独家",
+                  "primary_strategy": "社交货币",
+                  "secondary_strategies": [
+                    "实用价值"
+                  ]
+                }
+              },
+              "emotion_analysis": {
+                "detected": {
+                  "curiosity": {
+                    "keywords": [
+                      "秘密",
+                      "揭秘",
+                      "内幕",
+                      "方法"
+                    ],
+                    "count": 4,
+                    "intensity": 80
+                  },
+                  "success": {
+                    "keywords": [
+                      "赚钱",
+                      "终极"
+                    ],
+                    "count": 2,
+                    "intensity": 40
+                  }
+                },
+                "primary": "curiosity",
+                "has_emotional_trigger": true,
+                "total_triggers": 6
+              },
+              "orientation_info": {
+                "mode": "vertical",
+                "is_vertical": true,
+                "dimensions": "1080x1920",
+                "platform_optimized_for": "Mobile/TikTok/Shorts"
+              },
+              "optimization_notes": [
+                "📱 方向模式: VERTICAL (1080x1920)",
+                "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+                "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+                "🔥 病毒评分: 100/100",
+                "💡 主要策略: 社交货币",
+                "✅ 检测到 7 个病毒传播关键词",
+                "✅ 检测到 6 个情绪触发词",
+                "📈 预估CTR提升: +90%",
+                "🚀 病毒潜力: 高"
+              ]
+            },
+            "color_scheme": "shock_red",
+            "description": "改为震惊红渐变"
+          },
+          "error": "CodeBasedThumbnailGenerator.generate() got an unexpected keyword argument 'template_name'",
+          "description": "应用微调: {\"color_scheme\": \"shock_red\", \"description\": \"改为震惊红渐变\"}",
+          "generated_at": "2026-04-02T13:20:40.892270"
+        }
+      },
+      "winner": "B",
+      "views_a": 250000,
+      "views_b": 1800000,
+      "ctr_a": 0.035,
+      "ctr_b": 0.128,
+      "notes": "变体B使用了更亮的渐变和火焰Emoji，带来7.2倍观看提升！",
+      "created_at": "2026-04-02T13:20:40.892742"
+    },
+    "abtest_8503d1af": {
+      "test_id": "abtest_8503d1af",
+      "title": "A/B测试: 独家内幕：顶级专家揭秘赚钱的终极秘密方法...",
+      "variant_a": {
+        "config": {
+          "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+          "template": "viral-vertical.html",
+          "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+          "accent_color": "#FFD700",
+          "font_size": 105,
+          "text_color": "#FFFFFF",
+          "badge": "独家",
+          "width": 1080,
+          "height": 1920,
+          "orientation": "vertical",
+          "subtitle": "99%的人都不知道的真相",
+          "_meta": {
+            "stepps_analysis": {
+              "detected": {
+                "social_currency": {
+                  "name": "社交货币",
+                  "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                  "matched_keywords": [
+                    "独家",
+                    "内幕",
+                    "秘密",
+                    "顶级",
+                    "专家",
+                    "终极"
+                  ],
+                  "count": 6,
+                  "intensity": 100,
+                  "template_suggestions": [
+                    "viral-vertical.html",
+                    "viral.html"
+                  ],
+                  "badge_suggestions": [
+                    "独家",
+                    "内幕",
+                    "TOP1",
+                    "必看"
+                  ]
+                },
+                "practical_value": {
+                  "name": "实用价值",
+                  "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                  "matched_keywords": [
+                    "方法"
+                  ],
+                  "count": 1,
+                  "intensity": 20,
+                  "template_suggestions": [
+                    "curiosity-vertical.html",
+                    "minimal-impact.html"
+                  ],
+                  "badge_suggestions": [
+                    "教程",
+                    "技巧",
+                    "免费",
+                    "干货"
+                  ]
+                }
+              },
+              "primary": "social_currency",
+              "viral_score": 100,
+              "total_matches": 7,
+              "has_viral_potential": true,
+              "recommendations": {
+                "best_template": "viral-vertical.html",
+                "best_badge": "独家",
+                "primary_strategy": "社交货币",
+                "secondary_strategies": [
+                  "实用价值"
+                ]
+              }
+            },
+            "emotion_analysis": {
+              "detected": {
+                "curiosity": {
+                  "keywords": [
+                    "秘密",
+                    "揭秘",
+                    "内幕",
+                    "方法"
+                  ],
+                  "count": 4,
+                  "intensity": 80
+                },
+                "success": {
+                  "keywords": [
+                    "赚钱",
+                    "终极"
+                  ],
+                  "count": 2,
+                  "intensity": 40
+                }
+              },
+              "primary": "curiosity",
+              "has_emotional_trigger": true,
+              "total_triggers": 6
+            },
+            "orientation_info": {
+              "mode": "vertical",
+              "is_vertical": true,
+              "dimensions": "1080x1920",
+              "platform_optimized_for": "Mobile/TikTok/Shorts"
+            },
+            "optimization_notes": [
+              "📱 方向模式: VERTICAL (1080x1920)",
+              "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+              "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+              "🔥 病毒评分: 100/100",
+              "💡 主要策略: 社交货币",
+              "✅ 检测到 7 个病毒传播关键词",
+              "✅ 检测到 6 个情绪触发词",
+              "📈 预估CTR提升: +90%",
+              "🚀 病毒潜力: 高"
+            ]
+          }
+        },
+        "results": {
+          "variant_id": "variant_a",
+          "variant_name": "基础版本",
+          "config": {
+            "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+            "template": "viral-vertical.html",
+            "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+            "accent_color": "#FFD700",
+            "font_size": 105,
+            "text_color": "#FFFFFF",
+            "badge": "独家",
+            "width": 1080,
+            "height": 1920,
+            "orientation": "vertical",
+            "subtitle": "99%的人都不知道的真相",
+            "_meta": {
+              "stepps_analysis": {
+                "detected": {
+                  "social_currency": {
+                    "name": "社交货币",
+                    "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                    "matched_keywords": [
+                      "独家",
+                      "内幕",
+                      "秘密",
+                      "顶级",
+                      "专家",
+                      "终极"
+                    ],
+                    "count": 6,
+                    "intensity": 100,
+                    "template_suggestions": [
+                      "viral-vertical.html",
+                      "viral.html"
+                    ],
+                    "badge_suggestions": [
+                      "独家",
+                      "内幕",
+                      "TOP1",
+                      "必看"
+                    ]
+                  },
+                  "practical_value": {
+                    "name": "实用价值",
+                    "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                    "matched_keywords": [
+                      "方法"
+                    ],
+                    "count": 1,
+                    "intensity": 20,
+                    "template_suggestions": [
+                      "curiosity-vertical.html",
+                      "minimal-impact.html"
+                    ],
+                    "badge_suggestions": [
+                      "教程",
+                      "技巧",
+                      "免费",
+                      "干货"
+                    ]
+                  }
+                },
+                "primary": "social_currency",
+                "viral_score": 100,
+                "total_matches": 7,
+                "has_viral_potential": true,
+                "recommendations": {
+                  "best_template": "viral-vertical.html",
+                  "best_badge": "独家",
+                  "primary_strategy": "社交货币",
+                  "secondary_strategies": [
+                    "实用价值"
+                  ]
+                }
+              },
+              "emotion_analysis": {
+                "detected": {
+                  "curiosity": {
+                    "keywords": [
+                      "秘密",
+                      "揭秘",
+                      "内幕",
+                      "方法"
+                    ],
+                    "count": 4,
+                    "intensity": 80
+                  },
+                  "success": {
+                    "keywords": [
+                      "赚钱",
+                      "终极"
+                    ],
+                    "count": 2,
+                    "intensity": 40
+                  }
+                },
+                "primary": "curiosity",
+                "has_emotional_trigger": true,
+                "total_triggers": 6
+              },
+              "orientation_info": {
+                "mode": "vertical",
+                "is_vertical": true,
+                "dimensions": "1080x1920",
+                "platform_optimized_for": "Mobile/TikTok/Shorts"
+              },
+              "optimization_notes": [
+                "📱 方向模式: VERTICAL (1080x1920)",
+                "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+                "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+                "🔥 病毒评分: 100/100",
+                "💡 主要策略: 社交货币",
+                "✅ 检测到 7 个病毒传播关键词",
+                "✅ 检测到 6 个情绪触发词",
+                "📈 预估CTR提升: +90%",
+                "🚀 病毒潜力: 高"
+              ]
+            }
+          },
+          "output_path": "output\\thumbnails\\thumbnail_b807f8cb.png",
+          "description": "原始配置，作为对照组",
+          "generated_at": "2026-04-02T13:44:26.487934"
+        }
+      },
+      "variant_b": {
+        "config": {
+          "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+          "template": "viral-vertical.html",
+          "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+          "accent_color": "#FFD700",
+          "font_size": 105,
+          "text_color": "#FFFFFF",
+          "badge": "独家",
+          "width": 1080,
+          "height": 1920,
+          "orientation": "vertical",
+          "subtitle": "99%的人都不知道的真相",
+          "_meta": {
+            "stepps_analysis": {
+              "detected": {
+                "social_currency": {
+                  "name": "社交货币",
+                  "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                  "matched_keywords": [
+                    "独家",
+                    "内幕",
+                    "秘密",
+                    "顶级",
+                    "专家",
+                    "终极"
+                  ],
+                  "count": 6,
+                  "intensity": 100,
+                  "template_suggestions": [
+                    "viral-vertical.html",
+                    "viral.html"
+                  ],
+                  "badge_suggestions": [
+                    "独家",
+                    "内幕",
+                    "TOP1",
+                    "必看"
+                  ]
+                },
+                "practical_value": {
+                  "name": "实用价值",
+                  "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                  "matched_keywords": [
+                    "方法"
+                  ],
+                  "count": 1,
+                  "intensity": 20,
+                  "template_suggestions": [
+                    "curiosity-vertical.html",
+                    "minimal-impact.html"
+                  ],
+                  "badge_suggestions": [
+                    "教程",
+                    "技巧",
+                    "免费",
+                    "干货"
+                  ]
+                }
+              },
+              "primary": "social_currency",
+              "viral_score": 100,
+              "total_matches": 7,
+              "has_viral_potential": true,
+              "recommendations": {
+                "best_template": "viral-vertical.html",
+                "best_badge": "独家",
+                "primary_strategy": "社交货币",
+                "secondary_strategies": [
+                  "实用价值"
+                ]
+              }
+            },
+            "emotion_analysis": {
+              "detected": {
+                "curiosity": {
+                  "keywords": [
+                    "秘密",
+                    "揭秘",
+                    "内幕",
+                    "方法"
+                  ],
+                  "count": 4,
+                  "intensity": 80
+                },
+                "success": {
+                  "keywords": [
+                    "赚钱",
+                    "终极"
+                  ],
+                  "count": 2,
+                  "intensity": 40
+                }
+              },
+              "primary": "curiosity",
+              "has_emotional_trigger": true,
+              "total_triggers": 6
+            },
+            "orientation_info": {
+              "mode": "vertical",
+              "is_vertical": true,
+              "dimensions": "1080x1920",
+              "platform_optimized_for": "Mobile/TikTok/Shorts"
+            },
+            "optimization_notes": [
+              "📱 方向模式: VERTICAL (1080x1920)",
+              "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+              "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+              "🔥 病毒评分: 100/100",
+              "💡 主要策略: 社交货币",
+              "✅ 检测到 7 个病毒传播关键词",
+              "✅ 检测到 6 个情绪触发词",
+              "📈 预估CTR提升: +90%",
+              "🚀 病毒潜力: 高"
+            ]
+          },
+          "color_scheme": "shock_red",
+          "description": "改为震惊红渐变"
+        },
+        "results": {
+          "variant_id": "variant_b",
+          "variant_name": "变体B",
+          "config": {
+            "title": "独家内幕：顶级专家揭秘赚钱的终极秘密方法",
+            "template": "viral-vertical.html",
+            "background": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+            "accent_color": "#FFD700",
+            "font_size": 105,
+            "text_color": "#FFFFFF",
+            "badge": "独家",
+            "width": 1080,
+            "height": 1920,
+            "orientation": "vertical",
+            "subtitle": "99%的人都不知道的真相",
+            "_meta": {
+              "stepps_analysis": {
+                "detected": {
+                  "social_currency": {
+                    "name": "社交货币",
+                    "description": "分享让我们看起来很棒的东西，提升社交地位和形象",
+                    "matched_keywords": [
+                      "独家",
+                      "内幕",
+                      "秘密",
+                      "顶级",
+                      "专家",
+                      "终极"
+                    ],
+                    "count": 6,
+                    "intensity": 100,
+                    "template_suggestions": [
+                      "viral-vertical.html",
+                      "viral.html"
+                    ],
+                    "badge_suggestions": [
+                      "独家",
+                      "内幕",
+                      "TOP1",
+                      "必看"
+                    ]
+                  },
+                  "practical_value": {
+                    "name": "实用价值",
+                    "description": "提供有用信息，帮助他人解决问题或省钱省时",
+                    "matched_keywords": [
+                      "方法"
+                    ],
+                    "count": 1,
+                    "intensity": 20,
+                    "template_suggestions": [
+                      "curiosity-vertical.html",
+                      "minimal-impact.html"
+                    ],
+                    "badge_suggestions": [
+                      "教程",
+                      "技巧",
+                      "免费",
+                      "干货"
+                    ]
+                  }
+                },
+                "primary": "social_currency",
+                "viral_score": 100,
+                "total_matches": 7,
+                "has_viral_potential": true,
+                "recommendations": {
+                  "best_template": "viral-vertical.html",
+                  "best_badge": "独家",
+                  "primary_strategy": "社交货币",
+                  "secondary_strategies": [
+                    "实用价值"
+                  ]
+                }
+              },
+              "emotion_analysis": {
+                "detected": {
+                  "curiosity": {
+                    "keywords": [
+                      "秘密",
+                      "揭秘",
+                      "内幕",
+                      "方法"
+                    ],
+                    "count": 4,
+                    "intensity": 80
+                  },
+                  "success": {
+                    "keywords": [
+                      "赚钱",
+                      "终极"
+                    ],
+                    "count": 2,
+                    "intensity": 40
+                  }
+                },
+                "primary": "curiosity",
+                "has_emotional_trigger": true,
+                "total_triggers": 6
+              },
+              "orientation_info": {
+                "mode": "vertical",
+                "is_vertical": true,
+                "dimensions": "1080x1920",
+                "platform_optimized_for": "Mobile/TikTok/Shorts"
+              },
+              "optimization_notes": [
+                "📱 方向模式: VERTICAL (1080x1920)",
+                "🎨 推荐模板: viral-vertical.html (用户指定风格: viral-vertical)",
+                "🎯 推荐配色: 神秘深蓝 - 好奇、悬疑、高端 (基于curiosity情绪)",
+                "🔥 病毒评分: 100/100",
+                "💡 主要策略: 社交货币",
+                "✅ 检测到 7 个病毒传播关键词",
+                "✅ 检测到 6 个情绪触发词",
+                "📈 预估CTR提升: +90%",
+                "🚀 病毒潜力: 高"
+              ]
+            },
+            "color_scheme": "shock_red",
+            "description": "改为震惊红渐变"
+          },
+          "output_path": "output\\thumbnails\\thumbnail_d5719fcb.png",
+          "description": "应用微调: {\"color_scheme\": \"shock_red\", \"description\": \"改为震惊红渐变\"}",
+          "generated_at": "2026-04-02T13:44:32.717122"
+        }
+      },
+      "winner": "B",
+      "views_a": 250000,
+      "views_b": 1800000,
+      "ctr_a": 0.035,
+      "ctr_b": 0.128,
+      "notes": "变体B使用了更亮的渐变和火焰Emoji，带来7.2倍观看提升！",
+      "created_at": "2026-04-02T13:44:43.430846"
+    }
+  }
+}

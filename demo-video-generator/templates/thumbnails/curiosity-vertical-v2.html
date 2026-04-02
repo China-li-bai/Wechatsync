@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: {{ width | default(1080) }}px;
+        height: {{ height | default(1920) }}px;
+        background: {{ background | default('linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)') }};
+        font-family: 'Georgia', 'Times New Roman', 'Noto Serif SC', 'SimSun', serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding: 100px 75px;
+      }
+
+      .mystery-overlay-mobile {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: radial-gradient(circle at 50% 45%, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+        z-index: 1;
+      }
+
+      .container-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 10;
+      }
+
+      {% if badge %}
+      .badge-secret-mobile {
+        position: absolute;
+        top: 70px;
+        right: 70px;
+        background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+        color: #1a1a1a;
+        padding: 22px 50px;
+        border-radius: 16px;
+        font-size: 40px;
+        font-weight: 800;
+        box-shadow:
+          0 10px 30px rgba(255, 215, 0, 0.35),
+          inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        z-index: 20;
+        animation: secret-float-mobile 5s ease-in-out infinite;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      @keyframes secret-float-mobile {
+        0%,
+        100% {
+          transform: translateY(0) rotate(1deg);
+        }
+        50% {
+          transform: translateY(-10px) rotate(-1deg);
+        }
+      }
+      {% endif %}
+
+      .question-mark-giant-mobile {
+        font-size: 240px;
+        color: {{ accent_color | default('#FFD700') }};
+        text-shadow:
+          0 0 60px rgba(255, 215, 0, 0.45),
+          0 0 120px rgba(255, 215, 0, 0.25);
+        animation: glow-pulse-mobile 4s ease-in-out infinite;
+        line-height: 1;
+        opacity: 0.85;
+        margin-bottom: 55px;
+      }
+
+      @keyframes glow-pulse-mobile {
+        0%,
+        100% {
+          opacity: 0.75;
+          transform: scale(1);
+          text-shadow:
+            0 0 60px rgba(255, 215, 0, 0.45),
+            0 0 120px rgba(255, 215, 0, 0.25);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.03);
+          text-shadow:
+            0 0 80px rgba(255, 215, 0, 0.6),
+            0 0 160px rgba(255, 215, 0, 0.35);
+        }
+      }
+
+      .title-main-mobile {
+        font-size: {{ (font_size | default(72)) * 1.15 }}px;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.3;
+        max-width: 90%;
+        word-wrap: break-word;
+        margin-bottom: 45px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        text-shadow:
+          4px 4px 12px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(255, 215, 0, 0.15);
+        position: relative;
+      }
+
+      .title-main-mobile::before,
+      .title-main-mobile::after {
+        content: '"';
+        font-size: 1.1em;
+        color: {{ accent_color | default('#FFD700') }};
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+      }
+
+      {% if subtitle %}
+      .subtitle-mystery-mobile {
+        font-size: {{ ((font_size | default(72)) // 2 + 5) * 1.2 }}px;
+        font-weight: 400;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.5;
+        max-width: 86%;
+        padding: 26px 40px;
+        border-left: 4px solid {{ accent_color | default('#FFD700') }};
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+        margin-top: 25px;
+        border-radius: 0 12px 12px 0;
+      }
+      {% endif %}
+
+      .mystery-particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: rgba(255, 215, 0, 0.4);
+        border-radius: 50%;
+        animation: particle-float 8s ease-in-out infinite;
+      }
+
+      .particle:nth-child(1) { top: 15%; left: 20%; animation-delay: 0s; }
+      .particle:nth-child(2) { top: 25%; right: 18%; animation-delay: 2s; width: 8px; height: 8px; }
+      .particle:nth-child(3) { bottom: 25%; left: 15%; animation-delay: 4s; }
+      .particle:nth-child(4) { bottom: 18%; right: 22%; animation-delay: 6s; width: 8px; height: 8px; }
+      .particle:nth-child(5) { top: 45%; left: 8%; animation-delay: 1s; opacity: 0.6; }
+      .particle:nth-child(6) { top: 50%; right: 10%; animation-delay: 3s; opacity: 0.6; }
+
+      @keyframes particle-float {
+        0%, 100% {
+          transform: translateY(0) scale(1);
+          opacity: 0.4;
+        }
+        50% {
+          transform: translateY(-15px) scale(1.2);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="mystery-overlay-mobile"></div>
+    
+    <div class="mystery-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <div class="container-mobile">
+      {% if badge %}
+      <div class="badge-secret-mobile">{{ badge }}</div>
+      {% endif %}
+
+      <div class="question-mark-giant-mobile">?</div>
+
+      <div class="title-main-mobile">{{ title }}</div>
+
+      {% if subtitle %}
+      <div class="subtitle-mystery-mobile">{{ subtitle }}</div>
+      {% endif %}
+    </div>
+  </body>
+</html>
