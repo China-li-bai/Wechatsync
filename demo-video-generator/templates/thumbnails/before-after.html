@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: {{ width }}px;
+            height: {{ height }}px;
+            background: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Arial Black', sans-serif;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .before-section, .after-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 40px;
+        }
+        
+        .before-section {
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+        }
+        
+        .after-section {
+            background: {{ background | default('linear-gradient(135deg, #667eea 0%, #764ba2 100%)') }};
+        }
+        
+        .divider {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background: {{ accent_color | default('#FFD700') }};
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .divider::before {
+            content: 'VS';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: {{ accent_color | default('#FFD700') }};
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 50%;
+            font-size: 32px;
+            font-weight: 900;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+        
+        .label {
+            position: absolute;
+            top: 40px;
+            font-size: 48px;
+            font-weight: 900;
+            padding: 10px 40px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .before-label {
+            background: #666;
+            color: white;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .after-label {
+            background: {{ accent_color | default('#FFD700') }};
+            color: #000;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .content {
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .title {
+            font-size: {{ font_size | default(60) }}px;
+            font-weight: 900;
+            color: {{ text_color | default('#FFFFFF') }};
+            text-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(255, 255, 255, 0.2);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .description {
+            font-size: 32px;
+            font-weight: 700;
+            color: {{ text_color | default('#FFFFFF') }};
+            opacity: 0.9;
+            margin-top: 15px;
+        }
+        
+        .arrow {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 80px;
+            animation: moveRight 1.5s ease-in-out infinite;
+            z-index: 15;
+        }
+        
+        @keyframes moveRight {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(20px); }
+        }
+        
+        .icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+        }
+        
+        .before-icon {
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+        
+        .after-icon {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .badge {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: {{ accent_color | default('#FFD700') }};
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 32px;
+            font-weight: 900;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 10;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: {{ accent_color | default('#FFD700') }};
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .sparkle:nth-child(1) { top: 20%; right: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 40%; right: 30%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { bottom: 30%; right: 15%; animation-delay: 1s; }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- BEFORE 部分 -->
+        <div class="before-section">
+            <div class="label before-label">BEFORE</div>
+            <div class="content">
+                <div class="icon before-icon">😔</div>
+                <div class="title" style="font-size: 40px; opacity: 0.7;">{{ before_title | default('之前') }}</div>
+                <div class="description" style="opacity: 0.6;">{{ before_desc | default('问题状态') }}</div>
+            </div>
+        </div>
+        
+        <!-- 分隔线 -->
+        <div class="divider"></div>
+        
+        <!-- 箭头 -->
+        <div class="arrow">→</div>
+        
+        <!-- AFTER 部分 -->
+        <div class="after-section">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            
+            <div class="label after-label">AFTER</div>
+            <div class="content">
+                <div class="icon after-icon">🎉</div>
+                <div class="title">{{ title }}</div>
+                {% if subtitle %}
+                <div class="description">{{ subtitle }}</div>
+                {% endif %}
+            </div>
+            
+            {% if badge %}
+            <div class="badge">{{ badge }}</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
