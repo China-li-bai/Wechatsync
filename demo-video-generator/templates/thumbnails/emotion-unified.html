@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title | default('表情封面') }}</title>
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          width: {{ width | default(1080) }}px;
+          height: {{ height | default(1920) }}px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Arial', sans-serif;
+          overflow: hidden;
+      }
+
+      .container {
+          text-align: center;
+      }
+
+      /* ============================================
+         统一表情系统 - 通过CSS变量控制
+         ============================================ */
+
+      .face {
+          width: 400px;
+          height: 400px;
+          background: {{ face_color | default('#FFD700') }};
+          border-radius: 50%;
+          position: relative;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          animation: face-bounce 1s ease-in-out infinite;
+      }
+
+      @keyframes face-bounce {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+      }
+
+      /* ============================================
+         眉毛系统
+         ============================================ */
+      .eyebrow {
+          position: absolute;
+          width: 80px;
+          height: 12px;
+          background: #000;
+          border-radius: 6px;
+          top: 100px;
+          transition: all 0.3s ease;
+      }
+
+      .eyebrow.left { left: 80px; }
+      .eyebrow.right { right: 80px; }
+
+      /* 表情特定眉毛角度 */
+      .face.happy .eyebrow.left { transform: rotate(-20deg); }
+      .face.happy .eyebrow.right { transform: rotate(20deg); }
+
+      .face.sad .eyebrow.left { transform: rotate(25deg); }
+      .face.sad .eyebrow.right { transform: rotate(-25deg); }
+
+      .face.angry .eyebrow.left { transform: rotate(-40deg); }
+      .face.angry .eyebrow.right { transform: rotate(40deg); }
+
+      .face.surprised .eyebrow.left { transform: rotate(-30deg); }
+      .face.surprised .eyebrow.right { transform: rotate(30deg); }
+
+      .face.fear .eyebrow.left { transform: rotate(20deg); }
+      .face.fear .eyebrow.right { transform: rotate(-20deg); }
+
+      .face.disgust .eyebrow.left { transform: rotate(-10deg); }
+      .face.disgust .eyebrow.right { transform: rotate(10deg); }
+
+      .face.anxious .eyebrow.left { transform: rotate(15deg); }
+      .face.anxious .eyebrow.right { transform: rotate(-15deg); }
+
+      .face.confused .eyebrow.left { transform: rotate(0deg); }
+      .face.confused .eyebrow.right { transform: rotate(-20deg); }
+
+      .face.embarrassed .eyebrow.left { transform: rotate(-15deg); }
+      .face.embarrassed .eyebrow.right { transform: rotate(15deg); }
+
+      .face.disappointed .eyebrow.left { transform: rotate(30deg); }
+      .face.disappointed .eyebrow.right { transform: rotate(-30deg); }
+
+      .face.tired .eyebrow.left { transform: rotate(10deg); }
+      .face.tired .eyebrow.right { transform: rotate(-10deg); }
+
+      .face.excited .eyebrow.left { transform: rotate(-25deg); }
+      .face.excited .eyebrow.right { transform: rotate(25deg); }
+
+      .face.suspicious .eyebrow.left { transform: rotate(-35deg); }
+      .face.suspicious .eyebrow.right { transform: rotate(5deg); }
+
+      .face.proud .eyebrow.left { transform: rotate(-15deg); }
+      .face.proud .eyebrow.right { transform: rotate(15deg); }
+
+      .face.shy .eyebrow.left { transform: rotate(5deg); }
+      .face.shy .eyebrow.right { transform: rotate(-5deg); }
+
+      .face.pain .eyebrow.left { transform: rotate(35deg); }
+      .face.pain .eyebrow.right { transform: rotate(-35deg); }
+
+      .face.crazy .eyebrow.left { transform: rotate(-45deg); }
+      .face.crazy .eyebrow.right { transform: rotate(45deg); }
+
+      .face.desperate .eyebrow.left { transform: rotate(40deg); }
+      .face.desperate .eyebrow.right { transform: rotate(-40deg); }
+
+      .face.ecstatic .eyebrow.left { transform: rotate(-30deg); }
+      .face.ecstatic .eyebrow.right { transform: rotate(30deg); }
+
+      .face.terrified .eyebrow.left { transform: rotate(25deg); }
+      .face.terrified .eyebrow.right { transform: rotate(-25deg); }
+
+      .face.furious .eyebrow.left { transform: rotate(-50deg); }
+      .face.furious .eyebrow.right { transform: rotate(50deg); }
+
+      /* ============================================
+         眼睛系统
+         ============================================ */
+      .eye {
+          position: absolute;
+          width: 60px;
+          height: 70px;
+          background: #FFF;
+          border: 5px solid #000;
+          top: 140px;
+          border-radius: 50%;
+      }
+
+      .eye.left { left: 90px; }
+      .eye.right { right: 90px; }
+
+      .pupil {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background: #000;
+          border-radius: 50%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      /* 表情特定眼睛样式 */
+      .face.happy .eye {
+          height: 40px;
+          border-radius: 0 0 60px 60px;
+          background: transparent;
+          border-top: 8px solid #000;
+          border-left: 5px solid #000;
+          border-right: 5px solid #000;
+          border-bottom: none;
+      }
+
+      .face.sad .eye {
+          border-radius: 50% 50% 45% 45%;
+      }
+
+      .face.angry .eye {
+          height: 30px;
+          border-radius: 50%;
+      }
+
+      .face.surprised .eye {
+          width: 70px;
+          height: 80px;
+      }
+
+      .face.fear .eye {
+          width: 70px;
+          height: 80px;
+          border-radius: 50%;
+      }
+
+      .face.excited .eye {
+          background: #FFD700;
+          clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      }
+
+      .face.tired .eye {
+          height: 20px;
+          border-radius: 50%;
+      }
+
+      .face.crazy .eye.left {
+          width: 80px;
+          height: 80px;
+      }
+
+      .face.crazy .eye.right {
+          width: 40px;
+          height: 40px;
+      }
+
+      /* ============================================
+         嘴巴系统
+         ============================================ */
+      .mouth {
+          position: absolute;
+          bottom: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+          transition: all 0.3s ease;
+      }
+
+      /* 表情特定嘴巴样式 */
+      .face.happy .mouth {
+          width: 120px;
+          height: 60px;
+          border-radius: 0 0 60px 60px;
+          background: #000;
+      }
+
+      .face.sad .mouth {
+          width: 80px;
+          height: 40px;
+          border-top: 6px solid #000;
+          border-radius: 50% 50% 0 0;
+          background: transparent;
+      }
+
+      .face.angry .mouth {
+          width: 100px;
+          height: 30px;
+          background: #FFF;
+          border: 4px solid #000;
+      }
+
+      .face.surprised .mouth {
+          width: 60px;
+          height: 80px;
+          border-radius: 50%;
+          background: #000;
+      }
+
+      .face.fear .mouth {
+          width: 80px;
+          height: 40px;
+          border: 4px solid #000;
+          border-radius: 10px;
+          background: transparent;
+      }
+
+      .face.excited .mouth {
+          width: 140px;
+          height: 70px;
+          border-radius: 0 0 70px 70px;
+          background: #000;
+      }
+
+      .face.crazy .mouth {
+          width: 100px;
+          height: 50px;
+          background: #FF4444;
+          border-radius: 0 0 50px 50px;
+      }
+
+      /* ============================================
+         特效系统
+         ============================================ */
+
+      /* 泪珠 */
+      .tear {
+          position: absolute;
+          width: 15px;
+          height: 25px;
+          background: linear-gradient(to bottom, #87CEEB, #4169E1);
+          border-radius: 50%;
+          top: 200px;
+          opacity: 0;
+          animation: tear-fall 1.5s ease-in infinite;
+      }
+
+      .tear.left { left: 100px; }
+      .tear.right { right: 100px; animation-delay: 0.5s; }
+
+      @keyframes tear-fall {
+          0% { transform: translateY(0); opacity: 1; }
+          100% { transform: translateY(50px); opacity: 0; }
+      }
+
+      /* 显示泪珠的表情 */
+      .face.sad .tear,
+      .face.desperate .tear,
+      .face.terrified .tear {
+          opacity: 1;
+      }
+
+      /* 腮红 */
+      .blush {
+          position: absolute;
+          width: 60px;
+          height: 40px;
+          background: rgba(255, 182, 193, 0.6);
+          border-radius: 50%;
+          top: 200px;
+          opacity: 0;
+      }
+
+      .blush.left { left: 60px; }
+      .blush.right { right: 60px; }
+
+      /* 显示腮红的表情 */
+      .face.happy .blush,
+      .face.embarrassed .blush,
+      .face.shy .blush,
+      .face.excited .blush,
+      .face.ecstatic .blush {
+          opacity: 1;
+      }
+
+      /* 汗珠 */
+      .sweat {
+          position: absolute;
+          width: 20px;
+          height: 30px;
+          background: linear-gradient(to bottom, #E0FFFF, #87CEEB);
+          border-radius: 50%;
+          top: 80px;
+          right: 60px;
+          opacity: 0;
+          animation: sweat-drop 1s ease-in infinite;
+      }
+
+      @keyframes sweat-drop {
+          0% { transform: translateY(0); opacity: 1; }
+          100% { transform: translateY(40px); opacity: 0; }
+      }
+
+      /* 显示汗珠的表情 */
+      .face.surprised .sweat,
+      .face.fear .sweat,
+      .face.anxious .sweat,
+      .face.embarrassed .sweat,
+      .face.terrified .sweat {
+          opacity: 1;
+      }
+
+      /* 青筋 */
+      .vein {
+          position: absolute;
+          width: 40px;
+          height: 8px;
+          background: rgba(139, 0, 0, 0.5);
+          border-radius: 4px;
+          top: 60px;
+          opacity: 0;
+      }
+
+      .vein.left { left: 50px; transform: rotate(-30deg); }
+      .vein.right { right: 50px; transform: rotate(30deg); }
+
+      /* 显示青筋的表情 */
+      .face.angry .vein,
+      .face.pain .vein,
+      .face.furious .vein {
+          opacity: 1;
+      }
+
+      /* 黑眼圈 */
+      .dark-circle {
+          position: absolute;
+          width: 80px;
+          height: 30px;
+          background: rgba(139, 69, 19, 0.3);
+          border-radius: 50%;
+          top: 130px;
+          opacity: 0;
+      }
+
+      .dark-circle.left { left: 80px; }
+      .dark-circle.right { right: 80px; }
+
+      /* 显示黑眼圈的表情 */
+      .face.sad .dark-circle,
+      .face.tired .dark-circle,
+      .face.desperate .dark-circle {
+          opacity: 1;
+      }
+
+      /* ============================================
+         文本系统
+         ============================================ */
+      .emotion-label {
+          margin-top: 60px;
+          font-size: 72px;
+          color: white;
+          text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+      }
+
+      .emotion-emoji {
+          font-size: 120px;
+          margin-bottom: 30px;
+      }
+
+      /* ============================================
+         特殊风格
+         ============================================ */
+
+      /* 像素风格 */
+      .face.pixel * {
+          border-radius: 0 !important;
+          background: #000 !important;
+      }
+
+      .face.pixel .eye,
+      .face.pixel .mouth {
+          border-radius: 0 !important;
+      }
+
+      /* 极简风格 */
+      .face.minimal .eye {
+          width: 20px;
+          height: 20px;
+          background: #000;
+          border: none;
+      }
+
+      .face.minimal .mouth {
+          width: 60px;
+          height: 4px;
+          background: #000;
+          border-radius: 2px;
+      }
+
+      .face.minimal .eyebrow {
+          display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="emotion-emoji">{{ emoji | default('😊') }}</div>
+
+      <div
+        class="face {{ emotion | default('happy') }}"
+        style="background: {{ face_color | default('#FFD700') }};"
+      >
+        <!-- 眉毛 -->
+        <div class="eyebrow left"></div>
+        <div class="eyebrow right"></div>
+
+        <!-- 青筋 -->
+        <div class="vein left"></div>
+        <div class="vein right"></div>
+
+        <!-- 黑眼圈 -->
+        <div class="dark-circle left"></div>
+        <div class="dark-circle right"></div>
+
+        <!-- 眼睛 -->
+        <div class="eye left">
+          <div class="pupil"></div>
+        </div>
+        <div class="eye right">
+          <div class="pupil"></div>
+        </div>
+
+        <!-- 腮红 -->
+        <div class="blush left"></div>
+        <div class="blush right"></div>
+
+        <!-- 泪珠 -->
+        <div class="tear left"></div>
+        <div class="tear right"></div>
+
+        <!-- 嘴巴 -->
+        <div class="mouth"></div>
+
+        <!-- 汗珠 -->
+        <div class="sweat"></div>
+      </div>
+
+      <div class="emotion-label">{{ emotion_name | default('开心') }}</div>
+    </div>
+  </body>
+</html>
