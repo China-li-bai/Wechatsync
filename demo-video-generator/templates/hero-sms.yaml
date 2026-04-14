@@ -1,0 +1,67 @@
+# Hero SMS 智能视频生成配置
+# 系统将自动分析页面并生成内容
+
+project:
+  name: "Hero SMS 智能演示"
+  url: "https://hero-sms.com/cn"
+  output_dir: "./output/hero-sms"
+  output_name: "hero-sms-demo"
+
+voice:
+  language: "zh-CN"
+  voice_name: "zh-CN-XiaoxiaoNeural"
+  speed: 1.0
+
+# 场景留空，系统自动生成
+scenes: []
+
+recording:
+  enabled: true
+  auto_scroll: true
+  scroll_distance: 400
+  wait_after_action: 2
+
+video:
+  format: "mp4"
+  quality: "high"
+  resolution: "1280x720"
+  fps: 30
+
+audio:
+  codec: "aac"
+  bitrate: "128k"
+
+subtitle:
+  enabled: true
+  format: "srt"
+  font: "PingFang SC"
+  font_size: 24
+  color: "#FFFFFF"
+  outline_color: "#000000"
+  background_color: "#80000000"
+  outline: 2
+  shadow: 1
+
+thumbnail:
+  enabled: true
+  template: "default.html"
+  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+  font_size: 80
+  text_color: "white"
+  badge: "NEW"
+  brand: "Hero SMS"
+  author: "Smart Generator"
+  accent_color: "#ffd700"
+
+advanced:
+  auto_generate_content: true
+  analyze_page: true
+  browser:
+    headless: true
+    timeout: 60000
+  validation:
+    check_sync: true
+    check_quality: true
+  performance:
+    parallel_voice: true
+    skip_existing: false
