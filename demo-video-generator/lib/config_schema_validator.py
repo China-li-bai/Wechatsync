@@ -94,8 +94,7 @@ class ConfigSchemaValidator:
             },
             "scenes": {
                 "type": "array",
-                "description": "场景配置列表",
-                "minItems": 1,
+                "description": "场景配置列表（可为空，系统自动生成）",
                 "items": {
                     "type": "object",
                     "required": ["name", "type", "text"],
