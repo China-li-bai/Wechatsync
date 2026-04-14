@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表情 - 暴怒 🤬</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        
+        .face-furious {
+            width: 400px;
+            height: 400px;
+            background: #DC143C;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: furious-bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes furious-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+
+        .face-furious .eyebrow {
+            position: absolute;
+            width: 80px;
+            height: 12px;
+            background: #000;
+            border-radius: 6px;
+            top: 100px;
+        }
+
+        .face-furious .eyebrow.left {
+            left: 80px;
+            transform: rotate(-50deg);
+        }
+
+        .face-furious .eyebrow.right {
+            right: 80px;
+            transform: rotate(--50deg);
+        }
+        
+
+        .face-furious .eye {
+            position: absolute;
+            width: 60px;
+            height: 70px;
+            background: #FFF;
+            border: 5px solid #000;
+            top: 140px;
+            border-radius: 50%; width: 70px; height: 80px;
+        }
+
+        .face-furious .eye.left { left: 90px; }
+        .face-furious .eye.right { right: 90px; }
+        
+
+        .face-furious .mouth {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px; height: 60px; border-radius: 0 0 60px 60px; background: #000;
+        }
+        
+
+        .face-furious .vein {
+            position: absolute;
+            width: 40px;
+            height: 8px;
+            background: rgba(139, 0, 0, 0.5);
+            border-radius: 4px;
+            top: 60px;
+        }
+
+        .face-furious .vein.left { left: 50px; transform: rotate(-30deg); }
+        .face-furious .vein.right { right: 50px; transform: rotate(30deg); }
+        
+
+        .emotion-label {
+            margin-top: 60px;
+            font-size: 72px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        .emotion-emoji {
+            font-size: 120px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emotion-emoji">🤬</div>
+        <div class="face-furious">
+        <div class="eyebrow left"></div>
+        <div class="eyebrow right"></div>
+        <div class="vein left"></div>
+        <div class="vein right"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="mouth"></div>
+    </div>
+        <div class="emotion-label">暴怒 - furious</div>
+    </div>
+</body>
+</html>

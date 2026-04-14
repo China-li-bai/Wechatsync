@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: {{ width }}px;
+            height: {{ height }}px;
+            background: {{ background | default('linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)') }};
+            font-family: 'Georgia', 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .mystery-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            z-index: 1;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 80px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .question-mark-giant {
+            font-size: 200px;
+            color: {{ accent_color | default('#FFD700') }};
+            text-shadow: 
+                0 0 60px rgba(255, 215, 0, 0.6),
+                0 0 120px rgba(255, 215, 0, 0.3);
+            margin-bottom: 30px;
+            animation: glow-pulse 3s ease-in-out infinite;
+            line-height: 1;
+            opacity: 0.9;
+        }
+        
+        @keyframes glow-pulse {
+            0%, 100% { 
+                opacity: 0.7; 
+                transform: scale(1); 
+                text-shadow: 
+                    0 0 60px rgba(255, 215, 0, 0.6),
+                    0 0 120px rgba(255, 215, 0, 0.3);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.05); 
+                text-shadow: 
+                    0 0 80px rgba(255, 215, 0, 0.8),
+                    0 0 160px rgba(255, 215, 0, 0.5);
+            }
+        }
+        
+        .title-main {
+            font-size: {{ font_size | default(72) }}px;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.2;
+            max-width: 90%;
+            word-wrap: break-word;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 
+                4px 4px 12px rgba(0, 0, 0, 0.9),
+                0 0 40px rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+        
+        .title-main::before,
+        .title-main::after {
+            content: '"';
+            font-size: 1.3em;
+            color: {{ accent_color | default('#FFD700') }};
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        {% if subtitle %}
+        .subtitle-mystery {
+            font-size: {{ (font_size // 2) + 3 | default(36) }}px;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.4;
+            max-width: 85%;
+            margin-top: 15px;
+            padding: 20px 35px;
+            border-left: 4px solid {{ accent_color | default('#FFD700') }};
+            background: rgba(255, 215, 0, 0.08);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        {% endif %}
+        
+        {% if badge %}
+        .badge-secret {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000000;
+            padding: 16px 38px;
+            border-radius: 8px;
+            font-size: 28px;
+            font-weight: 900;
+            box-shadow: 
+                0 8px 24px rgba(255, 215, 0, 0.5),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 20;
+            animation: secret-float 4s ease-in-out infinite;
+        }
+        
+        @keyframes secret-float {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(-2deg); }
+        }
+        {% endif %}
+        
+        .dots-suspense {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .dot {
+            width: 18px;
+            height: 18px;
+            background: {{ accent_color | default('#FFD700') }};
+            border-radius: 50%;
+            animation: dot-bounce 1.5s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+        
+        .dot:nth-child(1) { animation-delay: 0s; }
+        .dot:nth-child(2) { animation-delay: 0.3s; }
+        .dot:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes dot-bounce {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: translateY(0) scale(0.8); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translateY(-15px) scale(1.2); 
+            }
+        }
+        
+        .fog-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .fog-layer {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.03) 20%, 
+                rgba(255, 255, 255, 0.06) 50%, 
+                rgba(255, 255, 255, 0.03) 80%, 
+                transparent 100%);
+            animation: fog-drift 20s linear infinite;
+        }
+        
+        .fog-layer:nth-child(2) {
+            animation-delay: -10s;
+            opacity: 0.6;
+        }
+        
+        @keyframes fog-drift {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+        
+        .corner-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 3px solid {{ accent_color | default('#FFD700') }};
+            opacity: 0.3;
+            z-index: 3;
+        }
+        
+        .corner-tl {
+            top: 30px;
+            left: 30px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .corner-br {
+            bottom: 30px;
+            right: 30px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .eye-icon {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            font-size: 50px;
+            animation: eye-watch 4s ease-in-out infinite;
+            z-index: 5;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        }
+        
+        @keyframes eye-watch {
+            0%, 90%, 100% { transform: scaleX(1); }
+            95% { transform: scaleX(0.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="fog-effect">
+        <div class="fog-layer"></div>
+        <div class="fog-layer"></div>
+    </div>
+    
+    <div class="mystery-overlay"></div>
+    
+    <div class="corner-decoration corner-tl"></div>
+    <div class="corner-decoration corner-br"></div>
+    
+    {% if badge %}
+    <div class="badge-secret">{{ badge }}</div>
+    {% endif %}
+    
+    <div class="container">
+        <div class="question-mark-giant">?</div>
+        
+        <div class="title-main">{{ title }}</div>
+        
+        {% if subtitle %}
+        <div class="subtitle-mystery">{{ subtitle }}</div>
+        {% endif %}
+        
+        <div class="dots-suspense">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    
+    <div class="eye-icon">👁️</div>
+</body>
+</html>

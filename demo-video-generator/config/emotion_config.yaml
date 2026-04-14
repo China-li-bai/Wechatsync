@@ -1,0 +1,183 @@
+# 表情映射配置
+# 统一管理所有表情的参数
+
+emotions:
+  # 基础情绪
+  happy:
+    name: "开心"
+    emoji: "😄"
+    face_color: "#FFD700"
+    description: "大笑，眼睛弯成月牙，腮红"
+    
+  sad:
+    name: "悲伤"
+    emoji: "😢"
+    face_color: "#87CEEB"
+    description: "八字眉，眼角下垂，流泪"
+    
+  angry:
+    name: "愤怒"
+    emoji: "😡"
+    face_color: "#FF6B6B"
+    description: "倒八眉，怒视，咬牙切齿"
+    
+  surprised:
+    name: "震惊"
+    emoji: "😱"
+    face_color: "#FFD700"
+    description: "挑眉，大眼，O型嘴，汗珠"
+    
+  fear:
+    name: "恐惧"
+    emoji: "😨"
+    face_color: "#E0FFFF"
+    description: "恐惧眼神，颤抖，冷汗"
+    
+  disgust:
+    name: "厌恶"
+    emoji: "🤢"
+    face_color: "#90EE90"
+    description: "眯眼，恶心表情"
+    
+  # 复杂情绪
+  anxious:
+    name: "焦虑"
+    emoji: "😰"
+    face_color: "#F0E68C"
+    description: "担忧眉，汗珠，不安"
+    
+  confused:
+    name: "困惑"
+    emoji: "😕"
+    face_color: "#FFDAB9"
+    description: "歪头，问号眼，迷茫"
+    
+  embarrassed:
+    name: "尴尬"
+    emoji: "😅"
+    face_color: "#FFB6C1"
+    description: "尬笑，流汗，脸红"
+    
+  disappointed:
+    name: "失望"
+    emoji: "😞"
+    face_color: "#D3D3D3"
+    description: "极度失望，叹气"
+    
+  tired:
+    name: "疲惫"
+    emoji: "😫"
+    face_color: "#DDA0DD"
+    description: "眼皮沉重，困倦"
+    
+  excited:
+    name: "兴奋"
+    emoji: "🤩"
+    face_color: "#FF69B4"
+    description: "星星眼，大笑，激动"
+    
+  suspicious:
+    name: "怀疑"
+    emoji: "🤨"
+    face_color: "#F4A460"
+    description: "挑眉，眯眼，警惕"
+    
+  proud:
+    name: "得意"
+    emoji: "😏"
+    face_color: "#FFA07A"
+    description: "自信眼神，得意笑"
+    
+  shy:
+    name: "害羞"
+    emoji: "😳"
+    face_color: "#FFB6C1"
+    description: "脸红，眼神躲闪"
+    
+  pain:
+    name: "痛苦"
+    emoji: "😣"
+    face_color: "#FF6347"
+    description: "痛苦表情，青筋"
+    
+  # 极端情绪
+  crazy:
+    name: "疯狂"
+    emoji: "🤪"
+    face_color: "#98FB98"
+    description: "疯癫，大小眼，吐舌"
+    
+  desperate:
+    name: "绝望"
+    emoji: "😩"
+    face_color: "#B0C4DE"
+    description: "绝望哭泣，恳求"
+    
+  ecstatic:
+    name: "狂喜"
+    emoji: "🥳"
+    face_color: "#FFD700"
+    description: "极致快乐，闭眼大笑"
+    
+  terrified:
+    name: "恐怖"
+    emoji: "😱"
+    face_color: "#F0F8FF"
+    description: "极度恐惧，尖叫"
+    
+  furious:
+    name: "暴怒"
+    emoji: "🤬"
+    face_color: "#DC143C"
+    description: "极度愤怒，青筋暴起"
+    
+  # 特殊风格
+  pixel:
+    name: "像素"
+    emoji: "👾"
+    face_color: "#FFD700"
+    description: "8-bit像素风格"
+    
+  comic:
+    name: "漫画"
+    emoji: "💥"
+    face_color: "#FFA500"
+    description: "美漫风格，爆炸效果"
+    
+  minimal:
+    name: "极简"
+    emoji: "○"
+    face_color: "#FFFFFF"
+    description: "极简线条风格"
+
+# 表情分类
+categories:
+  basic:
+    name: "基础情绪"
+    emotions: ["happy", "sad", "angry", "surprised", "fear", "disgust"]
+    
+  complex:
+    name: "复杂情绪"
+    emotions: ["anxious", "confused", "embarrassed", "disappointed", "tired", "excited", "suspicious", "proud", "shy", "pain"]
+    
+  extreme:
+    name: "极端情绪"
+    emotions: ["crazy", "desperate", "ecstatic", "terrified", "furious"]
+    
+  special:
+    name: "特殊风格"
+    emotions: ["pixel", "comic", "minimal"]
+
+# 默认表情
+default_emotion: "happy"
+
+# 表情推荐映射（根据内容类型）
+recommendations:
+  funny: ["happy", "crazy", "excited"]
+  failure: ["sad", "disappointed", "desperate"]
+  challenge: ["anxious", "excited", "determined"]
+  mystery: ["surprised", "suspicious", "confused"]
+  inspirational: ["proud", "excited", "ecstatic"]
+  horror: ["fear", "terrified", "pain"]
+  tutorial: ["happy", "confused", "proud"]
+  review: ["suspicious", "proud", "disappointed"]

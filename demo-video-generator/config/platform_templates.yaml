@@ -1,0 +1,381 @@
+# 平台专属封面模板配置
+# 基于2024-2025年数据分析
+
+platforms:
+  youtube:
+    name: "YouTube"
+    specs:
+      width: 1280
+      height: 720
+      aspect_ratio: "16:9"
+      format: "PNG/JPG"
+    
+    design_principles:
+      - "真实表情主义"
+      - "Z-Pattern视觉层次"
+      - "高饱和度互补色"
+      - "好奇心缺口"
+    
+    best_practices:
+      face_size: "40%-60%垂直空间"
+      text_words: "3-5个词"
+      color_saturation: "高饱和度"
+      expression: "真实未编辑"
+    
+    template_types:
+      authentic_expression:
+        name: "真实表情型"
+        description: "真实、未编辑的面部表情"
+        elements:
+          - "人脸特写（40-60%）"
+          - "真实情绪表达"
+          - "简洁背景"
+        ctr_boost: "+52%"
+        use_cases: ["Vlog", "个人故事", "反应视频"]
+        
+      z_pattern_layout:
+        name: "Z-Pattern布局型"
+        description: "Z字形视觉流动"
+        elements:
+          - "左上：主标题"
+          - "右上：人脸/主体"
+          - "左下：辅助图形"
+          - "右下：行动号召"
+        ctr_boost: "+35%"
+        use_cases: ["教程", "产品展示"]
+        
+      curiosity_gap:
+        name: "好奇心缺口型"
+        description: "制造悬念和好奇"
+        elements:
+          - "部分展示内容"
+          - "问号/省略号"
+          - "Before/After对比"
+          - "遮挡关键信息"
+        ctr_boost: "+44%"
+        use_cases: ["揭秘", "对比", "挑战"]
+
+  tiktok:
+    name: "TikTok/抖音"
+    specs:
+      width: 1080
+      height: 1920
+      aspect_ratio: "9:16"
+      format: "PNG/JPG"
+    
+    design_principles:
+      - "竖屏优先"
+      - "主体特写"
+      - "高对比度"
+      - "价值直给"
+    
+    best_practices:
+      subject_size: "150%-200%放大"
+      text_position: "上1/3区域"
+      contrast: "高对比度"
+      focal_point: "眼睛/产品核心"
+    
+    template_types:
+      close_up:
+        name: "主体特写型"
+        description: "近距离特写产品/人物"
+        elements:
+          - "主体放大150-200%"
+          - "背景模糊或纯色"
+          - "焦点在眼睛/产品"
+        ctr_boost: "+30%"
+        use_cases: ["美妆", "美食", "家居"]
+        
+      value_direct:
+        name: "价值直给型"
+        description: "直接展示核心价值"
+        elements:
+          - "大字体标注"
+          - "关键信息突出"
+          - "文本占比30-40%"
+        ctr_boost: "+40%"
+        use_cases: ["教程", "分享", "推荐"]
+        
+      before_after:
+        name: "对比反差型"
+        description: "Before/After对比"
+        elements:
+          - "左右/上下分屏"
+          - "红色箭头指示"
+          - "标签：使用前/后"
+        ctr_boost: "+92%"
+        use_cases: ["美妆", "健身", "装修"]
+        
+      process_record:
+        name: "过程记录型"
+        description: "6宫格展示连续动作"
+        elements:
+          - "2×3或3×2网格"
+          - "每格独立场景"
+          - "编号1-6"
+          - "情感化标签"
+        ctr_boost: "+120秒停留"
+        use_cases: ["烹饪", "手工", "DIY"]
+
+  xiaohongshu:
+    name: "小红书"
+    specs:
+      width: 1080
+      height: 1440
+      aspect_ratio: "3:4"
+      format: "PNG/JPG"
+    
+    design_principles:
+      - "3×3设计法则"
+      - "七大模板体系"
+      - "高信息密度"
+      - "情感化表达"
+    
+    best_practices:
+      info_points: "3秒内识别3个信息点"
+      text_size: "手机屏幕清晰可读"
+      color_contrast: "高对比度"
+      emotion_trigger: "悬念/好奇/价值"
+    
+    template_types:
+      conflict_compare:
+        name: "冲突对比型"
+        description: "左右分屏展示对比效果"
+        elements:
+          - "左右分屏50:50"
+          - "红色箭头指示"
+          - "时效性标签"
+          - "Before/After标注"
+        ctr_boost: "+92%收藏率"
+        use_cases: ["美妆", "护肤", "健身"]
+        
+      number_cover:
+        name: "数字封面型"
+        description: "数字+痛点+结果结构"
+        elements:
+          - "大数字（≥25%）"
+          - "痛点描述"
+          - "结果承诺"
+          - "超粗字体"
+        ctr_boost: "+52%"
+        use_cases: ["成长", "减肥", "学习"]
+        
+      chat_record:
+        name: "聊天记录型"
+        description: "对话截图制造悬念"
+        elements:
+          - "微信/聊天界面"
+          - "真实对话气泡"
+          - "关键信息高亮"
+          - "悬念制造"
+        ctr_boost: "+45%"
+        use_cases: ["咨询", "职场", "娱乐"]
+        
+      memo_style:
+        name: "备忘录型"
+        description: "清单式高密度信息"
+        elements:
+          - "备忘录背景"
+          - "5-7项列表"
+          - "勾选框✓"
+          - "重点标记"
+        ctr_boost: "+38%"
+        use_cases: ["成长", "旅游", "装修"]
+
+  twitter:
+    name: "X (Twitter)"
+    specs:
+      width: 1200
+      height: 675
+      aspect_ratio: "16:9"
+      format: "PNG/JPG"
+    
+    design_principles:
+      - "视觉冲击优先"
+      - "移动端优化"
+      - "简洁文字"
+      - "高对比度"
+    
+    best_practices:
+      focal_point: "单一明确主体"
+      text_length: "3-5词"
+      font_size: "移动端可读"
+      contrast: "高对比色彩"
+    
+    template_types:
+      visual_impact:
+        name: "视觉冲击型"
+        description: "单一焦点高对比"
+        elements:
+          - "单一主体"
+          - "高对比色彩"
+          - "简洁背景"
+          - "清晰焦点"
+        ctr_boost: "+35%"
+        use_cases: ["新闻", "产品", "事件"]
+        
+      text_overlay:
+        name: "文字叠加型"
+        description: "简洁文字传达核心"
+        elements:
+          - "简短文本3-5词"
+          - "粗体字体"
+          - "高对比度"
+          - "核心信息"
+        ctr_boost: "+44%"
+        use_cases: ["观点", "新闻", "公告"]
+
+  facebook:
+    name: "Facebook"
+    specs:
+      width: 1200
+      height: 675
+      aspect_ratio: "16:9"
+      format: "PNG/JPG"
+    
+    design_principles:
+      - "人脸优先"
+      - "文字叠加"
+      - "高对比度"
+      - "情感表达"
+    
+    best_practices:
+      face_size: "40%-60%封面"
+      expression: "明显情绪"
+      eye_contact: "直视镜头"
+      text_overlay: "5-7词标题"
+    
+    template_types:
+      face_close_up:
+        name: "人脸特写型"
+        description: "人脸+明显表情"
+        elements:
+          - "人脸占40-60%"
+          - "明显情绪表达"
+          - "直视镜头"
+          - "中心或黄金分割"
+        ctr_boost: "+38%"
+        use_cases: ["Vlog", "故事", "分享"]
+        
+      text_highlight:
+        name: "文字高亮型"
+        description: "文字叠加传达价值"
+        elements:
+          - "5-7词标题"
+          - "粗体字体"
+          - "高对比度"
+          - "价值主张"
+        ctr_boost: "+39%"
+        use_cases: ["教程", "产品", "活动"]
+
+# 通用设计要素
+common_elements:
+  face:
+    importance: "critical"
+    ctr_boost: "+38%"
+    best_practices:
+      - "真实表情"
+      - "占封面40-60%"
+      - "直视镜头"
+      - "明显情绪"
+  
+  text:
+    importance: "high"
+    ctr_boost: "+44%"
+    best_practices:
+      - "3-5个词"
+      - "粗体无衬线"
+      - "高对比度"
+      - "清晰可读"
+  
+  color:
+    importance: "high"
+    ctr_boost: "+39%"
+    best_practices:
+      - "高饱和度"
+      - "互补色搭配"
+      - "高对比度"
+      - "平台适配"
+  
+  contrast:
+    importance: "high"
+    ctr_boost: "+39%"
+    best_practices:
+      - "明暗对比"
+      - "冷暖对比"
+      - "色彩对比"
+      - "层次分明"
+
+# 配色方案
+color_schemes:
+  youtube:
+    primary: ["#FF6B6B", "#4ECDC4", "#FFE66D", "#95E1D3"]
+    secondary: ["#2C3E50", "#34495E", "#7F8C8D"]
+    combinations:
+      - ["#FF6B6B", "#4ECDC4"]  # 红+青
+      - ["#FFE66D", "#2C3E50"]  # 黄+深蓝
+      - ["#95E1D3", "#FF6B6B"]  # 绿+红
+  
+  tiktok:
+    primary: ["#FF0050", "#00F2EA", "#FFFC00", "#FF6B6B"]
+    secondary: ["#000000", "#FFFFFF", "#2C3E50"]
+    combinations:
+      - ["#FF0050", "#00F2EA"]  # TikTok品牌色
+      - ["#FFFC00", "#000000"]  # 黄+黑
+      - ["#FF6B6B", "#2C3E50"]  # 红+深蓝
+  
+  xiaohongshu:
+    primary: ["#FF2442", "#FE2C55", "#FF6B6B", "#FFA07A"]
+    secondary: ["#FFFFFF", "#F5F5F5", "#2C3E50"]
+    combinations:
+      - ["#FF2442", "#FFFFFF"]  # 小红书品牌色
+      - ["#FF6B6B", "#2C3E50"]  # 红+深蓝
+      - ["#FFA07A", "#FFFFFF"]  # 橙+白
+  
+  twitter:
+    primary: ["#1DA1F2", "#14171A", "#657786", "#FFAD1F"]
+    secondary: ["#FFFFFF", "#F5F8FA", "#E1E8ED"]
+    combinations:
+      - ["#1DA1F2", "#FFFFFF"]  # Twitter品牌色
+      - ["#14171A", "#FFAD1F"]  # 黑+黄
+      - ["#657786", "#FFFFFF"]  # 灰+白
+  
+  facebook:
+    primary: ["#1877F2", "#42B72A", "#F5533D", "#FFC426"]
+    secondary: ["#FFFFFF", "#F0F2F5", "#1C1E21"]
+    combinations:
+      - ["#1877F2", "#FFFFFF"]  # Facebook品牌色
+      - ["#42B72A", "#FFFFFF"]  # 绿+白
+      - ["#F5533D", "#FFFFFF"]  # 红+白
+
+# 表情类型推荐
+expression_recommendations:
+  youtube:
+    shock: "+42%"
+    confusion: "+35%"
+    excitement: "+38%"
+    authentic: "+52%"
+  
+  tiktok:
+    surprise: "+45%"
+    curiosity: "+40%"
+    excitement: "+38%"
+    authentic: "+50%"
+  
+  xiaohongshu:
+    curiosity: "+45%"
+    surprise: "+42%"
+    value: "+38%"
+    authentic: "+48%"
+  
+  twitter:
+    shock: "+40%"
+    curiosity: "+38%"
+    excitement: "+35%"
+    authentic: "+45%"
+  
+  facebook:
+    excitement: "+38%"
+    surprise: "+35%"
+    authentic: "+42%"
+    happiness: "+40%"

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: {{ width | default(1080) }}px;
+            height: {{ height | default(1920) }}px;
+            background: {{ background | default('linear-gradient(135deg, #FF0000 0%, #FF4444 50%, #FF6666 100%)') }};
+            font-family: 'Impact', 'Arial Black', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 极简背景 - MrBeast风格 */
+        .bg-simple {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: {{ background | default('linear-gradient(135deg, #FF0000 0%, #FF4444 50%, #FF6666 100%)') }};
+            z-index: 1;
+        }
+
+        /* 微妙纹理增加质感 */
+        .bg-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,0,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 40%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+            padding: 60px 50px;
+        }
+
+        /* 顶部标签 - 黄金位置 */
+        {% if badge %}
+        .badge-top {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 42px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 
+                0 10px 40px rgba(255, 215, 0, 0.5),
+                0 0 60px rgba(255, 215, 0, 0.3);
+            z-index: 20;
+            border: 3px solid #FFF;
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+        }
+        {% endif %}
+
+        /* 中央视觉焦点 - 主体占比60%+ */
+        .visual-focus {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex: 1;
+            margin-top: 100px;
+        }
+
+        /* 超大Emoji - 情感触发器 */
+        .emoji-mega {
+            font-size: 350px;
+            line-height: 1;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+            animation: emoji-bounce 2s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes emoji-bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        /* 主标题 - 大字报风格 */
+        .title-main {
+            font-size: {{ (font_size | default(85)) }}px;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.15;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 
+                5px 5px 0px #000,
+                -2px -2px 0px #000,
+                2px -2px 0px #000,
+                -2px 2px 0px #000,
+                2px 2px 0px #000,
+                0 0 40px rgba(0,0,0,0.5);
+            max-width: 95%;
+            word-wrap: break-word;
+            margin-bottom: 40px;
+        }
+
+        /* 副标题 - 简洁有力 */
+        {% if subtitle %}
+        .subtitle-box {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px 45px;
+            border-radius: 15px;
+            border-left: 6px solid #FFD700;
+            max-width: 90%;
+        }
+
+        .subtitle-text {
+            font-size: {{ ((font_size | default(85)) * 0.45) }}px;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.4;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        {% endif %}
+
+        /* 底部CTA */
+        .cta-bottom {
+            margin-top: 50px;
+            font-size: 38px;
+            font-weight: 800;
+            color: #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+            animation: cta-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes cta-glow {
+            0% { text-shadow: 3px 3px 6px rgba(0,0,0,0.6), 0 0 20px rgba(255,215,0,0.3); }
+            100% { text-shadow: 3px 3px 6px rgba(0,0,0,0.6), 0 0 40px rgba(255,215,0,0.6); }
+        }
+
+        /* 箭头指示器 - 引导视线 */
+        .arrow-indicator {
+            position: absolute;
+            font-size: 80px;
+            color: #FFD700;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+            animation: arrow-bounce 1s ease-in-out infinite;
+            z-index: 30;
+        }
+
+        .arrow-left {
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .arrow-right {
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        @keyframes arrow-bounce {
+            0%, 100% { transform: translateY(-50%) rotate(var(--rotation, 0deg)) translateX(0); }
+            50% { transform: translateY(-50%) rotate(var(--rotation, 0deg)) translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-simple"></div>
+    <div class="bg-texture"></div>
+
+    <div class="container">
+        {% if badge %}
+        <div class="badge-top">{{ badge }}</div>
+        {% endif %}
+
+        <div class="visual-focus">
+            <div class="emoji-mega">{{ emoji | default('😱') }}</div>
+            
+            <div class="title-main">{{ title }}</div>
+            
+            {% if subtitle %}
+            <div class="subtitle-box">
+                <div class="subtitle-text">{{ subtitle }}</div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="cta-bottom">{{ cta_text | default('CLICK NOW') }}</div>
+    </div>
+
+    <!-- 引导箭头 -->
+    <div class="arrow-indicator arrow-left" style="--rotation: -90deg;">👆</div>
+    <div class="arrow-indicator arrow-right" style="--rotation: 90deg;">👆</div>
+</body>
+</html>

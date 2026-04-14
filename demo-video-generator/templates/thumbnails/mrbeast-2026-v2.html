@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Anton&family=Bebas+Neue&display=swap');
+
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          width: {{ width | default(1080) }}px;
+          height: {{ height | default(1920) }}px;
+          overflow: hidden;
+          position: relative;
+          font-family: 'Oswald', 'Anton', 'Bebas Neue', 'Impact', sans-serif;
+      }
+
+      /* ============================================
+         MrBeast 2026 Design System
+         60-30-10 Color Rule Implementation
+         ============================================ */
+
+      :root {
+          /* 60% Primary - Vibrant Blue */
+          --color-primary: {{ primary_color | default('#0066FF') }};
+          /* 30% Secondary - Intense Red */
+          --color-secondary: {{ secondary_color | default('#FF3333') }};
+          /* 10% Accent - Bright Yellow */
+          --color-accent: {{ accent_color | default('#FFFF00') }};
+      }
+
+      /* ============================================
+         Layer 1: Background (60% Primary Color)
+         ============================================ */
+      .layer-background {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: var(--color-primary);
+          z-index: 1;
+      }
+
+      /* Background blur for depth */
+      .bg-blur {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background:
+              radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 40%),
+              radial-gradient(circle at 80% 20%, rgba(0,0,0,0.1) 0%, transparent 30%);
+          filter: blur(20px);
+          z-index: 2;
+      }
+
+      /* ============================================
+         Layer 2: Midground (30% Secondary Elements)
+         ============================================ */
+      .layer-midground {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: 10;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+      }
+
+      /* ============================================
+         The Sadness Paradox - Emotional Vulnerability
+         Sad/Anxious Face (40-60% of vertical space)
+         ============================================ */
+      .face-container {
+          width: 600px;
+          height: 50%; /* 40-60% Rule */
+          max-height: 1150px;
+          min-height: 768px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 40px;
+      }
+
+      /* Sad/Anxious Face - High Stakes Tension */
+      .face-sad {
+          width: 500px;
+          height: 500px;
+          background: linear-gradient(145deg, #FFE4B5 0%, #DEB887 50%, #D2B48C 100%);
+          border-radius: 50%;
+          position: relative;
+          box-shadow:
+              0 30px 80px rgba(0,0,0,0.3),
+              inset 0 -30px 60px rgba(0,0,0,0.1);
+          animation: face-sad-breathe 2s ease-in-out infinite;
+      }
+
+      @keyframes face-sad-breathe {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.02); }
+      }
+
+      /* Drooping Eyebrows (八字眉) - Sadness */
+      .face-sad .eyebrow {
+          position: absolute;
+          width: 100px;
+          height: 15px;
+          background: #8B4513;
+          border-radius: 10px;
+          top: 120px;
+          animation: eyebrow-sad-twitch 3s ease-in-out infinite;
+      }
+
+      .face-sad .eyebrow.left {
+          left: 100px;
+          transform: rotate(25deg); /* Downward angle */
+          transform-origin: right center;
+      }
+      .face-sad .eyebrow.right {
+          right: 100px;
+          transform: rotate(-25deg); /* Downward angle */
+          transform-origin: left center;
+      }
+
+      @keyframes eyebrow-sad-twitch {
+          0%, 100% { transform: rotate(25deg); }
+          50% { transform: rotate(30deg); }
+      }
+
+      /* Eyes - Downward corners, showing stress */
+      .face-sad .eye {
+          position: absolute;
+          width: 90px;
+          height: 70px;
+          background: #FFF;
+          border-radius: 50% 50% 45% 45%;
+          top: 160px;
+          border: 6px solid #000;
+          overflow: hidden;
+          animation: eye-sad-blink 4s ease-in-out infinite;
+      }
+
+      .face-sad .eye.left { left: 110px; }
+      .face-sad .eye.right { right: 110px; }
+
+      @keyframes eye-sad-blink {
+          0%, 96%, 100% { transform: scaleY(1); }
+          98% { transform: scaleY(0.1); }
+      }
+
+      /* Pupils - Small, showing anxiety */
+      .face-sad .pupil {
+          position: absolute;
+          width: 25px;
+          height: 30px;
+          background: #000;
+          border-radius: 50%;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          animation: pupil-dart 2s ease-in-out infinite;
+      }
+
+      @keyframes pupil-dart {
+          0%, 100% { transform: translateX(-50%) translateY(0); }
+          25% { transform: translateX(-60%) translateY(2px); }
+          75% { transform: translateX(-40%) translateY(-1px); }
+      }
+
+      /* Dark circles under eyes - Exhaustion */
+      .face-sad .dark-circle {
+          position: absolute;
+          width: 100px;
+          height: 30px;
+          background: rgba(139, 69, 19, 0.3);
+          border-radius: 50%;
+          top: 220px;
+          filter: blur(8px);
+      }
+      .face-sad .dark-circle.left { left: 105px; }
+      .face-sad .dark-circle.right { right: 105px; }
+
+      /* Mouth - Downward curve (sad) */
+      .face-sad .mouth {
+          position: absolute;
+          width: 100px;
+          height: 50px;
+          border-bottom: 8px solid #000;
+          border-radius: 0 0 50% 50%;
+          bottom: 130px;
+          left: 50%;
+          transform: translateX(-50%);
+          animation: mouth-sad-tremble 1.5s ease-in-out infinite;
+      }
+
+      @keyframes mouth-sad-tremble {
+          0%, 100% { transform: translateX(-50%) rotate(0deg); }
+          50% { transform: translateX(-50%) rotate(2deg); }
+      }
+
+      /* Tears - Authentic vulnerability */
+      .face-sad .tear {
+          position: absolute;
+          width: 20px;
+          height: 35px;
+          background: linear-gradient(to bottom, #87CEEB, #4169E1);
+          border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+          top: 200px;
+          opacity: 0.8;
+          animation: tear-fall-sad 2s ease-in infinite;
+      }
+
+      .face-sad .tear.left { left: 130px; animation-delay: 0s; }
+      .face-sad .tear.right { right: 130px; animation-delay: 1s; }
+
+      @keyframes tear-fall-sad {
+          0% { transform: translateY(0) scale(1); opacity: 0.8; }
+          100% { transform: translateY(80px) scale(0.6); opacity: 0; }
+      }
+
+      /* Sweat drops - Stress indicator */
+      .face-sad .sweat-stress {
+          position: absolute;
+          width: 15px;
+          height: 25px;
+          background: linear-gradient(to bottom, #E0FFFF, #87CEEB);
+          border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+          top: 100px;
+          right: 80px;
+          animation: sweat-stress-drop 1.5s ease-in infinite;
+      }
+
+      @keyframes sweat-stress-drop {
+          0% { transform: translateY(0) scale(1); opacity: 1; }
+          100% { transform: translateY(60px) scale(0.7); opacity: 0; }
+      }
+
+      /* ============================================
+         Layer 3: Foreground (10% Accent)
+         Typography - Max 0-5 words
+         ============================================ */
+      .text-container {
+          position: relative;
+          z-index: 20;
+          text-align: center;
+          max-width: 90%;
+      }
+
+      /* Main Title - Obelix Pro style (using Anton as alternative) */
+      .mrbeast-title {
+          font-family: 'Anton', 'Oswald', 'Impact', sans-serif;
+          font-size: {{ (font_size | default(100)) }}px;
+          font-weight: 700;
+          color: #FFFFFF;
+          text-transform: uppercase;
+          line-height: 1.0;
+          letter-spacing: 3px;
+          text-shadow:
+              /* Thick black outline - 5px */
+              5px 5px 0 #000,
+              -5px -5px 0 #000,
+              5px -5px 0 #000,
+              -5px 5px 0 #000,
+              0 5px 0 #000,
+              0 -5px 0 #000,
+              5px 0 0 #000,
+              -5px 0 0 #000,
+              /* Additional outline layers */
+              3px 3px 0 #000,
+              -3px -3px 0 #000,
+              /* Drop shadow for depth */
+              10px 10px 30px rgba(0,0,0,0.5);
+          margin-bottom: 20px;
+          animation: title-pulse 2s ease-in-out infinite;
+          word-wrap: break-word;
+      }
+
+      @keyframes title-pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.03); }
+      }
+
+      /* Subtitle - Smaller, accent color */
+      {% if subtitle %}
+      .mrbeast-subtitle {
+          font-family: 'Oswald', sans-serif;
+          font-size: {{ ((font_size | default(100)) * 0.4) }}px;
+          font-weight: 600;
+          color: var(--color-accent);
+          text-transform: uppercase;
+          letter-spacing: 4px;
+          text-shadow:
+              3px 3px 0 #000,
+              -3px -3px 0 #000,
+              3px -3px 0 #000,
+              -3px 3px 0 #000,
+              0 0 20px rgba(255,255,0,0.5);
+      }
+      {% endif %}
+
+      /* CTA Button - Accent color */
+      .mrbeast-cta {
+          margin-top: 50px;
+          background: var(--color-accent);
+          color: #000;
+          padding: 20px 50px;
+          font-family: 'Anton', 'Oswald', sans-serif;
+          font-size: 48px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 5px;
+          border-radius: 15px;
+          border: 4px solid #000;
+          box-shadow:
+              0 10px 40px rgba(255,255,0,0.5),
+              0 0 60px rgba(255,255,0,0.3);
+          animation: cta-glow 1.5s ease-in-out infinite;
+      }
+
+      @keyframes cta-glow {
+          0%, 100% {
+              transform: scale(1);
+              box-shadow: 0 10px 40px rgba(255,255,0,0.5), 0 0 60px rgba(255,255,0,0.3);
+          }
+          50% {
+              transform: scale(1.05);
+              box-shadow: 0 15px 50px rgba(255,255,0,0.7), 0 0 80px rgba(255,255,0,0.5);
+          }
+      }
+
+      /* ============================================
+         Visual Noise Reduction
+         Minimal decorative elements
+         ============================================ */
+      .accent-line {
+          position: absolute;
+          width: 200px;
+          height: 6px;
+          background: var(--color-accent);
+          border-radius: 3px;
+          opacity: 0.6;
+      }
+
+      .accent-line.top {
+          top: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+      }
+
+      .accent-line.bottom {
+          bottom: 150px;
+          left: 50%;
+          transform: translateX(-50%);
+      }
+
+      /* Scale distortion indicator - subtle */
+      .scale-hint {
+          position: absolute;
+          font-size: 60px;
+          opacity: 0.2;
+          animation: scale-pulse 2s ease-in-out infinite;
+      }
+
+      .scale-hint.left { left: 50px; top: 50%; }
+      .scale-hint.right { right: 50px; top: 50%; }
+
+      @keyframes scale-pulse {
+          0%, 100% { transform: scale(1); opacity: 0.2; }
+          50% { transform: scale(1.2); opacity: 0.4; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Layer 1: Background (60% Primary) -->
+    <div class="layer-background"></div>
+    <div class="bg-blur"></div>
+
+    <!-- Minimal decorative elements -->
+    <div class="accent-line top"></div>
+    <div class="accent-line bottom"></div>
+    <div class="scale-hint left">👆</div>
+    <div class="scale-hint right">👆</div>
+
+    <!-- Layer 2: Midground (30% Secondary) -->
+    <div class="layer-midground">
+      <!-- Face Container - 40-60% Rule -->
+      <div class="face-container">
+        <!-- The Sadness Paradox - Sad/Anxious Face -->
+        <div class="face-sad">
+          <div class="eyebrow left"></div>
+          <div class="eyebrow right"></div>
+          <div class="dark-circle left"></div>
+          <div class="dark-circle right"></div>
+          <div class="eye left">
+            <div class="pupil"></div>
+          </div>
+          <div class="eye right">
+            <div class="pupil"></div>
+          </div>
+          <div class="tear left"></div>
+          <div class="tear right"></div>
+          <div class="mouth"></div>
+          <div class="sweat-stress"></div>
+        </div>
+      </div>
+
+      <!-- Layer 3: Foreground Text (10% Accent) -->
+      <div class="text-container">
+        <div class="mrbeast-title">{{ title }}</div>
+        {% if subtitle %}
+        <div class="mrbeast-subtitle">{{ subtitle }}</div>
+        {% endif %}
+        <div class="mrbeast-cta">{{ cta_text | default('WATCH') }}</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: {{ width | default(1080) }}px;
+            height: {{ height | default(1920) }}px;
+            background: {{ background | default('linear-gradient(135deg, #FF0000 0%, #FF4444 50%, #FF6666 100%)') }};
+            font-family: 'Impact', 'Arial Black', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 极简背景 */
+        .bg-simple {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: {{ background | default('linear-gradient(135deg, #FF0000 0%, #FF4444 50%, #FF6666 100%)') }};
+            z-index: 1;
+        }
+
+        /* 微妙纹理 */
+        .bg-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,0,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 40%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+            padding: 60px 50px;
+        }
+
+        /* 顶部标签 */
+        {% if badge %}
+        .badge-top {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 42px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 
+                0 10px 40px rgba(255, 215, 0, 0.5),
+                0 0 60px rgba(255, 215, 0, 0.3);
+            z-index: 20;
+            border: 3px solid #FFF;
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+        }
+        {% endif %}
+
+        /* 中央视觉焦点 */
+        .visual-focus {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex: 1;
+            margin-top: 100px;
+        }
+
+        /* ============================================
+           CSS夸张表情 - 震惊风格 (MrBeast风格)
+           ============================================ */
+        .expressive-face {
+            width: 450px;
+            height: 450px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .face-shocked {
+            width: 100%;
+            height: 100%;
+            background: #FFD700;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 30px 80px rgba(0,0,0,0.4),
+                inset 0 -30px 60px rgba(0,0,0,0.15),
+                0 0 100px rgba(255, 215, 0, 0.5);
+            animation: face-bounce 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes face-bounce {
+            0% { transform: scale(1) rotate(-1deg); }
+            100% { transform: scale(1.08) rotate(1deg); }
+        }
+
+        /* 眼睛 - 夸张的圆形 */
+        .face-shocked .eye {
+            position: absolute;
+            width: 90px;
+            height: 110px;
+            background: #FFF;
+            border-radius: 50%;
+            top: 110px;
+            border: 10px solid #000;
+            animation: eye-pop 0.4s ease-in-out infinite alternate;
+            overflow: hidden;
+        }
+
+        .face-shocked .eye.left { left: 90px; }
+        .face-shocked .eye.right { right: 90px; }
+
+        @keyframes eye-pop {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(1.25); }
+        }
+
+        /* 瞳孔 */
+        .face-shocked .pupil {
+            position: absolute;
+            width: 35px;
+            height: 45px;
+            background: #000;
+            border-radius: 50%;
+            top: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pupil-shake 0.2s ease-in-out infinite;
+        }
+
+        @keyframes pupil-shake {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* 高光 */
+        .face-shocked .highlight {
+            position: absolute;
+            width: 15px;
+            height: 18px;
+            background: #FFF;
+            border-radius: 50%;
+            top: 38px;
+            left: 55%;
+        }
+
+        /* 嘴巴 - 夸张的O型 */
+        .face-shocked .mouth {
+            position: absolute;
+            width: 110px;
+            height: 140px;
+            background: #000;
+            border-radius: 50%;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: mouth-open 0.5s ease-in-out infinite alternate;
+            overflow: hidden;
+        }
+
+        @keyframes mouth-open {
+            0% { height: 120px; width: 100px; }
+            100% { height: 160px; width: 120px; }
+        }
+
+        /* 舌头 */
+        .face-shocked .tongue {
+            position: absolute;
+            width: 70px;
+            height: 60px;
+            background: #FF6B6B;
+            border-radius: 50%;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: tongue-wiggle 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes tongue-wiggle {
+            0% { transform: translateX(-50%) rotate(-5deg); }
+            100% { transform: translateX(-50%) rotate(5deg); }
+        }
+
+        /* 眉毛 - 高挑 */
+        .face-shocked .eyebrow {
+            position: absolute;
+            width: 80px;
+            height: 18px;
+            background: #000;
+            border-radius: 10px;
+            top: 65px;
+            animation: eyebrow-raise 0.5s ease-in-out infinite alternate;
+        }
+
+        .face-shocked .eyebrow.left { 
+            left: 95px; 
+            transform: rotate(-20deg);
+        }
+        .face-shocked .eyebrow.right { 
+            right: 95px; 
+            transform: rotate(20deg);
+        }
+
+        @keyframes eyebrow-raise {
+            0% { top: 65px; }
+            100% { top: 40px; }
+        }
+
+        /* 汗珠 */
+        .face-shocked .sweat {
+            position: absolute;
+            width: 35px;
+            height: 50px;
+            background: linear-gradient(to bottom, #87CEEB, #4169E1);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 70px;
+            right: 50px;
+            animation: sweat-drop 0.8s ease-in-out infinite;
+        }
+
+        @keyframes sweat-drop {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(40px) scale(0.7); opacity: 0; }
+        }
+
+        /* 青筋效果 */
+        .face-shocked .vein {
+            position: absolute;
+            width: 50px;
+            height: 12px;
+            background: rgba(139, 0, 0, 0.4);
+            border-radius: 6px;
+            top: 50px;
+            animation: vein-pulse 0.4s ease-in-out infinite alternate;
+        }
+
+        .face-shocked .vein.left { left: 50px; transform: rotate(-25deg); }
+        .face-shocked .vein.right { right: 50px; transform: rotate(25deg); }
+
+        @keyframes vein-pulse {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+
+        /* 主标题 */
+        .title-main {
+            font-size: {{ (font_size | default(90)) }}px;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 
+                6px 6px 0px #000,
+                -3px -3px 0px #000,
+                3px -3px 0px #000,
+                -3px 3px 0px #000,
+                3px 3px 0px #000,
+                0 0 50px rgba(0,0,0,0.5);
+            max-width: 95%;
+            word-wrap: break-word;
+            margin-bottom: 40px;
+            animation: title-shake 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes title-shake {
+            0% { transform: rotate(-0.5deg); }
+            100% { transform: rotate(0.5deg); }
+        }
+
+        /* 副标题 */
+        {% if subtitle %}
+        .subtitle-box {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px 45px;
+            border-radius: 15px;
+            border-left: 6px solid #FFD700;
+            max-width: 90%;
+            animation: subtitle-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitle-glow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
+        }
+
+        .subtitle-text {
+            font-size: {{ ((font_size | default(90)) * 0.45) }}px;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.4;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+        }
+        {% endif %}
+
+        /* 底部CTA */
+        .cta-bottom {
+            margin-top: 50px;
+            font-size: 42px;
+            font-weight: 900;
+            color: #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow: 
+                3px 3px 6px rgba(0,0,0,0.8),
+                0 0 30px rgba(255, 215, 0, 0.5);
+            animation: cta-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes cta-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* 引导箭头 */
+        .arrow-indicator {
+            position: absolute;
+            font-size: 100px;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6));
+            animation: arrow-bounce 0.6s ease-in-out infinite;
+            z-index: 30;
+        }
+
+        .arrow-left {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .arrow-right {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        @keyframes arrow-bounce {
+            0%, 100% { transform: translateY(-50%) rotate(var(--rotation, 0deg)) translateX(0); }
+            50% { transform: translateY(-50%) rotate(var(--rotation, 0deg)) translateX(15px); }
+        }
+
+        /* 爆炸效果装饰 */
+        .explosion {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            z-index: 5;
+        }
+
+        .explosion::before {
+            content: '💥';
+            font-size: 150px;
+            position: absolute;
+            animation: explode 1s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .explosion.top-left { top: 150px; left: 50px; }
+        .explosion.top-right { top: 150px; right: 50px; }
+        .explosion.bottom-left { bottom: 200px; left: 50px; }
+        .explosion.bottom-right { bottom: 200px; right: 50px; }
+    </style>
+</head>
+<body>
+    <div class="bg-simple"></div>
+    <div class="bg-texture"></div>
+
+    <!-- 爆炸装饰 -->
+    <div class="explosion top-left"></div>
+    <div class="explosion top-right"></div>
+    <div class="explosion bottom-left"></div>
+    <div class="explosion bottom-right"></div>
+
+    <div class="container">
+        {% if badge %}
+        <div class="badge-top">{{ badge }}</div>
+        {% endif %}
+
+        <div class="visual-focus">
+            <!-- CSS夸张表情 -->
+            <div class="expressive-face">
+                <div class="face-shocked">
+                    <div class="vein left"></div>
+                    <div class="vein right"></div>
+                    <div class="eyebrow left"></div>
+                    <div class="eyebrow right"></div>
+                    <div class="eye left">
+                        <div class="pupil"></div>
+                        <div class="highlight"></div>
+                    </div>
+                    <div class="eye right">
+                        <div class="pupil"></div>
+                        <div class="highlight"></div>
+                    </div>
+                    <div class="mouth">
+                        <div class="tongue"></div>
+                    </div>
+                    <div class="sweat"></div>
+                </div>
+            </div>
+            
+            <div class="title-main">{{ title }}</div>
+            
+            {% if subtitle %}
+            <div class="subtitle-box">
+                <div class="subtitle-text">{{ subtitle }}</div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="cta-bottom">{{ cta_text | default('CLICK NOW') }}</div>
+    </div>
+
+    <!-- 引导箭头 -->
+    <div class="arrow-indicator arrow-left" style="--rotation: -90deg;">👆</div>
+    <div class="arrow-indicator arrow-right" style="--rotation: 90deg;">👆</div>
+</body>
+</html>
