@@ -1,0 +1,114 @@
+# Claude Code 文档演示视频配置
+# 测试优化版视频生成器
+
+project:
+  name: "Claude Code 文档演示"
+  url: "https://code.claude.com/docs/zh-CN/overview"
+  output_dir: "./output/claude-code-test"
+  output_name: "claude-code-demo"
+
+voice:
+  language: "zh-CN"
+  voice_name: "XiaoxiaoNeural"
+  speed: 1.0
+
+scenes:
+  - name: "intro"
+    type: "hook"
+    text: |
+      欢迎来到Claude Code文档演示。
+      Claude Code是一个强大的AI编程助手，帮助你更高效地编写代码。
+    subtitle: "Claude Code - AI编程助手"
+    action: "screenshot"
+    wait_after: 3
+    
+  - name: "overview"
+    type: "feature"
+    text: |
+      Claude Code提供了丰富的功能，包括代码补全、代码解释、重构建议等。
+      让我们一起探索它的强大功能。
+    subtitle: "探索Claude Code功能"
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 4
+    
+  - name: "best-practices"
+    type: "demo"
+    text: |
+      在最佳实践部分，你可以学习如何更有效地使用Claude Code。
+      这些技巧将帮助你提升开发效率。
+    subtitle: "学习最佳实践"
+    action: "scroll"
+    scroll_distance: 400
+    wait_after: 4
+    
+  - name: "benefits"
+    type: "benefit"
+    text: |
+      使用Claude Code，你可以节省时间、提高代码质量、减少错误。
+      让编程变得更轻松、更愉快。
+    subtitle: "提升开发效率"
+    action: "scroll"
+    scroll_distance: 300
+    wait_after: 3
+    
+  - name: "cta"
+    type: "cta"
+    text: |
+      现在就开始使用Claude Code，体验AI辅助编程的魅力！
+      让我们一起创造更美好的代码。
+    subtitle: "开始使用Claude Code"
+    action: "scroll_to_top"
+    wait_after: 3
+
+recording:
+  enabled: true
+  auto_scroll: true
+  scroll_distance: 400
+  wait_after_action: 2
+
+video:
+  format: "mp4"
+  quality: "high"
+  resolution: "1280x720"
+  fps: 30
+  codec: "libx264"
+
+audio:
+  codec: "aac"
+  bitrate: "128k"
+
+subtitle:
+  enabled: true
+  format: "srt"
+  font: "PingFang SC"
+  font_size: 24
+  color: "#FFFFFF"
+  outline_color: "#000000"
+  background_color: "#80000000"
+  outline: 2
+  shadow: 1
+
+thumbnail:
+  enabled: true
+  template: "default.html"
+  template_dir: "templates/thumbnails"
+  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+  font_size: 80
+  text_color: "white"
+  badge: "NEW"
+  brand: "Claude Code"
+  author: "AI Assistant"
+  accent_color: "#ffd700"
+
+advanced:
+  browser:
+    headless: false
+    timeout: 30000
+  validation:
+    check_sync: true
+    check_quality: true
+    max_file_size: 20
+  performance:
+    parallel_voice: true
+    skip_existing: false

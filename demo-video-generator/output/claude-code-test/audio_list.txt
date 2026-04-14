@@ -1,0 +1,5 @@
+file '/Users/mac/project/Wechatsync/demo-video-generator/output/claude-code-test/voice-01_normalized.mp3'
+file '/Users/mac/project/Wechatsync/demo-video-generator/output/claude-code-test/voice-02_normalized.mp3'
+file '/Users/mac/project/Wechatsync/demo-video-generator/output/claude-code-test/voice-03_normalized.mp3'
+file '/Users/mac/project/Wechatsync/demo-video-generator/output/claude-code-test/voice-04_normalized.mp3'
+file '/Users/mac/project/Wechatsync/demo-video-generator/output/claude-code-test/voice-05_normalized.mp3'

@@ -195,15 +195,26 @@ class AudioNormalizer:
             f"linear=true:print_format=summary"
         )
         
+        # 根据输出文件扩展名选择编码器
+        output_ext = output_file.suffix.lower()
+        if output_ext in ['.mp3']:
+            codec_args = ['-c:a', 'libmp3lame', '-b:a', '128k']
+        elif output_ext in ['.aac', '.m4a']:
+            codec_args = ['-c:a', 'aac', '-b:a', '128k']
+        elif output_ext in ['.wav']:
+            codec_args = ['-c:a', 'pcm_s16le']
+        elif output_ext in ['.ogg']:
+            codec_args = ['-c:a', 'libvorbis', '-b:a', '128k']
+        else:
+            # 默认使用AAC
+            codec_args = ['-c:a', 'aac', '-b:a', '128k']
+        
         cmd = [
             self.ffmpeg_path,
             '-y',
             '-i', str(input_file),
             '-af', loudnorm_filter,
-            '-c:a', 'aac',
-            '-b:a', '128k',
-            str(output_file)
-        ]
+        ] + codec_args + [str(output_file)]
         
         try:
             result = subprocess.run(
