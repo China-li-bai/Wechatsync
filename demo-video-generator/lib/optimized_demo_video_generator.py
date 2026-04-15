@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-优化版演示视频生成器 v2.0.0
+优化版演示视频生成器 v2.1.0
 集成所有优化模块：
 - 音频标准化（EBU R128）
 - 硬件加速编码
 - JSON Schema配置验证
 - 智能等待策略
 - 字幕同步优化
+- 并行语音生成 (v2.1新增)
 """
 
 import os
@@ -32,10 +33,20 @@ from hardware_encoder import HardwareAcceleratedEncoder
 from config_schema_validator import ConfigSchemaValidator
 from video_recorder import VideoRecorder
 from thumbnail_generator import CodeBasedThumbnailGenerator
+from parallel_voice_generator import (
+    ParallelVoiceGenerator,
+    create_parallel_voice_generator,
+    ProgressCallback
+)
+from audio_pipeline import (
+    AudioPipeline,
+    create_audio_pipeline,
+    AudioPipelineResult
+)
 
 
 class OptimizedDemoVideoGenerator:
-    """优化版演示视频生成器 v2.0.0"""
+    """优化版演示视频生成器 v2.1.0"""
     
     def __init__(self, config_file: str, log_level: str = 'INFO'):
         self.logger = self._setup_logger(log_level)
@@ -59,7 +70,40 @@ class OptimizedDemoVideoGenerator:
         self.audio_normalizer = AudioNormalizer(logger=self.logger)
         self.hw_encoder = HardwareAcceleratedEncoder(logger=self.logger)
         
+        # 初始化并行语音生成器 (v2.1新增)
+        advanced = self.config.get('advanced', {})
+        performance = advanced.get('performance', {})
+        self._use_parallel_voice = performance.get('parallel_voice', True)
+        
+        if self._use_parallel_voice:
+            self.parallel_voice_gen = create_parallel_voice_generator(
+                self.config,
+                logger=self.logger,
+                progress_callback=self._on_voice_progress
+            )
+            self.logger.info(f"✅ 并行语音生成已启用 (并发数: {self.parallel_voice_gen.max_workers})")
+        else:
+            self.parallel_voice_gen = None
+            self.logger.info("ℹ️  使用串行语音生成模式")
+        
+        # 初始化音频处理流水线 (v2.2新增)
+        self._use_pipeline = performance.get('enable_pipeline', True)
+        
+        if self._use_pipeline:
+            self.audio_pipeline = create_audio_pipeline(self.config, logger=self.logger)
+            self.logger.info("✅ 音频处理流水线已启用 (并行标准化+预生成字幕)")
+        else:
+            self.audio_pipeline = None
+            self.logger.info("ℹ️  使用传统分步处理模式")
+        
         self.logger.info(f"硬件加速: {self.hw_encoder.hw_accel.value}")
+    
+    def _on_voice_progress(self, completed: int, total: int, task_name: str, pct: float):
+        """语音生成进度回调"""
+        if HAS_TQDM:
+            pass
+        else:
+            self.logger.info(f"🎤 语音进度: {completed}/{total} ({pct:.0f}%) - {task_name}")
     
     def _setup_logger(self, log_level: str) -> logging.Logger:
         """设置日志记录器"""
@@ -96,42 +140,75 @@ class OptimizedDemoVideoGenerator:
     def generate(self, auto_record: bool = True) -> Optional[Path]:
         """生成优化版演示视频"""
         self.logger.info("=" * 60)
-        self.logger.info("🚀 Optimized Demo Video Generator v2.0.0")
+        self.logger.info("🚀 Optimized Demo Video Generator v2.1.0")
         self.logger.info("=" * 60)
         
         scenes = self.config['scenes']
         project_config = self.config['project']
         
         try:
-            # 步骤1: 生成语音 (15%)
-            self._print_progress("步骤1: 生成语音", 15)
-            voice_files, durations = self._generate_voiceovers(scenes)
+            if self._use_pipeline and self.audio_pipeline:
+                # v2.2: 使用音频处理流水线 (并行语音+标准化+预生成字幕)
+                self._print_progress("步骤1-4: 音频处理流水线", 30)
+                
+                voice_config = self.config['voice']
+                pipeline_result = self.audio_pipeline.process(
+                    scenes=scenes,
+                    voice_config=voice_config,
+                    output_dir=self.output_dir,
+                    audio_normalizer=self.audio_normalizer
+                )
+                
+                voice_files = pipeline_result.voice_files
+                normalized_files = pipeline_result.normalized_files
+                durations = pipeline_result.durations
+                subtitle_file = pipeline_result.subtitle_file
+                
+                if pipeline_result.speedup_vs_sequential:
+                    self.logger.info(
+                        f"⚡ 流水线加速比: {pipeline_result.speedup_vs_sequential:.2f}x"
+                    )
+            else:
+                # 传统分步模式
+                self._print_progress("步骤1: 生成语音", 15)
+                
+                if self._use_parallel_voice and self.parallel_voice_gen:
+                    voice_files, durations = self._generate_voiceovers_parallel(scenes)
+                else:
+                    voice_files, durations = self._generate_voiceovers(scenes)
+                
+                # 步骤2: 音频标准化 (10%) - 新增优化
+                self._print_progress("步骤2: 音频标准化", 10)
+                normalized_files = self._normalize_audio_files(voice_files)
+                
+                # 步骤3: 合并音频 (5%)
+                self._print_progress("步骤3: 合并音频", 5)
+                audio_file = self._merge_audio(normalized_files)
+                
+                # 步骤4: 生成字幕 (10%)
+                self._print_progress("步骤4: 生成字幕", 10)
+                subtitle_file = self._generate_subtitles(scenes, durations)
             
-            # 步骤2: 音频标准化 (10%) - 新增优化
-            self._print_progress("步骤2: 音频标准化", 10)
-            normalized_files = self._normalize_audio_files(voice_files)
+            # 步骤5: 合并音频 (5%) - 流水线模式也需要合并
+            if not self._use_pipeline or not self.audio_pipeline:
+                self._print_progress("步骤3-4: 合并音频+生成字幕", 10)
             
-            # 步骤3: 合并音频 (5%)
-            self._print_progress("步骤3: 合并音频", 5)
+            self._print_progress("步骤5: 合并音频", 5)
             audio_file = self._merge_audio(normalized_files)
             
-            # 步骤4: 生成字幕 (10%)
-            self._print_progress("步骤4: 生成字幕", 10)
-            subtitle_file = self._generate_subtitles(scenes, durations)
-            
-            # 步骤5: 录制视频 (35%)
-            self._print_progress("步骤5: 录制视频", 35)
+            # 步骤6: 录制视频 (35%)
+            self._print_progress("步骤6: 录制视频", 35)
             video_file = self._record_video(project_config, scenes, durations, auto_record)
             
             if video_file is None:
                 return None
             
-            # 步骤6: 合成视频 (20%) - 使用硬件加速
-            self._print_progress("步骤6: 合成视频（硬件加速）", 20)
+            # 步骤7: 合成视频 (20%) - 使用硬件加速
+            self._print_progress("步骤7: 合成视频（硬件加速）", 20)
             output_file = self._compose_video_optimized(video_file, audio_file, subtitle_file)
             
-            # 步骤7: 生成封面 (5%)
-            self._print_progress("步骤7: 生成封面", 5)
+            # 步骤8: 生成封面 (5%)
+            self._print_progress("步骤8: 生成封面", 5)
             thumbnail_path = self._generate_thumbnail()
             
             # 完成
@@ -144,6 +221,33 @@ class OptimizedDemoVideoGenerator:
             import traceback
             self.logger.error(traceback.format_exc())
             return None
+    
+    def _generate_voiceovers_parallel(self, scenes: List[Dict]) -> tuple:
+        """并行生成语音文件 (v2.1新增)"""
+        voice_config = self.config['voice']
+        
+        result = self.parallel_voice_gen.generate(
+            scenes=scenes,
+            voice_config=voice_config,
+            output_dir=self.output_dir
+        )
+        
+        if not result.success and result.tasks_failed:
+            self.logger.warning(
+                f"⚠️ 部分语音生成失败 ({len(result.tasks_failed)}/{result.tasks_total})，"
+                f"将使用已成功的{len(result.voice_files)}个文件"
+            )
+            
+            for fail in result.tasks_failed:
+                fail_scene = scenes[fail['index']]
+                self.logger.warning(
+                    f"   失败场景: {fail['name']} - {fail['error']}"
+                )
+        
+        if result.speedup_ratio:
+            self.logger.info(f"⚡ 并行加速比: {result.speedup_ratio:.2f}x")
+        
+        return result.voice_files, result.durations
     
     def _generate_voiceovers(self, scenes: List[Dict]) -> tuple:
         """生成语音文件"""

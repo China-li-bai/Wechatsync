@@ -3,17 +3,17 @@
 
 # 项目基础配置
 project:
-  name: "Product Demo"                    # 项目名称
-  url: "https://your-product.com"         # 目标网站URL
-  output_dir: "./output"                  # 输出目录
-  output_name: "product-demo"             # 输出文件名（不含扩展名）
+  name: "Product Demo" # 项目名称
+  url: "https://your-product.com" # 目标网站URL
+  output_dir: "./output" # 输出目录
+  output_name: "product-demo" # 输出文件名（不含扩展名）
 
 # 语音配置
 voice:
-  language: "zh-CN"                       # 语言：zh-CN, zh-TW, zh-HK, en-US
-  voice_name: "XiaoxiaoNeural"            # 语音名称（见下方推荐列表）
-  speed: 1.0                              # 语速：0.5-2.0，1.0为正常速度
-  
+  language: "zh-CN" # 语言：zh-CN, zh-TW, zh-HK, en-US
+  voice_name: "XiaoxiaoNeural" # 语音名称（见下方推荐列表）
+  speed: 1.0 # 语速：0.5-2.0，1.0为正常速度
+
 # 推荐语音列表：
 # 大陆女声：XiaoxiaoNeural (晓晓 - 最自然)
 # 台湾女声：HsiaoChenNeural (晓臻)
@@ -24,14 +24,14 @@ voice:
 scenes:
   # 场景1: 钩子开场（10-15秒）
   - name: "intro"
-    type: "hook"                          # 场景类型：hook, feature, demo, benefit, cta
+    type: "hook" # 场景类型：hook, feature, demo, benefit, cta
     text: |
       你有没有想过，让产品自己介绍自己？
       我们的产品让这个想法变成现实。
     subtitle: "你有没有想过，让产品自己介绍自己？"
-    action: "screenshot"                  # 动作：screenshot, scroll, interact
-    wait_after: 3                         # 动作后等待时间（秒）
-    
+    action: "screenshot" # 动作：screenshot, scroll, interact
+    wait_after: 3 # 动作后等待时间（秒）
+
   # 场景2: 核心特性（15-20秒）
   - name: "features"
     type: "feature"
@@ -40,9 +40,9 @@ scenes:
       简单、高效、易用。
     subtitle: "只需简单配置，5分钟搞定"
     action: "scroll"
-    scroll_distance: 300                  # 滚动距离（像素）
+    scroll_distance: 300 # 滚动距离（像素）
     wait_after: 3
-    
+
   # 场景3: 功能演示（20-30秒）
   - name: "demo"
     type: "demo"
@@ -51,10 +51,10 @@ scenes:
       不需要复杂操作，不需要专业知识。
       就像有个助手在帮你工作。
     subtitle: "想象一下：用户只需点击按钮"
-    action: "interact"                    # 交互动作
-    selector: "#demo-button"              # CSS选择器（可选）
+    action: "interact" # 交互动作
+    selector: "#demo-button" # CSS选择器（可选）
     wait_after: 5
-    
+
   # 场景4: 用户收益（15-20秒）
   - name: "benefits"
     type: "benefit"
@@ -65,7 +65,7 @@ scenes:
     action: "scroll"
     scroll_distance: 300
     wait_after: 3
-    
+
   # 场景5: 行动号召（10-15秒）
   - name: "cta"
     type: "cta"
@@ -73,68 +73,74 @@ scenes:
       现在就试试，体验产品的魅力！
       开源免费，快速上手。
     subtitle: "现在就试试，体验产品的魅力！"
-    action: "scroll_to_top"               # 回到顶部
+    action: "scroll_to_top" # 回到顶部
     wait_after: 5
 
 # 录制配置（v1.1.0 新增）
 recording:
-  enabled: true                           # 是否启用自动录制
-  auto_scroll: true                       # 是否自动滚动
-  scroll_distance: 300                    # 默认滚动距离（像素）
-  wait_after_action: 2                    # 动作后等待时间（秒）
-  
+  enabled: true # 是否启用自动录制
+  auto_scroll: true # 是否自动滚动
+  scroll_distance: 300 # 默认滚动距离（像素）
+  wait_after_action: 2 # 动作后等待时间（秒）
+
 # 视频配置
 video:
-  format: "mp4"                           # 输出格式：mp4, webm, mov
-  quality: "high"                         # 质量：low, medium, high
-  resolution: "1280x720"                  # 分辨率
-  fps: 30                                 # 帧率
-  codec: "libx264"                        # 视频编码器
-  
+  format: "mp4" # 输出格式：mp4, webm, mov
+  quality: "high" # 质量：low, medium, high
+  resolution: "1280x720" # 分辨率
+  fps: 30 # 帧率
+  codec: "libx264" # 视频编码器
+
 # 音频配置
 audio:
-  codec: "aac"                            # 音频编码器
-  bitrate: "128k"                         # 比特率
-  
+  codec: "aac" # 音频编码器
+  bitrate: "128k" # 比特率
+
 # 字幕配置
 subtitle:
-  enabled: true                           # 是否启用字幕
-  format: "srt"                           # 字幕格式：srt, ass
-  font: "PingFang SC"                     # 字体
-  font_size: 24                           # 字号
-  color: "#FFFFFF"                        # 颜色
-  outline_color: "#000000"                # 描边颜色
-  background_color: "#80000000"           # 背景色（带透明度）
-  outline: 2                              # 描边宽度
-  shadow: 1                               # 阴影
+  enabled: true # 是否启用字幕
+  format: "srt" # 字幕格式：srt, ass
+  font: "PingFang SC" # 字体
+  font_size: 24 # 字号
+  color: "#FFFFFF" # 颜色
+  outline_color: "#000000" # 描边颜色
+  background_color: "#80000000" # 背景色（带透明度）
+  outline: 2 # 描边宽度
+  shadow: 1 # 阴影
 
 # 封面配置（v1.3.0 新增）
 thumbnail:
-  enabled: true                           # 是否启用封面生成
-  template: "default.html"                # 模板：default.html, tutorial.html, review.html
-  template_dir: "templates/thumbnails"    # 模板目录
-  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"  # 背景渐变
-  font_size: 80                           # 标题字号
-  text_color: "white"                     # 文字颜色
-  badge: "NEW"                            # 徽章文字（可选）
-  brand: "Demo Video Generator"           # 品牌名称（可选）
-  author: "AI Assistant"                  # 作者名称（可选）
-  accent_color: "#ffd700"                 # 强调色
+  enabled: true # 是否启用封面生成
+  template: "default.html" # 模板：default.html, tutorial.html, review.html
+  template_dir: "templates/thumbnails" # 模板目录
+  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" # 背景渐变
+  font_size: 80 # 标题字号
+  text_color: "white" # 文字颜色
+  badge: "NEW" # 徽章文字（可选）
+  brand: "Demo Video Generator" # 品牌名称（可选）
+  author: "AI Assistant" # 作者名称（可选）
+  accent_color: "#ffd700" # 强调色
 
 # 高级配置（可选）
 advanced:
   # 浏览器配置
   browser:
-    headless: false                       # 是否无头模式
-    timeout: 30000                        # 超时时间（毫秒）
-    
+    headless: false # 是否无头模式
+    timeout: 30000 # 超时时间（毫秒）
+
   # 质量检查
   validation:
-    check_sync: true                      # 检查音视频同步
-    check_quality: true                   # 检查视频质量
-    max_file_size: 10                     # 最大文件大小（MB）
-    
+    check_sync: true # 检查音视频同步
+    check_quality: true # 检查视频质量
+    max_file_size: 10 # 最大文件大小（MB）
+
   # 性能优化
   performance:
-    parallel_voice: true                  # 并行生成语音
-    skip_existing: true                   # 跳过已存在的文件
+    parallel_voice: true # 并行生成语音 (v2.1新增)
+    max_parallel_voice: 3 # 最大并行语音生成线程数 (1-10)
+    max_retries: 3 # 失败重试次数 (0-5)
+    enable_progress: true # 启用进度回调
+    skip_existing: true # 跳过已存在的文件
+    enable_pipeline: true # 启用音频处理流水线 (v2.2新增)
+    max_normalize_workers: 2 # 最大并行标准化线程数 (1-5)
+    enable_subtitle_pre_gen: true # 启用预生成字幕 (v2.2新增)
