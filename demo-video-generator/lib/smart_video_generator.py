@@ -440,10 +440,22 @@ class SmartVideoGenerator:
         return output_file
     
     def _generate_subtitles(self, scenes: List[Dict], durations: List[float]) -> Path:
-        """生成字幕文件"""
+        """生成字幕文件 - 使用实际语音文案内容"""
         subtitle_file = self.output_dir / "subtitles.srt"
         
-        subtitles = [scene.get('subtitle', '') for scene in scenes]
+        # 使用实际的语音文本作为字幕（而非场景标签）
+        subtitles = []
+        for scene in scenes:
+            text = scene.get('text', '').strip()
+            if not text:
+                text = scene.get('subtitle', '')
+            
+            # 智能截断：字幕每行不超过20字，总长度控制在50字以内
+            cleaned_text = text.replace('\n', ' ').replace('  ', ' ')
+            if len(cleaned_text) > 50:
+                cleaned_text = cleaned_text[:47] + '...'
+            
+            subtitles.append(cleaned_text)
         
         current_time = 0.0
         with open(subtitle_file, 'w', encoding='utf-8') as f:
