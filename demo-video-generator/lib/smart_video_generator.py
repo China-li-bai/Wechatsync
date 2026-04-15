@@ -214,10 +214,10 @@ class SmartVideoGenerator:
                 page = browser.new_page()
                 
                 self.logger.info(f"访问页面: {url}")
-                page.goto(url, wait_until='networkidle', timeout=30000)
+                page.goto(url, wait_until='domcontentloaded', timeout=60000)
                 
                 # 使用智能等待策略
-                self.wait_strategy.wait_for_page_ready(page, timeout=10000)
+                self.wait_strategy.wait_for_page_ready(page, timeout=15000)
                 
                 # 分析页面
                 analysis = self.page_analyzer.analyze_page(page)
@@ -495,10 +495,10 @@ class SmartVideoGenerator:
                 # 打开页面
                 url = project_config.get('url')
                 self.logger.info(f"打开浏览器: {url}")
-                page.goto(url, wait_until='networkidle', timeout=30000)
+                page.goto(url, wait_until='domcontentloaded', timeout=60000)
                 
                 # 等待页面加载
-                self.wait_strategy.wait_for_page_ready(page, timeout=10000)
+                self.wait_strategy.wait_for_page_ready(page, timeout=15000)
                 
                 # 执行场景动作
                 for i, (scene, duration) in enumerate(zip(scenes, durations), 1):
