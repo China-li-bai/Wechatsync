@@ -136,5 +136,8 @@ advanced:
     
   # 性能优化
   performance:
-    parallel_voice: true                  # 并行生成语音
+    parallel_voice: true                  # 并行生成语音 (v2.1新增)
+    max_parallel_voice: 3                 # 最大并行语音生成线程数 (1-10)
+    max_retries: 3                        # 失败重试次数 (0-5)
+    enable_progress: true                 # 启用进度回调
     skip_existing: true                   # 跳过已存在的文件
